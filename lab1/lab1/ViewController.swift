@@ -113,7 +113,7 @@ class ViewController: NSViewController {
         guard let currentColor = calculateCurrentColor(colorModel: currentColorModel) else { return }
         CMYKoutput.stringValue = currentColor.stringDescriptionCMYK()
         XYZOutput.stringValue = "X: \(0)\nY: \(0)\nZ: \(0)\n"
-        HLSOutput.stringValue = "H: \(0)\nL: \(0)\nS: \(0)\n"
+        HLSOutput.stringValue = currentColor.stringDescriptionHLS()
         currentColorBox.fillColor = currentColor
     }
     

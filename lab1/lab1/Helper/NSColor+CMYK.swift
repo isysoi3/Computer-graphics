@@ -11,14 +11,20 @@ import Cocoa
 extension NSColor {
     
     func stringDescriptionCMYK() -> String {
-        return "C: \(cyanComponent * 100)\nM: \(magentaComponent * 100)\nY: \(yellowComponent * 100)\nK: \(blackComponent * 100)\n"
+        return getCMYKColor().description
     }
     
-    func getCMYK() -> CMYKColor {
-        return CMYKColor(cyan: cyanComponent,
-                         magenta: magentaComponent,
-                         yellow: yellowComponent,
-                         key: blackComponent)
+    func getCMYKColor() -> CMYKColor {
+        let cmyk: NSColor
+        if colorSpace == NSColorSpace.deviceRGB {
+            cmyk = self.usingColorSpace(NSColorSpace.deviceCMYK)!
+        } else {
+            cmyk = self
+        }
+        return CMYKColor(cyan: cmyk.cyanComponent,
+                         magenta: cmyk.magentaComponent,
+                         yellow: cmyk.yellowComponent,
+                         key: cmyk.blackComponent)
     }
     
 }

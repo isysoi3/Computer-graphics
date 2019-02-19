@@ -12,6 +12,9 @@
 		D3D4A410221C67E7000237D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4A40F221C67E7000237D7 /* ViewController.swift */; };
 		D3D4A412221C67E9000237D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3D4A411221C67E9000237D7 /* Assets.xcassets */; };
 		D3D4A415221C67E9000237D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3D4A413221C67E9000237D7 /* Main.storyboard */; };
+		D3D4A420221C952B000237D7 /* CMYK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4A41F221C952B000237D7 /* CMYK.swift */; };
+		D3D4A422221C95CE000237D7 /* XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4A421221C95CE000237D7 /* XYZ.swift */; };
+		D3D4A424221C9671000237D7 /* HLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4A423221C9671000237D7 /* HLS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,9 @@
 		D3D4A414221C67E9000237D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D3D4A416221C67E9000237D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3D4A417221C67E9000237D7 /* lab1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lab1.entitlements; sourceTree = "<group>"; };
+		D3D4A41F221C952B000237D7 /* CMYK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMYK.swift; sourceTree = "<group>"; };
+		D3D4A421221C95CE000237D7 /* XYZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZ.swift; sourceTree = "<group>"; };
+		D3D4A423221C9671000237D7 /* HLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLS.swift; sourceTree = "<group>"; };
 		FB18D82A755D704B95564BF6 /* Pods-lab1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lab1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lab1/Pods-lab1.debug.xcconfig"; sourceTree = "<group>"; };
 		FE225DF7CCC9FC20031E1F98 /* Pods_lab1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lab1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -77,6 +83,7 @@
 		D3D4A40C221C67E7000237D7 /* lab1 */ = {
 			isa = PBXGroup;
 			children = (
+				D3D4A41E221C9514000237D7 /* Model */,
 				D3D4A413221C67E9000237D7 /* Main.storyboard */,
 				D3D4A40F221C67E7000237D7 /* ViewController.swift */,
 				D3D4A40D221C67E7000237D7 /* AppDelegate.swift */,
@@ -93,6 +100,16 @@
 				D3D4A417221C67E9000237D7 /* lab1.entitlements */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D3D4A41E221C9514000237D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D3D4A41F221C952B000237D7 /* CMYK.swift */,
+				D3D4A421221C95CE000237D7 /* XYZ.swift */,
+				D3D4A423221C9671000237D7 /* HLS.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,8 +231,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3D4A420221C952B000237D7 /* CMYK.swift in Sources */,
+				D3D4A424221C9671000237D7 /* HLS.swift in Sources */,
 				D3D4A410221C67E7000237D7 /* ViewController.swift in Sources */,
 				D3D4A40E221C67E7000237D7 /* AppDelegate.swift in Sources */,
+				D3D4A422221C95CE000237D7 /* XYZ.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

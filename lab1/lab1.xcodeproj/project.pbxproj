@@ -77,14 +77,22 @@
 		D3D4A40C221C67E7000237D7 /* lab1 */ = {
 			isa = PBXGroup;
 			children = (
-				D3D4A40D221C67E7000237D7 /* AppDelegate.swift */,
-				D3D4A40F221C67E7000237D7 /* ViewController.swift */,
-				D3D4A411221C67E9000237D7 /* Assets.xcassets */,
 				D3D4A413221C67E9000237D7 /* Main.storyboard */,
+				D3D4A40F221C67E7000237D7 /* ViewController.swift */,
+				D3D4A40D221C67E7000237D7 /* AppDelegate.swift */,
+				D3D4A41D221C87FD000237D7 /* Supporting Files */,
+			);
+			path = lab1;
+			sourceTree = "<group>";
+		};
+		D3D4A41D221C87FD000237D7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3D4A411221C67E9000237D7 /* Assets.xcassets */,
 				D3D4A416221C67E9000237D7 /* Info.plist */,
 				D3D4A417221C67E9000237D7 /* lab1.entitlements */,
 			);
-			path = lab1;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,7 +357,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = K3EBJ8K5KL;
-				INFOPLIST_FILE = lab1/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/lab1/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -370,7 +378,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = K3EBJ8K5KL;
-				INFOPLIST_FILE = lab1/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/lab1/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

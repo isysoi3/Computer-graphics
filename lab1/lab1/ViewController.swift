@@ -41,6 +41,11 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var fourthComponentInput: NSTextField!
     
+    //MARK: - cloor models outputs
+
+    @IBOutlet weak var CMYKoutput: NSTextField!
+    @IBOutlet weak var HLSOutput: NSTextField!
+    @IBOutlet weak var XYZOutput: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +97,14 @@ class ViewController: NSViewController {
             secondComponentLabel.stringValue = "Y"
             thirdComponentLabel.stringValue = "Z"
         }
+        CMYKoutput.stringValue = "C: \(0)\nM: \(0)\nY: \(0)\nK: \(0)\n"
+        XYZOutput.stringValue = "X: \(0)\nY: \(0)\nZ: \(0)\n"
+        HLSOutput.stringValue = "H: \(0)\nL: \(0)\nS: \(0)\n"
+//        currentColorBox.fillColor = NSColor(deviceCyan: ,
+//                                            magenta: ,
+//                                            yellow: ,
+//                                            black: ,
+//                                            alpha: )
     }
     
 }

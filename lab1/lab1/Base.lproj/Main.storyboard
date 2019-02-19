@@ -1001,6 +1001,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="CMYKoutput" destination="vkL-0Z-YOc" id="XNN-lK-8hH"/>
+                        <outlet property="HLSOutput" destination="tdr-Qj-0ad" id="fBc-Sf-Uqv"/>
+                        <outlet property="XYZOutput" destination="inT-c7-bdD" id="7GM-0f-Vs3"/>
                         <outlet property="currentColorBox" destination="20s-y3-zue" id="0k8-U8-dqD"/>
                         <outlet property="firstComponentInput" destination="QvL-5l-fdh" id="qeO-pq-CG7"/>
                         <outlet property="firstComponentLabel" destination="U3I-ap-xFz" id="e4c-t3-c5h"/>

@@ -933,7 +933,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vkL-0Z-YOc">
-                                            <rect key="frame" x="33" y="12" width="60" height="68"/>
+                                            <rect key="frame" x="8" y="12" width="110" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" selectable="YES" id="XlM-ae-Mpc">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -953,7 +953,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tdr-Qj-0ad">
-                                            <rect key="frame" x="33" y="12" width="60" height="68"/>
+                                            <rect key="frame" x="8" y="11" width="110" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" selectable="YES" id="VGc-Dx-TjP">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -973,7 +973,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="inT-c7-bdD">
-                                            <rect key="frame" x="33" y="12" width="60" height="68"/>
+                                            <rect key="frame" x="8" y="11" width="110" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" selectable="YES" id="a5T-6N-YPw">
                                                 <font key="font" usesAppearanceFont="YES"/>

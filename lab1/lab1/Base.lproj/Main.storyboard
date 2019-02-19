@@ -750,7 +750,6 @@
                                                     <constraint firstAttribute="width" constant="80" id="xcq-tI-VwS"/>
                                                 </constraints>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0" bezelStyle="round" id="wbB-ep-dxc" userLabel="value">
-                                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="4uI-Gg-yuX"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -793,7 +792,6 @@
                                                     <constraint firstAttribute="width" constant="80" id="QKX-im-duU"/>
                                                 </constraints>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0" bezelStyle="round" id="BGY-iF-J8Q" userLabel="value">
-                                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="4sC-Th-r0P"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -836,7 +834,6 @@
                                                     <constraint firstAttribute="width" constant="80" id="UJz-Pj-p1t"/>
                                                 </constraints>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0" bezelStyle="round" id="apf-Qk-ZeS" userLabel="value">
-                                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="89B-T7-Lv7"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -879,7 +876,6 @@
                                                     <constraint firstAttribute="width" constant="80" id="67N-FI-5Yz"/>
                                                 </constraints>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0" bezelStyle="round" id="Clh-pf-yXV" userLabel="value">
-                                                    <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="owf-y3-iRV"/>
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -928,7 +924,6 @@
                                     <constraint firstAttribute="height" constant="150" id="BQo-7W-VeD"/>
                                     <constraint firstAttribute="width" constant="150" id="S3T-sA-fP4"/>
                                 </constraints>
-                                <color key="fillColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </box>
                             <box fixedFrame="YES" title="CMYK" translatesAutoresizingMaskIntoConstraints="NO" id="1NT-aV-j2n">
                                 <rect key="frame" x="181" y="250" width="133" height="114"/>

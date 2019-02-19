@@ -1,5 +1,5 @@
 //
-//  HLS.swift
+//  XYZ.swift
 //  lab1
 //
 //  Created by Ilya Sysoi on 2/19/19.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct HLS {
+struct XYZColor {
     
-    let hue: CGFloat
-    let lightness: CGFloat
-    let saturation: CGFloat
+    let x: CGFloat
+    let y: CGFloat
+    let z: CGFloat
     
 }

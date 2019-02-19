@@ -1,5 +1,5 @@
 //
-//  XYZ.swift
+//  CMYK.swift
 //  lab1
 //
 //  Created by Ilya Sysoi on 2/19/19.
@@ -8,10 +8,11 @@
 
 import Foundation
 
-struct XYZ {
+struct CMYKColor {
     
-    let x: CGFloat
-    let y: CGFloat
-    let z: CGFloat
+    let cyan: CGFloat
+    let magenta: CGFloat
+    let yellow: CGFloat
+    let key: CGFloat
     
 }

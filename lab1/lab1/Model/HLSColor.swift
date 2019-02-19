@@ -1,5 +1,5 @@
 //
-//  CMYK.swift
+//  HLS.swift
 //  lab1
 //
 //  Created by Ilya Sysoi on 2/19/19.
@@ -8,11 +8,10 @@
 
 import Foundation
 
-struct CMYK {
+struct HLSColor {
     
-    let cyan: CGFloat
-    let magenta: CGFloat
-    let yellow: CGFloat
-    let key: CGFloat
+    let hue: CGFloat
+    let lightness: CGFloat
+    let saturation: CGFloat
     
 }

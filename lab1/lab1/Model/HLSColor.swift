@@ -8,10 +8,14 @@
 
 import Foundation
 
-struct HLSColor {
+struct HLSColor: CustomStringConvertible {
     
     let hue: CGFloat
     let lightness: CGFloat
     let saturation: CGFloat
+    
+    var description: String {
+        return "H: \(String(format: "%.2f", Double(hue)))\nL: \(String(format: "%.2f", Double(lightness)))\nS: \(String(format: "%.2f", Double(saturation)))\n"
+    }
     
 }

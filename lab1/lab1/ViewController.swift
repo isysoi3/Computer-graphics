@@ -113,10 +113,10 @@ class ViewController: NSViewController {
     
     //MARK: - update view based on current model
     private func updatedViewsBasedOnColorModel(_ colorModel: ColorModelEnum) {
-        let currecntColor = currentColorPicker.color
         switch colorModel {
         case .CMYK:
             keyComponentOfCMYK.isHidden = false
+            
             firstComponentLabel.stringValue = "C"
             secondComponentLabel.stringValue = "M"
             thirdComponentLabel.stringValue = "Y"
@@ -124,14 +124,9 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
             secondComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.magenta
             thirdComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
-            
-            let cymkModel = currecntColor.getCMYKColor()
-            firstComponentInput.stringValue = "\(cymkModel.cyan.rounded(toPlaces: 2))"
-            secondComponentInput.stringValue = "\(cymkModel.magenta.rounded(toPlaces: 2))"
-            thirdComponentInput.stringValue = "\(cymkModel.yellow.rounded(toPlaces: 2))"
-            fourthComponentInput.stringValue = "\(cymkModel.key.rounded(toPlaces: 2))"
         case .HLS:
             keyComponentOfCMYK.isHidden = true
+            
             firstComponentLabel.stringValue = "H"
             secondComponentLabel.stringValue = "L"
             thirdComponentLabel.stringValue = "S"
@@ -139,13 +134,9 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = HLSColor.MaxValueEnum.hue
             secondComponentSliderInput.maxValue = HLSColor.MaxValueEnum.lightness
             thirdComponentSliderInput.maxValue = HLSColor.MaxValueEnum.saturation
-            
-            let hlsModel = currecntColor.getHLSColor()
-            firstComponentInput.stringValue = "\(hlsModel.hue.rounded(toPlaces: 2))"
-            secondComponentInput.stringValue = "\(hlsModel.lightness.rounded(toPlaces: 2))"
-            thirdComponentInput.stringValue = "\(hlsModel.saturation.rounded(toPlaces: 2))"
         case .XYZ:
             keyComponentOfCMYK.isHidden = true
+            
             firstComponentLabel.stringValue = "X"
             secondComponentLabel.stringValue = "Y"
             thirdComponentLabel.stringValue = "Z"
@@ -153,20 +144,15 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = XYZColor.MaxValueEnum.x
             secondComponentSliderInput.maxValue = XYZColor.MaxValueEnum.y
             thirdComponentSliderInput.maxValue = XYZColor.MaxValueEnum.z
-            
-            let xyzModel = currecntColor.getXYZColor()
-            firstComponentInput.stringValue = "\(xyzModel.x.rounded(toPlaces: 2))"
-            secondComponentInput.stringValue = "\(xyzModel.y.rounded(toPlaces: 2))"
-            thirdComponentInput.stringValue = "\(xyzModel.z.rounded(toPlaces: 2))"
         }
         
         updateColor()
     }
     
     private func setColorToInputs(_ color: NSColor) {
-        CMYKoutput.stringValue = color.getCMYKColor().description
-        XYZOutput.stringValue = color.getXYZColor().description
-        HLSOutput.stringValue = color.getHLSColor().description
+        let firstComponentValue: Double
+        let secondComponentValue: Double
+        let thirdComponentValue: Double
         
         switch currentColorModel {
         case .CMYK:
@@ -175,17 +161,38 @@ class ViewController: NSViewController {
             secondComponentInput.stringValue = "\(cymkModel.magenta.rounded(toPlaces: 2))"
             thirdComponentInput.stringValue = "\(cymkModel.yellow.rounded(toPlaces: 2))"
             fourthComponentInput.stringValue = "\(cymkModel.key.rounded(toPlaces: 2))"
+            
+            firstComponentValue = cymkModel.cyan
+            secondComponentValue = cymkModel.magenta
+            thirdComponentValue = cymkModel.yellow
+            fourthComponentSliderInput.doubleValue = cymkModel.key
         case .HLS:
             let hlsModel = color.getHLSColor()
             firstComponentInput.stringValue = "\(hlsModel.hue.rounded(toPlaces: 2))"
             secondComponentInput.stringValue = "\(hlsModel.lightness.rounded(toPlaces: 2))"
             thirdComponentInput.stringValue = "\(hlsModel.saturation.rounded(toPlaces: 2))"
+            
+            firstComponentValue = hlsModel.hue
+            secondComponentValue = hlsModel.lightness
+            thirdComponentValue = hlsModel.saturation
         case .XYZ:
             let xyzModel = color.getXYZColor()
             firstComponentInput.stringValue = "\(xyzModel.x.rounded(toPlaces: 2))"
             secondComponentInput.stringValue = "\(xyzModel.y.rounded(toPlaces: 2))"
             thirdComponentInput.stringValue = "\(xyzModel.z.rounded(toPlaces: 2))"
+            
+            firstComponentValue = xyzModel.x
+            secondComponentValue = xyzModel.y
+            thirdComponentValue = xyzModel.z
         }
+        
+        CMYKoutput.stringValue = color.getCMYKColor().description
+        XYZOutput.stringValue = color.getXYZColor().description
+        HLSOutput.stringValue = color.getHLSColor().description
+        
+        firstComponentSliderInput.doubleValue = firstComponentValue
+        secondComponentSliderInput.doubleValue = secondComponentValue
+        thirdComponentSliderInput.doubleValue = thirdComponentValue
     }
     
     private func updateColor() {
@@ -202,7 +209,6 @@ class ViewController: NSViewController {
         switch currentColorModel {
         case .CMYK:
             guard let keyComponent = Double(fourthComponentInput.stringValue) else { return nil }
-            fourthComponentSliderInput.doubleValue = keyComponent
             return NSColor(cyan: firstComponent,
                            magenta: secondComponent,
                            yellow: thirdComponent,

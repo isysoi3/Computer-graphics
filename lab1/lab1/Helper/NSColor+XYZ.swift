@@ -14,10 +14,23 @@ extension NSColor {
         let x = x/XYZColor.MaxValueEnum.x
         let y = y/XYZColor.MaxValueEnum.y
         let z = z/XYZColor.MaxValueEnum.z
-        let r: CGFloat = CGFloat( 3.2404542*x - 1.5371385*y - 0.4985314*z)
-        let g: CGFloat = CGFloat(-0.9692660*x + 1.8760108*y + 0.0415560*z)
-        let b: CGFloat = CGFloat( 0.0556434*x - 0.2040259*y + 1.0572252*z)
+        var r: CGFloat = CGFloat( 3.2404542*x - 1.5371385*y - 0.4985314*z)
+        var g: CGFloat = CGFloat(-0.9692660*x + 1.8760108*y + 0.0415560*z)
+        var b: CGFloat = CGFloat( 0.0556434*x - 0.2040259*y + 1.0572252*z)
+        r = NSColor.validateRGBComponentRange(value: r)
+        g = NSColor.validateRGBComponentRange(value: g)
+        b = NSColor.validateRGBComponentRange(value: b)
+       
         self.init(red: r, green: g, blue: b, alpha: 1.0)
+    }
+    
+    private static func validateRGBComponentRange(value: CGFloat) -> CGFloat {
+        if value < 0 {
+            return 0
+        } else if value > 1 {
+            return 1
+        }
+        return value
     }
 
     func getXYZColor() -> XYZColor {

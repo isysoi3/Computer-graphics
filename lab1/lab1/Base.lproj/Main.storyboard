@@ -726,7 +726,7 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <action selector="modelSelectorValueChanged:" target="XfG-lQ-9wD" id="O1d-7F-Geq"/>
+                                    <action selector="modelSelectorValueChanged:" target="XfG-lQ-9wD" id="mRF-wk-b30"/>
                                 </connections>
                             </popUpButton>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Inq-3x-Cj5">
@@ -754,12 +754,15 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <action selector="firstComponentInputFocused:" target="XfG-lQ-9wD" id="F9J-9n-YBA"/>
+                                                </connections>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="paK-kD-YM6">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Bja-1h-CwB"/>
                                                 <connections>
-                                                    <action selector="firstComponentSliderValueChanged:" target="XfG-lQ-9wD" id="JfO-7E-EB9"/>
+                                                    <action selector="firstComponentSliderValueChanged:" target="XfG-lQ-9wD" id="ZKa-AO-WWu"/>
                                                 </connections>
                                             </slider>
                                         </subviews>
@@ -799,12 +802,15 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <action selector="secondComponentInputFocused:" target="XfG-lQ-9wD" id="Qaz-or-MCw"/>
+                                                </connections>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wEh-Hp-GZ7">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="io8-Lm-dsP"/>
                                                 <connections>
-                                                    <action selector="secondComponentSliderValueChanged:" target="XfG-lQ-9wD" id="vts-8h-lDt"/>
+                                                    <action selector="secondComponentSliderValueChanged:" target="XfG-lQ-9wD" id="TyF-mS-kLt"/>
                                                 </connections>
                                             </slider>
                                         </subviews>
@@ -844,12 +850,15 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <action selector="thirdComponentInputFocused:" target="XfG-lQ-9wD" id="ZsX-6o-xin"/>
+                                                </connections>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-pk-G2I">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="B0A-HI-U0C"/>
                                                 <connections>
-                                                    <action selector="thirdComponentSliderValueChanged:" target="XfG-lQ-9wD" id="Bjw-J7-QT6"/>
+                                                    <action selector="thirdComponentSliderValueChanged:" target="XfG-lQ-9wD" id="DWg-l2-bD4"/>
                                                 </connections>
                                             </slider>
                                         </subviews>
@@ -889,12 +898,15 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <action selector="fourthComponentInputFocused:" target="XfG-lQ-9wD" id="9Mc-vP-t2b"/>
+                                                </connections>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAI-eO-eib">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="r04-kb-qg7"/>
                                                 <connections>
-                                                    <action selector="fourthComponentSliderValueChanged:" target="XfG-lQ-9wD" id="tSc-zb-ieS"/>
+                                                    <action selector="fourthComponentSliderValueChanged:" target="XfG-lQ-9wD" id="aq1-CK-D6T"/>
                                                 </connections>
                                             </slider>
                                         </subviews>

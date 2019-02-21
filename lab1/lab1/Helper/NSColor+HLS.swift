@@ -15,6 +15,13 @@ extension NSColor {
     convenience init(hue: Double, lightness: Double, saturation: Double) {
         let l = lightness/HLSColor.MaxValueEnum.lightness
         let s = saturation/HLSColor.MaxValueEnum.saturation
+        guard s != 0 else {
+            self.init(red: 0,
+                      green: 0,
+                      blue: 0,
+                      alpha: 1.0)
+            return
+        }
         let c = (1 - abs(2 * l - 1)) * s
         let x = c * (1 - abs((hue/60).truncatingRemainder(dividingBy: 2) - 1))
         let m = l - c/2
@@ -42,7 +49,7 @@ extension NSColor {
             r = x
             g = 0
             b = c
-        case 300..<360:
+        case 300...360:
             r = c
             g = 0
             b = x

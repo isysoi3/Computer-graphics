@@ -14,9 +14,12 @@ class ViewController: NSViewController {
     //MARK: - properties
     private var currentColorModel: ColorModelEnum = .CMYK
     
+    private var currentComponent: Int = 0
+    
     //MARK: - current color
     @IBOutlet weak var currentColorBox: NSBox!
     
+    //MARK: - keyComponentOfCMY
     @IBOutlet weak var keyComponentOfCMYK: NSView!
     
     //MARK: - component labels
@@ -38,7 +41,9 @@ class ViewController: NSViewController {
     //MARK: - cloor models outputs
 
     @IBOutlet weak var CMYKoutput: NSTextField!
+    
     @IBOutlet weak var HLSOutput: NSTextField!
+    
     @IBOutlet weak var XYZOutput: NSTextField!
     
     //MARK: - sliders inputs
@@ -57,6 +62,8 @@ class ViewController: NSViewController {
         updatedViewsBasedOnColorModel(currentColorModel)
     }
     
+    
+    //MARK: - configure subviews
     private func configureSubviews() {
         currentColorBox.fillColor = NSColor(cyan: 0,
                                             magenta: 0,
@@ -74,12 +81,7 @@ class ViewController: NSViewController {
         fourthComponentSliderInput.isContinuous = true
     }
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
+    //MARK: - handling selected new model
     @IBAction func modelSelectorValueChanged(_ sender: NSPopUpButton) {
         guard let selecteColordModelString = sender.titleOfSelectedItem else { return }
         let selecteColordModel: ColorModelEnum
@@ -114,10 +116,10 @@ class ViewController: NSViewController {
             thirdComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
             
             let cymkModel = currecntColor.getCMYKColor()
-            firstComponentInput.stringValue = "\(cymkModel.cyan)"
-            secondComponentInput.stringValue = "\(cymkModel.magenta)"
-            thirdComponentInput.stringValue = "\(cymkModel.yellow)"
-            fourthComponentInput.stringValue = "\(cymkModel.key)"
+            firstComponentInput.stringValue = "\(cymkModel.cyan.rounded(toPlaces: 2))"
+            secondComponentInput.stringValue = "\(cymkModel.magenta.rounded(toPlaces: 2))"
+            thirdComponentInput.stringValue = "\(cymkModel.yellow.rounded(toPlaces: 2))"
+            fourthComponentInput.stringValue = "\(cymkModel.key.rounded(toPlaces: 2))"
         case .HLS:
             keyComponentOfCMYK.isHidden = true
             firstComponentLabel.stringValue = "H"
@@ -129,9 +131,9 @@ class ViewController: NSViewController {
             thirdComponentSliderInput.maxValue = HLSColor.MaxValueEnum.saturation
             
             let hlsModel = currecntColor.getHLSColor()
-            firstComponentInput.stringValue = "\(hlsModel.hue)"
-            secondComponentInput.stringValue = "\(hlsModel.lightness)"
-            thirdComponentInput.stringValue = "\(hlsModel.saturation)"
+            firstComponentInput.stringValue = "\(hlsModel.hue.rounded(toPlaces: 2))"
+            secondComponentInput.stringValue = "\(hlsModel.lightness.rounded(toPlaces: 2))"
+            thirdComponentInput.stringValue = "\(hlsModel.saturation.rounded(toPlaces: 2))"
         case .XYZ:
             keyComponentOfCMYK.isHidden = true
             firstComponentLabel.stringValue = "X"
@@ -143,9 +145,9 @@ class ViewController: NSViewController {
             thirdComponentSliderInput.maxValue = XYZColor.MaxValueEnum.z
             
             let xyzModel = currecntColor.getXYZColor()
-            firstComponentInput.stringValue = "\(xyzModel.x)"
-            secondComponentInput.stringValue = "\(xyzModel.y)"
-            thirdComponentInput.stringValue = "\(xyzModel.z)"
+            firstComponentInput.stringValue = "\(xyzModel.x.rounded(toPlaces: 2))"
+            secondComponentInput.stringValue = "\(xyzModel.y.rounded(toPlaces: 2))"
+            thirdComponentInput.stringValue = "\(xyzModel.z.rounded(toPlaces: 2))"
         }
         
         updateColor()
@@ -188,42 +190,7 @@ class ViewController: NSViewController {
         }
     }
     
-}
-
-extension ViewController: NSTextFieldDelegate {
-    
-    func controlTextDidChange(_ obj: Notification) {
-        guard let textField = obj.object as? NSTextField else { return }
-        
-        var stringValue = textField.stringValue
-        
-        let characterSet = NSCharacterSet(charactersIn: "0123456789.").inverted
-        stringValue = textField.stringValue.components(separatedBy: characterSet).joined()
-        
-        let comma = NSCharacterSet(charactersIn: ".")
-        let chuncks = stringValue.components(separatedBy: comma as CharacterSet)
-        switch chuncks.count {
-        case 0:
-            stringValue = ""
-        case 1:
-            stringValue = String("\(chuncks[0])".prefix(3))
-        default:
-            stringValue = String("\(chuncks[0]).\(chuncks[1])".prefix(5))
-        }
-        textField.stringValue = stringValue
-        updateColor()
-    }
-    
-    func controlTextDidEndEditing(_ obj: Notification) {
-        guard let textField = obj.object as? NSTextField else { return }
-        if textField.stringValue.isEmpty {
-            textField.stringValue = "0"
-        } else {
-            //validateTextFields()
-        }
-        updateColor()
-    }
-    
+    //MARK: - slider valuess updates
     @IBAction func firstComponentSliderValueChanged(_ sender: NSSlider) {
         firstComponentInput.stringValue = "\(sender.doubleValue.rounded(toPlaces: 2))"
         updateColor()
@@ -239,12 +206,107 @@ extension ViewController: NSTextFieldDelegate {
         updateColor()
     }
     
-    
     @IBAction func fourthComponentSliderValueChanged(_ sender: NSSlider) {
         fourthComponentInput.stringValue = "\(sender.doubleValue.rounded(toPlaces: 2))"
         updateColor()
     }
     
+    //MARK: - inputs values updates
+    @IBAction func firstComponentInputFocused(_ sender: NSTextField) {
+        currentComponent = 1
+    }
     
+    @IBAction func secondComponentInputFocused(_ sender: NSTextField) {
+        currentComponent = 2
+    }
+    
+    @IBAction func thirdComponentInputFocused(_ sender: NSTextField) {
+        currentComponent = 3
+    }
+    
+    @IBAction func fourthComponentInputFocused(_ sender: NSTextField) {
+        currentComponent = 4
+    }
+    
+    private func validateText(_ string: String) -> String {
+        var stringValue = string
+        
+        let characterSet = NSCharacterSet(charactersIn: "0123456789.").inverted
+        stringValue = string.components(separatedBy: characterSet).joined()
+        
+        let comma = NSCharacterSet(charactersIn: ".")
+        let chuncks = stringValue.components(separatedBy: comma as CharacterSet)
+        switch chuncks.count {
+        case 0:
+            stringValue = ""
+        case 1:
+            stringValue = String("\(chuncks[0])".prefix(3))
+        default:
+            let decimalPart = String(chuncks[1].prefix(2))
+            let floorPart = String(chuncks[0].prefix(5 - decimalPart.count))
+            stringValue = String("\(floorPart).\(decimalPart)")
+        }
+        
+        if let doubleValue = Double(stringValue),
+            stringValue.last != ".",
+            doubleValue != 0 {
+            let maxValue: Double
+            switch currentComponent {
+            case 1:
+                switch currentColorModel {
+                case .CMYK:
+                    maxValue = CMYKColor.MaxValueEnum.cyan
+                case .HLS:
+                    maxValue = HLSColor.MaxValueEnum.hue
+                case .XYZ:
+                    maxValue = XYZColor.MaxValueEnum.x
+                }
+            case 2:
+                switch currentColorModel {
+                case .CMYK:
+                    maxValue = CMYKColor.MaxValueEnum.magenta
+                case .HLS:
+                    maxValue = HLSColor.MaxValueEnum.lightness
+                case .XYZ:
+                    maxValue = XYZColor.MaxValueEnum.y
+                }
+            case 3:
+                switch currentColorModel {
+                case .CMYK:
+                    maxValue = CMYKColor.MaxValueEnum.yellow
+                case .HLS:
+                    maxValue = HLSColor.MaxValueEnum.saturation
+                case .XYZ:
+                    maxValue = XYZColor.MaxValueEnum.z
+                }
+            case 4:
+                maxValue = CMYKColor.MaxValueEnum.key
+            default:
+                maxValue = 0
+            }
+            stringValue = doubleValue > maxValue ? "\(maxValue)" : stringValue
+        }
+        return stringValue
+    }
+    
+}
+
+extension ViewController: NSTextFieldDelegate {
+    
+    func controlTextDidChange(_ obj: Notification) {
+        guard let textField = obj.object as? NSTextField else { return }
+        let validString = validateText(textField.stringValue)
+        textField.stringValue = validString
+        updateColor()
+    }
+    
+    func controlTextDidEndEditing(_ obj: Notification) {
+        guard let textField = obj.object as? NSTextField else { return }
+        if textField.stringValue.isEmpty {
+            textField.stringValue = "0.0"
+        }
+        updateColor()
+    }
+
 }
 

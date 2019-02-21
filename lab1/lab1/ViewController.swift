@@ -10,12 +10,6 @@ import Cocoa
 import SnapKit
 
 class ViewController: NSViewController {
-
-    enum ColorModelEnum {
-        case CMYK
-        case HLS
-        case XYZ
-    }
     
     //MARK: - properties
     private var currentColorModel: ColorModelEnum = .CMYK

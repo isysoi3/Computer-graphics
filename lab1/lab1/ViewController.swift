@@ -47,6 +47,15 @@ class ViewController: NSViewController {
     @IBOutlet weak var HLSOutput: NSTextField!
     @IBOutlet weak var XYZOutput: NSTextField!
     
+    //MARK: - sliders inputs
+    @IBOutlet weak var firstComponentSliderInput: NSSlider!
+    
+    @IBOutlet weak var secondComponentSliderInput: NSSlider!
+    
+    @IBOutlet weak var thirdComponentSliderInput: NSSlider!
+    
+    @IBOutlet weak var fourthComponentSliderInput: NSSlider!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +68,11 @@ class ViewController: NSViewController {
         secondComponentInput.delegate = self
         thirdComponentInput.delegate = self
         fourthComponentInput.delegate = self
+        
+        firstComponentSliderInput.isContinuous = true
+        secondComponentSliderInput.isContinuous = true
+        thirdComponentSliderInput.isContinuous = true
+        fourthComponentSliderInput.isContinuous = true
     }
 
     override var representedObject: Any? {
@@ -123,7 +137,7 @@ class ViewController: NSViewController {
             let thirdComponent = Double(thirdComponentInput.stringValue) else { return nil }
         switch colorModel {
         case .CMYK:
-            let keyComponent = Double(fourthComponentInput.stringValue)!
+            guard let keyComponent = Double(fourthComponentInput.stringValue) else { return nil }
             return NSColor(deviceCyan: CGFloat(firstComponent)/100,
                            magenta: CGFloat(secondComponent)/100,
                            yellow: CGFloat(thirdComponent)/100,
@@ -171,6 +185,28 @@ extension ViewController: NSTextFieldDelegate {
         }
         updateColor()
     }
+    
+    @IBAction func firstComponentSliderValueChanged(_ sender: NSSlider) {
+        firstComponentInput.stringValue = "\(sender.doubleValue.rounded(toPlaces: 2))"
+        updateColor()
+    }
+    
+    @IBAction func secondComponentSliderValueChanged(_ sender: NSSlider) {
+        secondComponentInput.stringValue = "\(sender.doubleValue.rounded(toPlaces: 2))"
+        updateColor()
+    }
+    
+    @IBAction func thirdComponentSliderValueChanged(_ sender: NSSlider) {
+        thirdComponentInput.stringValue = "\(sender.doubleValue.rounded(toPlaces: 2))"
+        updateColor()
+    }
+    
+    
+    @IBAction func fourthComponentSliderValueChanged(_ sender: NSSlider) {
+        fourthComponentInput.stringValue = "\(sender.doubleValue.rounded(toPlaces: 2))"
+        updateColor()
+    }
+    
     
 }
 

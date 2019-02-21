@@ -758,6 +758,9 @@
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="paK-kD-YM6">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Bja-1h-CwB"/>
+                                                <connections>
+                                                    <action selector="firstComponentSliderValueChanged:" target="XfG-lQ-9wD" id="JfO-7E-EB9"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                         <constraints>
@@ -800,6 +803,9 @@
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wEh-Hp-GZ7">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="io8-Lm-dsP"/>
+                                                <connections>
+                                                    <action selector="secondComponentSliderValueChanged:" target="XfG-lQ-9wD" id="vts-8h-lDt"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                         <constraints>
@@ -842,6 +848,9 @@
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-pk-G2I">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="B0A-HI-U0C"/>
+                                                <connections>
+                                                    <action selector="thirdComponentSliderValueChanged:" target="XfG-lQ-9wD" id="Bjw-J7-QT6"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                         <constraints>
@@ -884,6 +893,9 @@
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAI-eO-eib">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
                                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="r04-kb-qg7"/>
+                                                <connections>
+                                                    <action selector="fourthComponentSliderValueChanged:" target="XfG-lQ-9wD" id="tSc-zb-ieS"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                         <constraints>
@@ -1002,12 +1014,16 @@
                         <outlet property="currentColorBox" destination="20s-y3-zue" id="0k8-U8-dqD"/>
                         <outlet property="firstComponentInput" destination="QvL-5l-fdh" id="qeO-pq-CG7"/>
                         <outlet property="firstComponentLabel" destination="U3I-ap-xFz" id="e4c-t3-c5h"/>
+                        <outlet property="firstComponentSliderInput" destination="paK-kD-YM6" id="sTz-zg-3p1"/>
                         <outlet property="fourthComponentInput" destination="ZFh-jO-ypg" id="Prh-X7-3zh"/>
+                        <outlet property="fourthComponentSliderInput" destination="bAI-eO-eib" id="xmH-8A-VQT"/>
                         <outlet property="keyComponentOfCMYK" destination="L8P-1P-0Ml" id="ooX-x6-tRd"/>
                         <outlet property="secondComponentInput" destination="Fm4-b0-pqC" id="6Kc-Yl-GXZ"/>
                         <outlet property="secondComponentLabel" destination="648-FL-jvB" id="0fP-Py-vEC"/>
+                        <outlet property="secondComponentSliderInput" destination="wEh-Hp-GZ7" id="vfm-MZ-4Dm"/>
                         <outlet property="thirdComponentInput" destination="eha-GP-caf" id="RsV-to-wcJ"/>
                         <outlet property="thirdComponentLabel" destination="05F-aH-6ru" id="tIl-5M-ovX"/>
+                        <outlet property="thirdComponentSliderInput" destination="g4g-pk-G2I" id="VM9-sv-Ile"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

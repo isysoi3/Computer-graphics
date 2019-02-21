@@ -13,8 +13,8 @@ import Cocoa
 extension NSColor {
     
     convenience init(hue: Double, lightness: Double, saturation: Double) {
-        let l = lightness/100
-        let s = saturation/100
+        let l = lightness/HLSColor.MaxValueEnum.lightness
+        let s = saturation/HLSColor.MaxValueEnum.saturation
         let c = (1 - abs(2 * l - 1)) * s
         let x = c * (1 - abs((hue/60).truncatingRemainder(dividingBy: 2) - 1))
         let m = l - c/2
@@ -66,21 +66,25 @@ extension NSColor {
         let cMin = min(r, g, b)
         let delta = cMax - cMin
         let l = (cMin + cMax)/2
-        let s = delta == 0 ? 0 : delta/(1 - abs(2*l - 1))
+        let s = delta == 0 ? 0 : (delta/(1 - abs(2*l - 1)))
         let h: Double
-        switch delta {
-        case r:
-            h = 60 * ((g - b)/delta).truncatingRemainder(dividingBy: 6)
-        case b:
-            h = 60 * (((b - g)/delta) + 4)
-        case g:
-             h = 60 * (((b - r)/delta) + 2)
-        default:
+        if delta != 0 {
+            switch cMax {
+            case r:
+                h = 60 * ((g - b)/delta).truncatingRemainder(dividingBy: 6)
+            case b:
+                h = 60 * (((b - g)/delta) + 4)
+            case g:
+                h = 60 * (((b - r)/delta) + 2)
+            default:
+                h = 0
+            }
+        } else {
             h = 0
         }
         return HLSColor(hue: h,
-                        lightness: l,
-                        saturation: s)
+                        lightness: l * HLSColor.MaxValueEnum.lightness,
+                        saturation: s * HLSColor.MaxValueEnum.saturation)
     
     }
     

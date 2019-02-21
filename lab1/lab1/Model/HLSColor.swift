@@ -21,7 +21,10 @@ struct HLSColor: CustomStringConvertible {
     let saturation: Double
     
     var description: String {
-        return "H: \(hue.rounded(toPlaces: 2))\nL: \(lightness.rounded(toPlaces: 2))\nS: \(saturation.rounded(toPlaces: 2))\n"
+        let h = hue.rounded(toPlaces: 2)
+        let l = lightness.rounded(toPlaces: 2)
+        let s = saturation.rounded(toPlaces: 2)
+        return "H: \(h)\nL: \(l)\nS: \(s)\n"
     }
     
 }

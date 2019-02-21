@@ -23,6 +23,10 @@ struct CMYKColor: CustomStringConvertible {
     let key: Double
     
     var description: String {
-        return "C: \((cyan * 100).rounded(toPlaces: 2))\nM: \((magenta * 100).rounded(toPlaces: 2))\nY: \((yellow * 100).rounded(toPlaces: 2))\nK: \((key * 100).rounded(toPlaces: 2))\n"
+        let c = cyan.rounded(toPlaces: 2)
+        let m = magenta.rounded(toPlaces: 2)
+        let y = yellow.rounded(toPlaces: 2)
+        let k = key.rounded(toPlaces: 2)
+        return "C: \(c)\nM: \(m)\nY: \(y)\nK: \(k)\n"
     }
 }

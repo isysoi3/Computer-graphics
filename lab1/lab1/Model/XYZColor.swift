@@ -11,9 +11,9 @@ import Foundation
 struct XYZColor {
     
     enum MaxValueEnum {
-        static let x: Double = 100
+        static let x: Double = 96
         static let y: Double = 100
-        static let z: Double = 100
+        static let z: Double = 109
     }
     
     let x: Double
@@ -21,7 +21,10 @@ struct XYZColor {
     let z: Double
     
     var description: String {
-        return "X: \(x.rounded(toPlaces: 2))\nY: \(y.rounded(toPlaces: 2))\nZ: \(z.rounded(toPlaces: 2))\n"
+        let x = self.x.rounded(toPlaces: 2)
+        let y = self.y.rounded(toPlaces: 2)
+        let z = self.z.rounded(toPlaces: 2)
+        return "X: \(x)\nY: \(y)\nZ: \(z)\n"
     }
     
 }

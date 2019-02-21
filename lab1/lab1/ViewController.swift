@@ -17,7 +17,9 @@ class ViewController: NSViewController {
     private var currentComponent: Int = 0
     
     //MARK: - current color
-    @IBOutlet weak var currentColorBox: NSBox!
+    @IBOutlet weak var currentColorPicker: NSColorWell!
+    
+    private var colorPickerObservation: NSKeyValueObservation?
     
     //MARK: - keyComponentOfCMY
     @IBOutlet weak var keyComponentOfCMYK: NSView!
@@ -65,10 +67,17 @@ class ViewController: NSViewController {
     
     //MARK: - configure subviews
     private func configureSubviews() {
-        currentColorBox.fillColor = NSColor(cyan: 0,
-                                            magenta: 0,
-                                            yellow: 0,
-                                            key: 0)
+        colorPickerObservation = observe(
+            \.currentColorPicker.color,
+            options: [.new]) { [weak self] picker, value in
+                guard let newColor = value.newValue else { return }
+                self?.setColorToInputs(newColor)
+        }
+        
+        currentColorPicker.color = NSColor(cyan: 0,
+                                           magenta: 0,
+                                           yellow: 0,
+                                           key: 0)
         
         firstComponentInput.delegate = self
         secondComponentInput.delegate = self
@@ -79,6 +88,7 @@ class ViewController: NSViewController {
         secondComponentSliderInput.isContinuous = true
         thirdComponentSliderInput.isContinuous = true
         fourthComponentSliderInput.isContinuous = true
+        
     }
 
     //MARK: - handling selected new model
@@ -103,7 +113,7 @@ class ViewController: NSViewController {
     
     //MARK: - update view based on current model
     private func updatedViewsBasedOnColorModel(_ colorModel: ColorModelEnum) {
-        let currecntColor = currentColorBox.fillColor
+        let currecntColor = currentColorPicker.color
         switch colorModel {
         case .CMYK:
             keyComponentOfCMYK.isHidden = false
@@ -153,24 +163,43 @@ class ViewController: NSViewController {
         updateColor()
     }
     
-    private func updateColor() {
-        guard let currentColor = calculateCurrentColor(colorModel: currentColorModel) else { return }
-        CMYKoutput.stringValue = currentColor.getCMYKColor().description
-        XYZOutput.stringValue = currentColor.getXYZColor().description
-        HLSOutput.stringValue = currentColor.getHLSColor().description
-        currentColorBox.fillColor = currentColor
+    private func setColorToInputs(_ color: NSColor) {
+        CMYKoutput.stringValue = color.getCMYKColor().description
+        XYZOutput.stringValue = color.getXYZColor().description
+        HLSOutput.stringValue = color.getHLSColor().description
+        
+        switch currentColorModel {
+        case .CMYK:
+            let cymkModel = color.getCMYKColor()
+            firstComponentInput.stringValue = "\(cymkModel.cyan.rounded(toPlaces: 2))"
+            secondComponentInput.stringValue = "\(cymkModel.magenta.rounded(toPlaces: 2))"
+            thirdComponentInput.stringValue = "\(cymkModel.yellow.rounded(toPlaces: 2))"
+            fourthComponentInput.stringValue = "\(cymkModel.key.rounded(toPlaces: 2))"
+        case .HLS:
+            let hlsModel = color.getHLSColor()
+            firstComponentInput.stringValue = "\(hlsModel.hue.rounded(toPlaces: 2))"
+            secondComponentInput.stringValue = "\(hlsModel.lightness.rounded(toPlaces: 2))"
+            thirdComponentInput.stringValue = "\(hlsModel.saturation.rounded(toPlaces: 2))"
+        case .XYZ:
+            let xyzModel = color.getXYZColor()
+            firstComponentInput.stringValue = "\(xyzModel.x.rounded(toPlaces: 2))"
+            secondComponentInput.stringValue = "\(xyzModel.y.rounded(toPlaces: 2))"
+            thirdComponentInput.stringValue = "\(xyzModel.z.rounded(toPlaces: 2))"
+        }
     }
     
-    private func calculateCurrentColor(colorModel: ColorModelEnum) -> NSColor? {
+    private func updateColor() {
+        guard let currentColor = calculateCurrentColor() else { return }
+        setColorToInputs(currentColor)
+        currentColorPicker.color = currentColor
+    }
+    
+    private func calculateCurrentColor() -> NSColor? {
         guard let firstComponent = Double(firstComponentInput.stringValue),
             let secondComponent = Double(secondComponentInput.stringValue),
             let thirdComponent = Double(thirdComponentInput.stringValue) else { return nil }
-        
-        firstComponentSliderInput.doubleValue = firstComponent
-        secondComponentSliderInput.doubleValue = secondComponent
-        thirdComponentSliderInput.doubleValue = thirdComponent
-        
-        switch colorModel {
+
+        switch currentColorModel {
         case .CMYK:
             guard let keyComponent = Double(fourthComponentInput.stringValue) else { return nil }
             fourthComponentSliderInput.doubleValue = keyComponent
@@ -289,6 +318,11 @@ class ViewController: NSViewController {
         return stringValue
     }
     
+    
+    //MARK: - deint
+    deinit {
+        colorPickerObservation?.invalidate()
+    }
 }
 
 extension ViewController: NSTextFieldDelegate {

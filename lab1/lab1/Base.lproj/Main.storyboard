@@ -938,17 +938,6 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <box boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="20s-y3-zue" userLabel="currentColor">
-                                <rect key="frame" x="337" y="214" width="150" height="150"/>
-                                <view key="contentView" id="qrE-ke-vMI">
-                                    <rect key="frame" x="1" y="1" width="148" height="148"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="BQo-7W-VeD"/>
-                                    <constraint firstAttribute="width" constant="150" id="S3T-sA-fP4"/>
-                                </constraints>
-                            </box>
                             <box fixedFrame="YES" title="CMYK" translatesAutoresizingMaskIntoConstraints="NO" id="1NT-aV-j2n">
                                 <rect key="frame" x="181" y="250" width="133" height="114"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1009,21 +998,29 @@
                                 </view>
                                 <font key="titleFont" metaFont="system" size="14"/>
                             </box>
+                            <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-aL-Cza">
+                                <rect key="frame" x="337" y="214" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Kqn-CB-O2q"/>
+                                    <constraint firstAttribute="height" constant="150" id="XBI-Z4-cOO"/>
+                                </constraints>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </colorWell>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="HoS-5E-wkY" firstAttribute="top" secondItem="20s-y3-zue" secondAttribute="bottom" constant="20" id="1vV-dK-7f6"/>
+                            <constraint firstItem="Zp7-aL-Cza" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="1U9-Xz-x3D"/>
                             <constraint firstItem="Inq-3x-Cj5" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="55U-Gx-DN2"/>
                             <constraint firstItem="Inq-3x-Cj5" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="5O1-I5-ALA"/>
-                            <constraint firstItem="HoS-5E-wkY" firstAttribute="centerX" secondItem="20s-y3-zue" secondAttribute="centerX" id="S3d-ET-hz3"/>
-                            <constraint firstAttribute="trailing" secondItem="20s-y3-zue" secondAttribute="trailing" constant="20" id="ltY-FV-Umj"/>
-                            <constraint firstItem="20s-y3-zue" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="vGP-Ew-3s3"/>
+                            <constraint firstItem="HoS-5E-wkY" firstAttribute="centerX" secondItem="Zp7-aL-Cza" secondAttribute="centerX" id="auQ-rB-6fL"/>
+                            <constraint firstAttribute="trailing" secondItem="Zp7-aL-Cza" secondAttribute="trailing" constant="20" id="jjR-aR-jf1"/>
+                            <constraint firstItem="HoS-5E-wkY" firstAttribute="top" secondItem="Zp7-aL-Cza" secondAttribute="bottom" constant="20" id="z6P-ec-pql"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="CMYKoutput" destination="vkL-0Z-YOc" id="XNN-lK-8hH"/>
                         <outlet property="HLSOutput" destination="tdr-Qj-0ad" id="fBc-Sf-Uqv"/>
                         <outlet property="XYZOutput" destination="inT-c7-bdD" id="7GM-0f-Vs3"/>
-                        <outlet property="currentColorBox" destination="20s-y3-zue" id="0k8-U8-dqD"/>
+                        <outlet property="currentColorPicker" destination="Zp7-aL-Cza" id="JiF-J2-hfE"/>
                         <outlet property="firstComponentInput" destination="QvL-5l-fdh" id="qeO-pq-CG7"/>
                         <outlet property="firstComponentLabel" destination="U3I-ap-xFz" id="e4c-t3-c5h"/>
                         <outlet property="firstComponentSliderInput" destination="paK-kD-YM6" id="sTz-zg-3p1"/>

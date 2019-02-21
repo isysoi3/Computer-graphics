@@ -32,14 +32,14 @@ extension NSColor {
                              yellow: CMYKColor.MaxValueEnum.yellow,
                              key: CMYKColor.MaxValueEnum.key)
         }
-        let c = (1 - r - k) / (1 - k) * CMYKColor.MaxValueEnum.cyan
-        let m = (1 - g - k) / (1 - k) * CMYKColor.MaxValueEnum.magenta
-        let y = (1 - b - k) / (1 - k) * CMYKColor.MaxValueEnum.yellow
+        let c = (1 - r - k) / (1 - k)
+        let m = (1 - g - k) / (1 - k)
+        let y = (1 - b - k) / (1 - k)
         
-        return CMYKColor(cyan: c,
-                         magenta: m,
-                         yellow: y,
-                         key: k)
+        return CMYKColor(cyan: c * CMYKColor.MaxValueEnum.cyan,
+                         magenta: m * CMYKColor.MaxValueEnum.magenta,
+                         yellow: y * CMYKColor.MaxValueEnum.yellow,
+                         key: k * CMYKColor.MaxValueEnum.key)
     }
     
 }

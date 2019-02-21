@@ -64,6 +64,11 @@ class ViewController: NSViewController {
     }
     
     private func configureSubviews() {
+        currentColorBox.fillColor = NSColor(cyan: 0,
+                                            magenta: 0,
+                                            yellow: 0,
+                                            key: 0)
+        
         firstComponentInput.delegate = self
         secondComponentInput.delegate = self
         thirdComponentInput.delegate = self
@@ -102,6 +107,7 @@ class ViewController: NSViewController {
     
     //MARK: - update view based on current model
     private func updatedViewsBasedOnColorModel(_ colorModel: ColorModelEnum) {
+        let currecntColor = currentColorBox.fillColor
         switch colorModel {
         case .CMYK:
             keyComponentOfCMYK.isHidden = false
@@ -112,6 +118,12 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
             secondComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.magenta
             thirdComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
+            
+            let cymkModel = currecntColor.getCMYKColor()
+            firstComponentInput.stringValue = "\(cymkModel.cyan)"
+            secondComponentInput.stringValue = "\(cymkModel.magenta)"
+            thirdComponentInput.stringValue = "\(cymkModel.yellow)"
+            fourthComponentInput.stringValue = "\(cymkModel.key)"
         case .HLS:
             keyComponentOfCMYK.isHidden = true
             firstComponentLabel.stringValue = "H"
@@ -121,6 +133,11 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = HLSColor.MaxValueEnum.hue
             secondComponentSliderInput.maxValue = HLSColor.MaxValueEnum.lightness
             thirdComponentSliderInput.maxValue = HLSColor.MaxValueEnum.saturation
+            
+            let hlsModel = currecntColor.getHLSColor()
+            firstComponentInput.stringValue = "\(hlsModel.hue)"
+            secondComponentInput.stringValue = "\(hlsModel.lightness)"
+            thirdComponentInput.stringValue = "\(hlsModel.saturation)"
         case .XYZ:
             keyComponentOfCMYK.isHidden = true
             firstComponentLabel.stringValue = "X"
@@ -130,6 +147,11 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = XYZColor.MaxValueEnum.x
             secondComponentSliderInput.maxValue = XYZColor.MaxValueEnum.y
             thirdComponentSliderInput.maxValue = XYZColor.MaxValueEnum.z
+            
+            let xyzModel = currecntColor.getXYZColor()
+            firstComponentInput.stringValue = "\(xyzModel.x)"
+            secondComponentInput.stringValue = "\(xyzModel.y)"
+            thirdComponentInput.stringValue = "\(xyzModel.z)"
         }
         
         updateColor()

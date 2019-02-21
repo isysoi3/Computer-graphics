@@ -135,9 +135,15 @@ class ViewController: NSViewController {
         guard let firstComponent = Double(firstComponentInput.stringValue),
             let secondComponent = Double(secondComponentInput.stringValue),
             let thirdComponent = Double(thirdComponentInput.stringValue) else { return nil }
+        
+        firstComponentSliderInput.doubleValue = firstComponent
+        secondComponentSliderInput.doubleValue = secondComponent
+        thirdComponentSliderInput.doubleValue = thirdComponent
+        
         switch colorModel {
         case .CMYK:
             guard let keyComponent = Double(fourthComponentInput.stringValue) else { return nil }
+            fourthComponentSliderInput.doubleValue = keyComponent
             return NSColor(deviceCyan: CGFloat(firstComponent)/100,
                            magenta: CGFloat(secondComponent)/100,
                            yellow: CGFloat(thirdComponent)/100,
@@ -168,9 +174,9 @@ extension ViewController: NSTextFieldDelegate {
         case 0:
             stringValue = ""
         case 1:
-            stringValue = "\(chuncks[0])"
+            stringValue = String("\(chuncks[0])".prefix(3))
         default:
-            stringValue = "\(chuncks[0]).\(chuncks[1])"
+            stringValue = String("\(chuncks[0]).\(chuncks[1])".prefix(5))
         }
         textField.stringValue = stringValue
         updateColor()

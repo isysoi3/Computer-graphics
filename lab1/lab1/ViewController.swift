@@ -84,11 +84,11 @@ class ViewController: NSViewController {
         thirdComponentInput.delegate = self
         fourthComponentInput.delegate = self
         
-        firstComponentSliderInput.isContinuous = true
-        secondComponentSliderInput.isContinuous = true
-        thirdComponentSliderInput.isContinuous = true
-        fourthComponentSliderInput.isContinuous = true
-        
+        let nc = NotificationCenter.default
+        nc.addObserver(self,
+                       selector: #selector(conversionFromRGBToXYZError),
+                       name: Notification.Name("XYZtoRGBerror"),
+                       object: nil)
     }
 
     //MARK: - handling selected new model
@@ -124,6 +124,11 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
             secondComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.magenta
             thirdComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
+            
+            firstComponentSliderInput.isContinuous = true
+            secondComponentSliderInput.isContinuous = true
+            thirdComponentSliderInput.isContinuous = true
+            fourthComponentSliderInput.isContinuous = true
         case .HLS:
             keyComponentOfCMYK.isHidden = true
             
@@ -134,6 +139,11 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = HLSColor.MaxValueEnum.hue
             secondComponentSliderInput.maxValue = HLSColor.MaxValueEnum.lightness
             thirdComponentSliderInput.maxValue = HLSColor.MaxValueEnum.saturation
+            
+            firstComponentSliderInput.isContinuous = true
+            secondComponentSliderInput.isContinuous = true
+            thirdComponentSliderInput.isContinuous = true
+            fourthComponentSliderInput.isContinuous = true
         case .XYZ:
             keyComponentOfCMYK.isHidden = true
             
@@ -144,6 +154,11 @@ class ViewController: NSViewController {
             firstComponentSliderInput.maxValue = XYZColor.MaxValueEnum.x
             secondComponentSliderInput.maxValue = XYZColor.MaxValueEnum.y
             thirdComponentSliderInput.maxValue = XYZColor.MaxValueEnum.z
+            
+            firstComponentSliderInput.isContinuous = false
+            secondComponentSliderInput.isContinuous = false
+            thirdComponentSliderInput.isContinuous = false
+            fourthComponentSliderInput.isContinuous = false
         }
         
         updateColor()
@@ -325,9 +340,24 @@ class ViewController: NSViewController {
     }
     
     
+    //MARK: - colors convert errro handel
+    @objc private func conversionFromRGBToXYZError(notification: Notification) {
+        guard let valueString = notification.userInfo?["value"] as? String,
+            let value = Double(valueString) else { return }
+        if value == -1 {
+            showAlert(message: "Ошибка первода", text: "При переводе значение меньше 0 было округлено до 0")
+        } else if value == 256 {
+            showAlert(message: "Ошибка первода", text: "При переводе значение больше 255 было округлено до 255")
+        }
+    }
+    
     //MARK: - deint
     deinit {
         colorPickerObservation?.invalidate()
+        let nc = NotificationCenter.default
+        nc.removeObserver(self,
+                          name: Notification.Name("XYZtoRGBerror"),
+                          object: nil)
     }
 }
 
@@ -350,3 +380,15 @@ extension ViewController: NSTextFieldDelegate {
 
 }
 
+extension ViewController {
+    
+    func showAlert(message: String, text: String) {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+    
+}

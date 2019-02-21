@@ -14,23 +14,38 @@ extension NSColor {
         let x = x/XYZColor.MaxValueEnum.x
         let y = y/XYZColor.MaxValueEnum.y
         let z = z/XYZColor.MaxValueEnum.z
-        var r: CGFloat = CGFloat( 3.2404542*x - 1.5371385*y - 0.4985314*z)
-        var g: CGFloat = CGFloat(-0.9692660*x + 1.8760108*y + 0.0415560*z)
-        var b: CGFloat = CGFloat( 0.0556434*x - 0.2040259*y + 1.0572252*z)
-        r = NSColor.validateRGBComponentRange(value: r)
-        g = NSColor.validateRGBComponentRange(value: g)
-        b = NSColor.validateRGBComponentRange(value: b)
+        let r: CGFloat = CGFloat( 3.2404542 * x - 1.5371385 * y - 0.4985314 * z)
+        let g: CGFloat = CGFloat(-0.9692660 * x + 1.8760108 * y + 0.0415560 * z)
+        let b: CGFloat = CGFloat( 0.0556434 * x - 0.2040259 * y + 1.0572252 * z)
+        let (valueR, isErrorR) = NSColor.validateRGBComponentRange(value: r)
+        let (valueG, isErrorG) = NSColor.validateRGBComponentRange(value: g)
+        let (valueB, isErrorB) = NSColor.validateRGBComponentRange(value: b)
        
-        self.init(red: r, green: g, blue: b, alpha: 1.0)
+        if isErrorR || isErrorG || isErrorB {
+            var info: Int = 0
+            if isErrorR {
+                info = valueR == 1 ? 256 : -1
+            } else if isErrorG {
+                info = valueG == 1 ? 256 : -1
+            } else if isErrorB {
+                info = valueB == 1 ? 256 : -1
+            }
+            let nc = NotificationCenter.default
+            nc.post(name: Notification.Name("XYZtoRGBerror"),
+                    object: nil,
+                    userInfo: ["value":"\(info)"])
+        }
+        
+        self.init(red: valueR, green: valueG, blue: valueB, alpha: 1.0)
     }
     
-    private static func validateRGBComponentRange(value: CGFloat) -> CGFloat {
+    private static func validateRGBComponentRange(value: CGFloat) -> (value: CGFloat, isError: Bool) {
         if value < 0 {
-            return 0
+            return (0, true)
         } else if value > 1 {
-            return 1
+            return (1, true)
         }
-        return value
+        return (value, false)
     }
 
     func getXYZColor() -> XYZColor {

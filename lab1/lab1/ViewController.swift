@@ -108,16 +108,28 @@ class ViewController: NSViewController {
             firstComponentLabel.stringValue = "C"
             secondComponentLabel.stringValue = "M"
             thirdComponentLabel.stringValue = "Y"
+            
+            firstComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
+            secondComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.magenta
+            thirdComponentSliderInput.maxValue = CMYKColor.MaxValueEnum.cyan
         case .HLS:
             keyComponentOfCMYK.isHidden = true
             firstComponentLabel.stringValue = "H"
             secondComponentLabel.stringValue = "L"
             thirdComponentLabel.stringValue = "S"
+            
+            firstComponentSliderInput.maxValue = HLSColor.MaxValueEnum.hue
+            secondComponentSliderInput.maxValue = HLSColor.MaxValueEnum.lightness
+            thirdComponentSliderInput.maxValue = HLSColor.MaxValueEnum.saturation
         case .XYZ:
             keyComponentOfCMYK.isHidden = true
             firstComponentLabel.stringValue = "X"
             secondComponentLabel.stringValue = "Y"
             thirdComponentLabel.stringValue = "Z"
+            
+            firstComponentSliderInput.maxValue = XYZColor.MaxValueEnum.x
+            secondComponentSliderInput.maxValue = XYZColor.MaxValueEnum.y
+            thirdComponentSliderInput.maxValue = XYZColor.MaxValueEnum.z
         }
         
         updateColor()
@@ -125,9 +137,9 @@ class ViewController: NSViewController {
     
     private func updateColor() {
         guard let currentColor = calculateCurrentColor(colorModel: currentColorModel) else { return }
-        CMYKoutput.stringValue = currentColor.stringDescriptionCMYK()
-        XYZOutput.stringValue = "X: \(0)\nY: \(0)\nZ: \(0)\n"
-        HLSOutput.stringValue = currentColor.stringDescriptionHLS()
+        CMYKoutput.stringValue = currentColor.getCMYKColor().description
+        XYZOutput.stringValue = currentColor.getXYZColor().description
+        HLSOutput.stringValue = currentColor.getHLSColor().description
         currentColorBox.fillColor = currentColor
     }
     
@@ -144,15 +156,19 @@ class ViewController: NSViewController {
         case .CMYK:
             guard let keyComponent = Double(fourthComponentInput.stringValue) else { return nil }
             fourthComponentSliderInput.doubleValue = keyComponent
-            return NSColor(deviceCyan: CGFloat(firstComponent)/100,
-                           magenta: CGFloat(secondComponent)/100,
-                           yellow: CGFloat(thirdComponent)/100,
-                           black: CGFloat(keyComponent)/100,
-                           alpha: 1.0)
+            return NSColor(cyan: firstComponent,
+                           magenta: secondComponent,
+                           yellow: thirdComponent,
+                           key: keyComponent)
         case .HLS:
-           return nil
+            return NSColor(hue: firstComponent,
+                           lightness: secondComponent,
+                           saturation: thirdComponent)
+
         case .XYZ:
-            return nil
+            return NSColor(x: firstComponent,
+                           y: secondComponent,
+                           z: thirdComponent)
         }
     }
     

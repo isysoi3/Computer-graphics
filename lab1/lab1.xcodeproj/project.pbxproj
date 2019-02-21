@@ -18,6 +18,7 @@
 		D3D4A429221C9A40000237D7 /* NSColor+CMYK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4A428221C9A40000237D7 /* NSColor+CMYK.swift */; };
 		D3D4A42B221CA693000237D7 /* NSColor+HLS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4A42A221CA693000237D7 /* NSColor+HLS.swift */; };
 		D3D4A42D221EE29A000237D7 /* Double+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4A42C221EE29A000237D7 /* Double+Round.swift */; };
+		D3D4A42F221F07B3000237D7 /* NSColor+XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D4A42E221F07B3000237D7 /* NSColor+XYZ.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		D3D4A428221C9A40000237D7 /* NSColor+CMYK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+CMYK.swift"; sourceTree = "<group>"; };
 		D3D4A42A221CA693000237D7 /* NSColor+HLS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+HLS.swift"; sourceTree = "<group>"; };
 		D3D4A42C221EE29A000237D7 /* Double+Round.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Round.swift"; sourceTree = "<group>"; };
+		D3D4A42E221F07B3000237D7 /* NSColor+XYZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+XYZ.swift"; sourceTree = "<group>"; };
 		FB18D82A755D704B95564BF6 /* Pods-lab1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lab1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lab1/Pods-lab1.debug.xcconfig"; sourceTree = "<group>"; };
 		FE225DF7CCC9FC20031E1F98 /* Pods_lab1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lab1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -124,6 +126,7 @@
 			children = (
 				D3D4A428221C9A40000237D7 /* NSColor+CMYK.swift */,
 				D3D4A42A221CA693000237D7 /* NSColor+HLS.swift */,
+				D3D4A42E221F07B3000237D7 /* NSColor+XYZ.swift */,
 				D3D4A42C221EE29A000237D7 /* Double+Round.swift */,
 			);
 			path = Helper;
@@ -253,6 +256,7 @@
 				D3D4A410221C67E7000237D7 /* ViewController.swift in Sources */,
 				D3D4A42D221EE29A000237D7 /* Double+Round.swift in Sources */,
 				D3D4A42B221CA693000237D7 /* NSColor+HLS.swift in Sources */,
+				D3D4A42F221F07B3000237D7 /* NSColor+XYZ.swift in Sources */,
 				D3D4A40E221C67E7000237D7 /* AppDelegate.swift in Sources */,
 				D3D4A429221C9A40000237D7 /* NSColor+CMYK.swift in Sources */,
 				D3D4A422221C95CE000237D7 /* XYZColor.swift in Sources */,

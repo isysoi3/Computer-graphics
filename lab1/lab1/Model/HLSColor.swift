@@ -10,12 +10,18 @@ import Foundation
 
 struct HLSColor: CustomStringConvertible {
     
-    let hue: CGFloat
-    let lightness: CGFloat
-    let saturation: CGFloat
+    enum MaxValueEnum {
+        static let hue: Double = 360
+        static let lightness: Double = 100
+        static let saturation: Double = 100
+    }
+    
+    let hue: Double
+    let lightness: Double
+    let saturation: Double
     
     var description: String {
-        return "H: \(String(format: "%.2f", Double(hue)))\nL: \(String(format: "%.2f", Double(lightness)))\nS: \(String(format: "%.2f", Double(saturation)))\n"
+        return "H: \(hue.rounded(toPlaces: 2))\nL: \(lightness.rounded(toPlaces: 2))\nS: \(saturation.rounded(toPlaces: 2))\n"
     }
     
 }

@@ -10,8 +10,18 @@ import Foundation
 
 struct XYZColor {
     
-    let x: CGFloat
-    let y: CGFloat
-    let z: CGFloat
+    enum MaxValueEnum {
+        static let x: Double = 100
+        static let y: Double = 100
+        static let z: Double = 100
+    }
+    
+    let x: Double
+    let y: Double
+    let z: Double
+    
+    var description: String {
+        return "X: \(x.rounded(toPlaces: 2))\nY: \(y.rounded(toPlaces: 2))\nZ: \(z.rounded(toPlaces: 2))\n"
+    }
     
 }

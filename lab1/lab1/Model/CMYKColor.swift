@@ -10,12 +10,19 @@ import Foundation
 
 struct CMYKColor: CustomStringConvertible {
     
-    let cyan: CGFloat
-    let magenta: CGFloat
-    let yellow: CGFloat
-    let key: CGFloat
+    enum MaxValueEnum {
+        static let cyan: Double = 100
+        static let magenta: Double = 100
+        static let yellow: Double = 100
+        static let key: Double = 100
+    }
+    
+    let cyan: Double
+    let magenta: Double
+    let yellow: Double
+    let key: Double
     
     var description: String {
-        return "C: \(cyan * 100)\nM: \(magenta * 100)\nY: \(yellow * 100)\nK: \(key * 100)\n"
+        return "C: \((cyan * 100).rounded(toPlaces: 2))\nM: \((magenta * 100).rounded(toPlaces: 2))\nY: \((yellow * 100).rounded(toPlaces: 2))\nK: \((key * 100).rounded(toPlaces: 2))\n"
     }
 }

@@ -149,8 +149,8 @@ class ColorViewPresenter {
             secondComponentValue = model.magenta.rounded(toPlaces: 2)
             thirdComponentValue = model.yellow.rounded(toPlaces: 2)
             
-            view.setFourthComponentVlalidStringValue("\(thirdComponentValue.rounded(toPlaces: 2))")
-            view.setFourthComponentSliderValue(thirdComponentValue.rounded(toPlaces: 2))
+            view.setFourthComponentVlalidStringValue("\(model.key.rounded(toPlaces: 2))")
+            view.setFourthComponentSliderValue(model.key.rounded(toPlaces: 2))
         case .HLS:
             let model = color.getHLSColor()
             firstComponentValue = model.hue.rounded(toPlaces: 2)

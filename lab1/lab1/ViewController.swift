@@ -16,6 +16,8 @@ class ViewController: NSViewController {
     
     private var currentComponent: Int = 0
     
+    private var currentXYZColor: XYZColor?
+    
     //MARK: - current color
     @IBOutlet weak var currentColorPicker: NSColorWell!
     
@@ -67,12 +69,12 @@ class ViewController: NSViewController {
     
     //MARK: - configure subviews
     private func configureSubviews() {
-        colorPickerObservation = observe(
-            \.currentColorPicker.color,
-            options: [.new]) { [weak self] picker, value in
-                guard let newColor = value.newValue else { return }
-                self?.setColorToInputs(newColor)
-        }
+//        colorPickerObservation = observe(
+//            \.currentColorPicker.color,
+//            options: [.new]) { [weak self] picker, value in
+//                guard let newColor = value.newValue else { return }
+//                self?.setColorToInputs(newColor)
+//        }
         
         currentColorPicker.color = NSColor(cyan: 0,
                                            magenta: 0,
@@ -129,6 +131,7 @@ class ViewController: NSViewController {
             secondComponentSliderInput.isContinuous = true
             thirdComponentSliderInput.isContinuous = true
             fourthComponentSliderInput.isContinuous = true
+            currentXYZColor = .none
         case .HLS:
             keyComponentOfCMYK.isHidden = true
             
@@ -144,6 +147,7 @@ class ViewController: NSViewController {
             secondComponentSliderInput.isContinuous = true
             thirdComponentSliderInput.isContinuous = true
             fourthComponentSliderInput.isContinuous = true
+            currentXYZColor = .none
         case .XYZ:
             keyComponentOfCMYK.isHidden = true
             
@@ -161,7 +165,7 @@ class ViewController: NSViewController {
             fourthComponentSliderInput.isContinuous = false
         }
         
-        updateColor()
+        setColorToInputs(currentColorPicker.color)
     }
     
     private func setColorToInputs(_ color: NSColor) {
@@ -169,45 +173,50 @@ class ViewController: NSViewController {
         let secondComponentValue: Double
         let thirdComponentValue: Double
         
+        CMYKoutput.stringValue = color.getCMYKColor().description
+        HLSOutput.stringValue = color.getHLSColor().description
+        XYZOutput.stringValue = color.getXYZColor().description
+        
         switch currentColorModel {
         case .CMYK:
             let cymkModel = color.getCMYKColor()
-            firstComponentInput.stringValue = "\(cymkModel.cyan.rounded(toPlaces: 2))"
-            secondComponentInput.stringValue = "\(cymkModel.magenta.rounded(toPlaces: 2))"
-            thirdComponentInput.stringValue = "\(cymkModel.yellow.rounded(toPlaces: 2))"
             fourthComponentInput.stringValue = "\(cymkModel.key.rounded(toPlaces: 2))"
+            //fourthComponentSliderInput.doubleValue = cymkModel.key
             
-            firstComponentValue = cymkModel.cyan
-            secondComponentValue = cymkModel.magenta
-            thirdComponentValue = cymkModel.yellow
-            fourthComponentSliderInput.doubleValue = cymkModel.key
+            firstComponentValue = cymkModel.cyan.rounded(toPlaces: 2)
+            secondComponentValue = cymkModel.magenta.rounded(toPlaces: 2)
+            thirdComponentValue = cymkModel.yellow.rounded(toPlaces: 2)
         case .HLS:
             let hlsModel = color.getHLSColor()
-            firstComponentInput.stringValue = "\(hlsModel.hue.rounded(toPlaces: 2))"
-            secondComponentInput.stringValue = "\(hlsModel.lightness.rounded(toPlaces: 2))"
-            thirdComponentInput.stringValue = "\(hlsModel.saturation.rounded(toPlaces: 2))"
             
-            firstComponentValue = hlsModel.hue
-            secondComponentValue = hlsModel.lightness
-            thirdComponentValue = hlsModel.saturation
+            firstComponentValue = hlsModel.hue.rounded(toPlaces: 2)
+            secondComponentValue = hlsModel.lightness.rounded(toPlaces: 2)
+            thirdComponentValue = hlsModel.saturation.rounded(toPlaces: 2)
         case .XYZ:
-            let xyzModel = color.getXYZColor()
-            firstComponentInput.stringValue = "\(xyzModel.x.rounded(toPlaces: 2))"
-            secondComponentInput.stringValue = "\(xyzModel.y.rounded(toPlaces: 2))"
-            thirdComponentInput.stringValue = "\(xyzModel.z.rounded(toPlaces: 2))"
+            guard let firstComponent = Double(firstComponentInput.stringValue),
+                let secondComponent = Double(secondComponentInput.stringValue),
+                let thirdComponent = Double(thirdComponentInput.stringValue) else { return }
+            let xyzModel: XYZColor
+            if currentXYZColor != nil {
+                xyzModel = XYZColor(x: firstComponent, y: secondComponent, z: thirdComponent)
+            } else {
+                xyzModel = color.getXYZColor()
+            }
             
-            firstComponentValue = xyzModel.x
-            secondComponentValue = xyzModel.y
-            thirdComponentValue = xyzModel.z
+            currentXYZColor = xyzModel
+            firstComponentValue = xyzModel.x.rounded(toPlaces: 2)
+            secondComponentValue = xyzModel.y.rounded(toPlaces: 2)
+            thirdComponentValue = xyzModel.z.rounded(toPlaces: 2)
+            XYZOutput.stringValue = xyzModel.description
         }
         
-        CMYKoutput.stringValue = color.getCMYKColor().description
-        XYZOutput.stringValue = color.getXYZColor().description
-        HLSOutput.stringValue = color.getHLSColor().description
+//        firstComponentSliderInput.doubleValue = firstComponentValue
+//        secondComponentSliderInput.doubleValue = secondComponentValue
+//        thirdComponentSliderInput.doubleValue = thirdComponentValue
         
-        firstComponentSliderInput.doubleValue = firstComponentValue
-        secondComponentSliderInput.doubleValue = secondComponentValue
-        thirdComponentSliderInput.doubleValue = thirdComponentValue
+        firstComponentInput.stringValue = "\(firstComponentValue)"
+        secondComponentInput.stringValue = "\(secondComponentValue)"
+        thirdComponentInput.stringValue = "\(thirdComponentValue)"
     }
     
     private func updateColor() {
@@ -297,45 +306,45 @@ class ViewController: NSViewController {
             stringValue = String("\(floorPart).\(decimalPart)")
         }
         
-        if let doubleValue = Double(stringValue),
-            stringValue.last != ".",
-            doubleValue != 0 {
-            let maxValue: Double
-            switch currentComponent {
-            case 1:
-                switch currentColorModel {
-                case .CMYK:
-                    maxValue = CMYKColor.MaxValueEnum.cyan
-                case .HLS:
-                    maxValue = HLSColor.MaxValueEnum.hue
-                case .XYZ:
-                    maxValue = XYZColor.MaxValueEnum.x
-                }
-            case 2:
-                switch currentColorModel {
-                case .CMYK:
-                    maxValue = CMYKColor.MaxValueEnum.magenta
-                case .HLS:
-                    maxValue = HLSColor.MaxValueEnum.lightness
-                case .XYZ:
-                    maxValue = XYZColor.MaxValueEnum.y
-                }
-            case 3:
-                switch currentColorModel {
-                case .CMYK:
-                    maxValue = CMYKColor.MaxValueEnum.yellow
-                case .HLS:
-                    maxValue = HLSColor.MaxValueEnum.saturation
-                case .XYZ:
-                    maxValue = XYZColor.MaxValueEnum.z
-                }
-            case 4:
-                maxValue = CMYKColor.MaxValueEnum.key
-            default:
-                maxValue = 0
-            }
-            stringValue = doubleValue > maxValue ? "\(maxValue)" : stringValue
-        }
+//        if let doubleValue = Double(stringValue),
+//            stringValue.last != ".",
+//            doubleValue != 0 {
+//            let maxValue: Double
+//            switch currentComponent {
+//            case 1:
+//                switch currentColorModel {
+//                case .CMYK:
+//                    maxValue = CMYKColor.MaxValueEnum.cyan
+//                case .HLS:
+//                    maxValue = HLSColor.MaxValueEnum.hue
+//                case .XYZ:
+//                    maxValue = XYZColor.MaxValueEnum.x
+//                }
+//            case 2:
+//                switch currentColorModel {
+//                case .CMYK:
+//                    maxValue = CMYKColor.MaxValueEnum.magenta
+//                case .HLS:
+//                    maxValue = HLSColor.MaxValueEnum.lightness
+//                case .XYZ:
+//                    maxValue = XYZColor.MaxValueEnum.y
+//                }
+//            case 3:
+//                switch currentColorModel {
+//                case .CMYK:
+//                    maxValue = CMYKColor.MaxValueEnum.yellow
+//                case .HLS:
+//                    maxValue = HLSColor.MaxValueEnum.saturation
+//                case .XYZ:
+//                    maxValue = XYZColor.MaxValueEnum.z
+//                }
+//            case 4:
+//                maxValue = CMYKColor.MaxValueEnum.key
+//            default:
+//                maxValue = 0
+//            }
+//            stringValue = doubleValue > maxValue ? "\(maxValue)" : stringValue
+//        }
         return stringValue
     }
     

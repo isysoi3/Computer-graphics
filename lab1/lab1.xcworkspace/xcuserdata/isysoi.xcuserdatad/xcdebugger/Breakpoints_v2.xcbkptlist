@@ -6,32 +6,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "lab1/Helper/NSColor+CMYK.swift"
-            timestampString = "572461558.752441"
+            filePath = "lab1/ViewController.swift"
+            timestampString = "572478124.98406"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "getCMYKColor()"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
+            landmarkName = "validateText(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "lab1/Helper/NSColor+CMYK.swift"
-            timestampString = "572461558.75307"
+            filePath = "lab1/ViewController.swift"
+            timestampString = "572478124.984687"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "init(cyan:magenta:yellow:key:)"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "calculateCurrentColor()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

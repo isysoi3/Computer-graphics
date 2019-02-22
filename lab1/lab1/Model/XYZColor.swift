@@ -11,7 +11,7 @@ import Foundation
 struct XYZColor {
     
     enum MaxValueEnum {
-        static let x: Double = 96
+        static let x: Double = 95
         static let y: Double = 100
         static let z: Double = 109
     }

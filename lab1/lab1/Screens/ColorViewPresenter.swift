@@ -190,11 +190,12 @@ extension ColorViewPresenter {
     
     
     func handleSelectedColorModelChange(_ newColorModel: ColorModelEnum) {
-        guard currentColorModel != newColorModel else { return }
+        guard currentColorModel != newColorModel,
+        let currentColor = calculateCurrentColor() else { return }
         currentColorModel = newColorModel
-        view.updatedViewsBasedOnColorModel(newColorModel)
         
-        guard let currentColor = calculateCurrentColor() else { return }
+        view.updatedViewsBasedOnColorModel(currentColorModel)
+        
         updateInputsBasedOnColor(currentColor)
         updateViewCurrentInfo(color: currentColor)
     }

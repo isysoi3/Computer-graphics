@@ -65,12 +65,12 @@ class ColorViewController: NSViewController {
     }
     
     private func configureSubviews() {
-//        colorPickerObservation = observe(
-//            \.colorPicker.color,
-//            options: [.new]) { [weak self] picker, value in
-//                guard let newColor = value.newValue else { return }
-//                self?.presenter.handleColorSelectedFromPicker(newColor)
-//        }
+        colorPickerObservation = observe(
+            \.colorPicker.color,
+            options: [.new]) { [weak self] picker, value in
+                guard let newColor = value.newValue else { return }
+                self?.presenter.handleColorSelectedFromPicker(newColor)
+        }
         
         firstComponentInput.delegate = self
         secondComponentInput.delegate = self

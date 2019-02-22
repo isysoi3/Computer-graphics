@@ -16,9 +16,14 @@ class ColorViewPresenter {
     
     private var currentColorModel: ColorModelEnum
     
+    private var currentColor: NSColor
+    
     init() {
         currentColorModel = .CMYK
-        
+        currentColor = NSColor(cyan: 0,
+                               magenta: 0,
+                               yellow: 0,
+                               key: 0)
         let nc = NotificationCenter.default
         nc.addObserver(self,
                        selector: #selector(conversionFromRGBToXYZError),
@@ -183,10 +188,7 @@ extension ColorViewPresenter {
     func hanldeViewDidLoad(view: ColorViewProtocol) {
         self.view = view
         view.updatedViewsBasedOnColorModel(currentColorModel)
-        view.setColorPickerValue(value: NSColor(cyan: 0,
-                                                magenta: 0,
-                                                yellow: 0,
-                                                key: 0))
+        view.setColorPickerValue(value: currentColor)
     }
     
     
@@ -201,6 +203,8 @@ extension ColorViewPresenter {
     }
     
     func handleColorSelectedFromPicker(_ newColor: NSColor) {
+        guard currentColor != newColor else { return }
+        currentColor = newColor
         updateInputsBasedOnColor(newColor)
         updateViewCurrentInfo(color: newColor)
     }

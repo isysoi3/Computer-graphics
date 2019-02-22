@@ -129,12 +129,17 @@ class ColorViewPresenter {
     }
     
     private func updateViewCurrentInfo(color: NSColor) {
-        guard let currentColor = calculateCurrentColor() else { return }
-        
         view.setHLSescription(description: color.getHLSColor().description)
         view.setXYZDescription(description: color.getXYZColor().description)
         view.setCMYKDescription(description: color.getCMYKColor().description)
-        view.setColorPickerValue(value: currentColor)
+        if currentColorModel == .XYZ {
+            guard let firstComponent = Double(view.getFirstComponentValue()),
+                let secondComponent = Double(view.getSecondComponentValue()),
+                let thirdComponent = Double(view.getThirdComponentValue()) else { return }
+            let model = XYZColor(x: firstComponent, y: secondComponent, z: thirdComponent)
+            view.setXYZDescription(description: model.description)
+        }
+        view.setColorPickerValue(value: color)
     }
     
     private func updateInputsBasedOnColor(_ color: NSColor) {

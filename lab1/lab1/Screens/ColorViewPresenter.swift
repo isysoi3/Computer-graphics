@@ -182,10 +182,15 @@ extension ColorViewPresenter {
     func hanldeViewDidLoad(view: ColorViewProtocol) {
         self.view = view
         view.updatedViewsBasedOnColorModel(currentColorModel)
-        view.setColorPickerValue(value: NSColor(cyan: 0,
-                                                magenta: 0,
-                                                yellow: 0,
-                                                key: 0))
+        
+        let color = NSColor(cyan: 0,
+                            magenta: 0,
+                            yellow: 0,
+                            key: 0)
+        view.setColorPickerValue(value: color)
+        view.setHLSescription(description: color.getHLSColor().description)
+        view.setXYZDescription(description: color.getXYZColor().description)
+        view.setCMYKDescription(description: color.getCMYKColor().description)
     }
     
     

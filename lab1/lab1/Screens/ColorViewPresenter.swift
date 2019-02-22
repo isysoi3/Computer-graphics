@@ -207,6 +207,9 @@ extension ColorViewPresenter {
     
     func handleColorSelectedFromPicker(_ newColor: NSColor) {
         updateInputsBasedOnColor(newColor)
+        view.setHLSescription(description: newColor.getHLSColor().description)
+        view.setXYZDescription(description: newColor.getXYZColor().description)
+        view.setCMYKDescription(description: newColor.getCMYKColor().description)
     }
     
     func handleTextInputValueChanged(_ value: String, componentIndex: Int) {

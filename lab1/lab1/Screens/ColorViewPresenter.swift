@@ -62,45 +62,47 @@ class ColorViewPresenter {
             stringValue = String("\(floorPart).\(decimalPart)")
         }
         
-        //        if let doubleValue = Double(stringValue),
-        //            stringValue.last != ".",
-        //            doubleValue != 0 {
-        //            let maxValue: Double
-        //            switch currentComponent {
-        //            case 1:
-        //                switch currentColorModel {
-        //                case .CMYK:
-        //                    maxValue = CMYKColor.MaxValueEnum.cyan
-        //                case .HLS:
-        //                    maxValue = HLSColor.MaxValueEnum.hue
-        //                case .XYZ:
-        //                    maxValue = XYZColor.MaxValueEnum.x
-        //                }
-        //            case 2:
-        //                switch currentColorModel {
-        //                case .CMYK:
-        //                    maxValue = CMYKColor.MaxValueEnum.magenta
-        //                case .HLS:
-        //                    maxValue = HLSColor.MaxValueEnum.lightness
-        //                case .XYZ:
-        //                    maxValue = XYZColor.MaxValueEnum.y
-        //                }
-        //            case 3:
-        //                switch currentColorModel {
-        //                case .CMYK:
-        //                    maxValue = CMYKColor.MaxValueEnum.yellow
-        //                case .HLS:
-        //                    maxValue = HLSColor.MaxValueEnum.saturation
-        //                case .XYZ:
-        //                    maxValue = XYZColor.MaxValueEnum.z
-        //                }
-        //            case 4:
-        //                maxValue = CMYKColor.MaxValueEnum.key
-        //            default:
-        //                maxValue = 0
-        //            }
-        //            stringValue = doubleValue > maxValue ? "\(maxValue)" : stringValue
-        //        }
+        guard stringValue.last != "." else {
+            return stringValue
+        }
+        
+        if let doubleValue = Double(stringValue){
+            let maxValue: Double
+            switch componentIndex {
+            case 1:
+                switch currentColorModel {
+                case .CMYK:
+                    maxValue = CMYKColor.MaxValueEnum.cyan
+                case .HLS:
+                    maxValue = HLSColor.MaxValueEnum.hue
+                case .XYZ:
+                    maxValue = XYZColor.MaxValueEnum.x
+                }
+            case 2:
+                switch currentColorModel {
+                case .CMYK:
+                    maxValue = CMYKColor.MaxValueEnum.magenta
+                case .HLS:
+                    maxValue = HLSColor.MaxValueEnum.lightness
+                case .XYZ:
+                    maxValue = XYZColor.MaxValueEnum.y
+                }
+            case 3:
+                switch currentColorModel {
+                case .CMYK:
+                    maxValue = CMYKColor.MaxValueEnum.yellow
+                case .HLS:
+                    maxValue = HLSColor.MaxValueEnum.saturation
+                case .XYZ:
+                    maxValue = XYZColor.MaxValueEnum.z
+                }
+            case 4:
+                maxValue = CMYKColor.MaxValueEnum.key
+            default:
+                maxValue = 0
+            }
+            stringValue = doubleValue > maxValue ? "\(maxValue)" : stringValue
+        }
         return stringValue
     }
     

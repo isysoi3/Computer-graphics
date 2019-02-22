@@ -702,10 +702,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Color View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="lab1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ColorViewController" customModule="lab1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="507" height="384"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -749,14 +749,11 @@
                                                     <constraint firstAttribute="height" constant="30" id="YNY-ah-mcY"/>
                                                     <constraint firstAttribute="width" constant="80" id="xcq-tI-VwS"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0" bezelStyle="round" id="wbB-ep-dxc" userLabel="value">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0.0" bezelStyle="round" id="wbB-ep-dxc" userLabel="value">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <connections>
-                                                    <action selector="firstComponentInputFocused:" target="XfG-lQ-9wD" id="F9J-9n-YBA"/>
-                                                </connections>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="paK-kD-YM6">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
@@ -797,14 +794,11 @@
                                                     <constraint firstAttribute="height" constant="30" id="OHa-9N-Uw6"/>
                                                     <constraint firstAttribute="width" constant="80" id="QKX-im-duU"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0" bezelStyle="round" id="BGY-iF-J8Q" userLabel="value">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0.0" bezelStyle="round" id="BGY-iF-J8Q" userLabel="value">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <connections>
-                                                    <action selector="secondComponentInputFocused:" target="XfG-lQ-9wD" id="Qaz-or-MCw"/>
-                                                </connections>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wEh-Hp-GZ7">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
@@ -845,14 +839,11 @@
                                                     <constraint firstAttribute="height" constant="30" id="NsG-Em-e3i"/>
                                                     <constraint firstAttribute="width" constant="80" id="UJz-Pj-p1t"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0" bezelStyle="round" id="apf-Qk-ZeS" userLabel="value">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0.0" bezelStyle="round" id="apf-Qk-ZeS" userLabel="value">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <connections>
-                                                    <action selector="thirdComponentInputFocused:" target="XfG-lQ-9wD" id="ZsX-6o-xin"/>
-                                                </connections>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-pk-G2I">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
@@ -893,14 +884,11 @@
                                                     <constraint firstAttribute="height" constant="30" id="2cO-v6-bmG"/>
                                                     <constraint firstAttribute="width" constant="80" id="67N-FI-5Yz"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0" bezelStyle="round" id="Clh-pf-yXV" userLabel="value">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" title="0.0" bezelStyle="round" id="Clh-pf-yXV" userLabel="value">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
-                                                <connections>
-                                                    <action selector="fourthComponentInputFocused:" target="XfG-lQ-9wD" id="9Mc-vP-t2b"/>
-                                                </connections>
                                             </textField>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAI-eO-eib">
                                                 <rect key="frame" x="8" y="8" width="114" height="19"/>
@@ -1005,6 +993,9 @@
                                     <constraint firstAttribute="height" constant="150" id="XBI-Z4-cOO"/>
                                 </constraints>
                                 <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="colorPickerValueChanged:" target="XfG-lQ-9wD" id="m7h-vX-bcX"/>
+                                </connections>
                             </colorWell>
                         </subviews>
                         <constraints>
@@ -1020,7 +1011,7 @@
                         <outlet property="CMYKoutput" destination="vkL-0Z-YOc" id="XNN-lK-8hH"/>
                         <outlet property="HLSOutput" destination="tdr-Qj-0ad" id="fBc-Sf-Uqv"/>
                         <outlet property="XYZOutput" destination="inT-c7-bdD" id="7GM-0f-Vs3"/>
-                        <outlet property="currentColorPicker" destination="Zp7-aL-Cza" id="JiF-J2-hfE"/>
+                        <outlet property="colorPicker" destination="Zp7-aL-Cza" id="JiF-J2-hfE"/>
                         <outlet property="firstComponentInput" destination="QvL-5l-fdh" id="qeO-pq-CG7"/>
                         <outlet property="firstComponentLabel" destination="U3I-ap-xFz" id="e4c-t3-c5h"/>
                         <outlet property="firstComponentSliderInput" destination="paK-kD-YM6" id="sTz-zg-3p1"/>

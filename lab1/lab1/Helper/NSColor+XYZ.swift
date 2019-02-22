@@ -11,12 +11,12 @@ import Cocoa
 extension NSColor {
     
     convenience init(x: Double, y: Double, z: Double) {
-        let x = x/XYZColor.MaxValueEnum.x
-        let y = y/XYZColor.MaxValueEnum.y
-        let z = z/XYZColor.MaxValueEnum.z
-        let r: CGFloat = CGFloat( 3.2404542 * x - 1.5371385 * y - 0.4985314 * z)
-        let g: CGFloat = CGFloat(-0.9692660 * x + 1.8760108 * y + 0.0415560 * z)
-        let b: CGFloat = CGFloat( 0.0556434 * x - 0.2040259 * y + 1.0572252 * z)
+        let x = x/100
+        let y = y/100
+        let z = z/100
+        let r: CGFloat = NSColor.convertRGBToXYZValue(CGFloat( 3.2404542 * x - 1.5371385 * y - 0.4985314 * z))
+        let g: CGFloat = NSColor.convertRGBToXYZValue(CGFloat(-0.9692660 * x + 1.8760108 * y + 0.0415560 * z))
+        let b: CGFloat = NSColor.convertRGBToXYZValue(CGFloat( 0.0556434 * x - 0.2040259 * y + 1.0572252 * z))
         let (valueR, isErrorR) = NSColor.validateRGBComponentRange(value: r)
         let (valueG, isErrorG) = NSColor.validateRGBComponentRange(value: g)
         let (valueB, isErrorB) = NSColor.validateRGBComponentRange(value: b)
@@ -39,6 +39,14 @@ extension NSColor {
         self.init(red: valueR, green: valueG, blue: valueB, alpha: 1.0)
     }
     
+    private static func convertRGBToXYZValue(_ value: CGFloat) -> CGFloat {
+        if (value >= 0.0031308) {
+            return (1.055 * pow(value, (1 / 2.4)) - 0.055)
+        } else {
+            return 12.92 * value
+        }
+    }
+    
     private static func validateRGBComponentRange(value: CGFloat) -> (value: CGFloat, isError: Bool) {
         if value < 0 {
             return (0, true)
@@ -49,15 +57,23 @@ extension NSColor {
     }
 
     func getXYZColor() -> XYZColor {
-        let r = Double(redComponent)
-        let g = Double(greenComponent)
-        let b = Double(blueComponent)
-        let x = (0.49000 * r + 0.31000 * g + 0.20000 * b) * XYZColor.MaxValueEnum.x
-        let y = (0.17697 * r + 0.81240 * g + 0.01063 * b) * XYZColor.MaxValueEnum.y
-        let z = (0.00000 * r + 0.01000 * g + 0.99000 * b) * XYZColor.MaxValueEnum.z
+        let r = NSColor.convertXYZToRGBValue(redComponent) * 100
+        let g = NSColor.convertXYZToRGBValue(greenComponent) * 100
+        let b = NSColor.convertXYZToRGBValue(blueComponent) * 100
+        
+        let x = Double(0.4124 * r + 0.3576 * g + 0.1805 * b)
+        let y = Double(0.2126 * r + 0.7152 * g + 0.0722 * b)
+        let z = Double(0.0193 * r + 0.1192 * g + 0.9505 * b)
         return XYZColor(x: x,
                         y: y,
                         z: z)
     }
     
+    private static func convertXYZToRGBValue(_ value: CGFloat) -> CGFloat {
+        if (value >= 0.04045) {
+            return pow(((value + 0.055) / 1.055), 2.4)
+        } else {
+            return value / 12.92
+        }
+    }
 }

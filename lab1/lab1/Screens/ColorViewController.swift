@@ -17,8 +17,6 @@ class ColorViewController: NSViewController {
     //MARK: - current color
     @IBOutlet weak var colorPicker: NSColorWell!
     
-    private var colorPickerObservation: NSKeyValueObservation?
-    
     //MARK: - keyComponentOfCMY
     @IBOutlet weak var keyComponentOfCMYK: NSView!
     
@@ -65,19 +63,17 @@ class ColorViewController: NSViewController {
     }
     
     private func configureSubviews() {
-        colorPickerObservation = observe(
-            \.colorPicker.color,
-            options: [.new]) { [weak self] picker, value in
-                guard let newColor = value.newValue else { return }
-                self?.presenter.handleColorSelectedFromPicker(newColor)
-        }
-        
         firstComponentInput.delegate = self
         secondComponentInput.delegate = self
         thirdComponentInput.delegate = self
         fourthComponentInput.delegate = self
     }
 
+    //MARK: - handling color selected from picker
+    @IBAction func colorPickerValueChanged(_ sender: NSColorWell) {
+        presenter.handleColorSelectedFromPicker(sender.color)
+    }
+    
     //MARK: - handling selected new model
     @IBAction func modelSelectorValueChanged(_ sender: NSPopUpButton) {
         guard let selecteColordModelString = sender.titleOfSelectedItem else { return }
@@ -115,11 +111,6 @@ class ColorViewController: NSViewController {
     @IBAction func fourthComponentSliderValueChanged(_ sender: NSSlider) {
         presenter.handleSliderInputValueChanged(sender.doubleValue,
                                                 componentIndex: 4)
-    }
-    
-    //MARK: - deint
-    deinit {
-        colorPickerObservation?.invalidate()
     }
     
 }

@@ -9,20 +9,20 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    
+    @IBOutlet var infoTextView: NSTextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        configureSubviews()
     }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
+    
+    private func configureSubviews() {
+        infoTextView.string = ""
+        infoTextView.isEditable = false
     }
-
-
+    
 }
 
 

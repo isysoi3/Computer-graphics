@@ -86,7 +86,7 @@ class ImageService {
                                  includingPropertiesForKeys: nil) else { return completionBlock(nil) }
         var result: [String] = []
         
-        fileURLs.chunked(into: 100).forEach { fileURLChunk in
+        fileURLs.chunked(into: 25).forEach { fileURLChunk in
             backgroundQueue.async(group: group) {
                 fileURLChunk.forEach { [weak self] fileUrl in
                     guard fileUrl.isFileURL,

@@ -28,40 +28,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func openDocument(_ sender: Any) {
         print("openDocument got called")
         guard let vc = rootViewController as? ViewController else { return }
-        
-        let dialog = NSOpenPanel();
-        
-        dialog.title = "Choose a image file or directory";
-        dialog.showsResizeIndicator = false;
-        dialog.showsHiddenFiles = false;
-        dialog.canChooseDirectories = true;
-        dialog.canCreateDirectories = false;
-        dialog.allowsMultipleSelection = false;
-        dialog.allowedFileTypes = ["jpg" ,
-                                   "gif",
-                                   "tif",
-                                   "bmp",
-                                   "png",
-                                   "pcx"];
-        
-        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            guard let result = dialog.url else { return }
-            
-            vc.infoTextView.string = ""
-            let imageService = ImageService()
-            vc.infoTextView.string = imageService.getInfoFromUrl(result)
-            NSDocumentController.shared.noteNewRecentDocumentURL(result)
-        } else {
-            return
-        }
+        vc.chooseDocument()
     }
     
     func application(_ sender: NSApplication, openFile filename: String) -> Bool {
         if let vc = rootViewController as? ViewController {
             let fileUrl = URL(fileURLWithPath: filename)
-            vc.infoTextView.string = ""
-            let imageService = ImageService()
-            vc.infoTextView.string = imageService.getInfoFromUrl(fileUrl)
+            vc.workWithUrl(fileUrl)
         }
        
         return true

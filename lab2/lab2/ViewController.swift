@@ -28,5 +28,36 @@ class ViewController: NSViewController {
 
 extension ViewController {
     
+    func chooseDocument() {
+        let dialog = NSOpenPanel();
+        
+        dialog.title = "Choose a image file or directory";
+        dialog.showsResizeIndicator = false;
+        dialog.showsHiddenFiles = false;
+        dialog.canChooseDirectories = true;
+        dialog.canCreateDirectories = false;
+        dialog.allowsMultipleSelection = false;
+        dialog.allowedFileTypes = ["jpg" ,
+                                   "gif",
+                                   "tif",
+                                   "bmp",
+                                   "png",
+                                   "pcx"];
+        
+        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+            guard let result = dialog.url else { return }
+            
+            workWithUrl(result)
+            NSDocumentController.shared.noteNewRecentDocumentURL(result)
+        } else {
+            return
+        }
+    }
+    
+    func workWithUrl(_ url: URL) {
+        let imageService = ImageService()
+        infoTextView.string = ""
+        infoTextView.string = imageService.getInfoFromUrl(url)
+    }
     
 }

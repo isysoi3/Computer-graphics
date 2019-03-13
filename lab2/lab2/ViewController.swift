@@ -57,7 +57,16 @@ extension ViewController {
     func workWithUrl(_ url: URL) {
         let imageService = ImageService()
         infoTextView.string = ""
-        infoTextView.string = imageService.getInfoFromUrl(url)
+        
+        let start = Date()
+        imageService.getInfoFromUrl(url) { result in
+            let end = Date()
+            let timeInterval: Double = end.timeIntervalSince(start)
+            print("\(timeInterval) seconds")
+            DispatchQueue.main.async { [weak self] in
+                 self?.infoTextView.string = result
+            }
+        }
     }
     
 }

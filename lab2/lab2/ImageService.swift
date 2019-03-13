@@ -61,33 +61,45 @@ class ImageService {
                                 65535 : "Pentax PEF Compressed"
     ]
     
-    func getInfoFromUrl(_ url: URL) -> String {
+    func getInfoFromUrl(_ url: URL,
+                        completionBlock: @escaping (String) -> ()){
         if url.hasDirectoryPath {
-            let values = getImageInfoFromDirectory(url: url)
-            return values?
-                .enumerated()
-                .map {
-                    return "\($0) : \($1)"
-                }.joined(separator: "\n\n\n") ?? "Ничего не найдено"
+            getImageInfoFromDirectory(url: url) { values in
+                completionBlock(values?
+                    .enumerated()
+                    .map {
+                        return "\($0) : \($1)"
+                    }.joined(separator: "\n\n\n") ?? "Ничего не найдено")
+            }
         } else {
             let value = getImageInfoFromFile(url: url)
-            return value ?? "Ничего не найдено"
+            completionBlock(value ?? "Ничего не найдено")
         }
     }
     
-    private func getImageInfoFromDirectory(url: URL) -> [String]? {
+    private func getImageInfoFromDirectory(url: URL,
+                                           completionBlock: @escaping ([String]?) -> ())  {
+        let backgroundQueue = DispatchQueue.global(qos: .background)
+        let group = DispatchGroup()
         guard let fileURLs = try? FileManager.default
             .contentsOfDirectory(at: url,
-                                 includingPropertiesForKeys: nil) else { return nil }
+                                 includingPropertiesForKeys: nil) else { return completionBlock(nil) }
         var result: [String] = []
         
-        fileURLs.forEach { fileUrl in
-            guard fileUrl.isFileURL,
-                ["jpg" , "gif", "tif", "bmp", "png", "pcx"].contains(fileUrl.pathExtension),
-                let imageInfo = getImageInfoFromFile(url: fileUrl) else { return }
-            result.append(imageInfo)
+        fileURLs.chunked(into: 100).forEach { fileURLChunk in
+            backgroundQueue.async(group: group) {
+                fileURLChunk.forEach { [weak self] fileUrl in
+                    guard fileUrl.isFileURL,
+                        ["jpg" , "gif", "tif", "bmp", "png", "pcx"].contains(fileUrl.pathExtension),
+                        let imageInfo = self?.getImageInfoFromFile(url: fileUrl) else { return }
+                    result.append(imageInfo)
+                }
+            }
         }
-        return result
+        
+        group.notify(queue: .main) {
+            completionBlock(result)
+        }
     }
     
     private func getImageInfoFromFile(url: URL) -> String? {

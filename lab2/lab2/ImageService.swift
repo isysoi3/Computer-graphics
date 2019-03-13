@@ -70,7 +70,7 @@ class ImageService {
                 completionBlock(values?
                     .enumerated()
                     .map {
-                        return "\($0) : \($1)"
+                        return "\($0+1) : \($1)"
                     }.joined(separator: "\n\n\n") ?? "Ничего не найдено")
             }
         } else {

@@ -12,6 +12,8 @@ class ViewController: NSViewController {
     
     @IBOutlet var infoTextView: NSTextView!
     
+    private let imageService = ImageService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,17 +34,12 @@ extension ViewController {
         let dialog = NSOpenPanel();
         
         dialog.title = "Choose a image file or directory";
-        dialog.showsResizeIndicator = false;
-        dialog.showsHiddenFiles = false;
-        dialog.canChooseDirectories = true;
-        dialog.canCreateDirectories = false;
-        dialog.allowsMultipleSelection = false;
-        dialog.allowedFileTypes = ["jpg" ,
-                                   "gif",
-                                   "tif",
-                                   "bmp",
-                                   "png",
-                                   "pcx"];
+        dialog.showsResizeIndicator = false
+        dialog.showsHiddenFiles = false
+        dialog.canChooseDirectories = true
+        dialog.canCreateDirectories = false
+        dialog.allowsMultipleSelection = false
+        dialog.allowedFileTypes = imageService.allowedImageFormats
         
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
             guard let result = dialog.url else { return }
@@ -55,7 +52,6 @@ extension ViewController {
     }
     
     func workWithUrl(_ url: URL) {
-        let imageService = ImageService()
         infoTextView.string = ""
         
         let start = Date()

@@ -61,6 +61,8 @@ class ImageService {
                                 65535 : "Pentax PEF Compressed"
     ]
     
+    let allowedImageFormats = ["jpg" , "gif", "tif", "bmp", "png", "pcx"]
+    
     func getInfoFromUrl(_ url: URL,
                         completionBlock: @escaping (String) -> ()){
         if url.hasDirectoryPath {
@@ -90,7 +92,7 @@ class ImageService {
             backgroundQueue.async(group: group) {
                 fileURLChunk.forEach { [weak self] fileUrl in
                     guard fileUrl.isFileURL,
-                        ["jpg" , "gif", "tif", "bmp", "png", "pcx"].contains(fileUrl.pathExtension),
+                        self!.allowedImageFormats.contains(fileUrl.pathExtension),
                         let imageInfo = self?.getImageInfoFromFile(url: fileUrl) else { return }
                     result.append(imageInfo)
                 }

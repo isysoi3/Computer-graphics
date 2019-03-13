@@ -50,11 +50,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             vc.infoTextView.string = ""
             let imageService = ImageService()
             vc.infoTextView.string = imageService.getInfoFromUrl(result)
-          
-//            NSDocumentController.shared..append(result)
+            NSDocumentController.shared.noteNewRecentDocumentURL(result)
         } else {
             return
         }
+    }
+    
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+        if let vc = rootViewController as? ViewController {
+            let fileUrl = URL(fileURLWithPath: filename)
+            vc.infoTextView.string = ""
+            let imageService = ImageService()
+            vc.infoTextView.string = imageService.getInfoFromUrl(fileUrl)
+        }
+       
+        return true
     }
     
 }

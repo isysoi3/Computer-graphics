@@ -105,6 +105,14 @@ class ImageService {
     }
     
     private func getImageInfoFromFile(url: URL) -> String? {
+        if url.pathExtension == "pcx" {
+            let info: [String] = [
+                "Name : \(url.lastPathComponent)",
+                "Не получается узнать информацию о файле",
+            ]
+            return info.joined(separator: "\n")
+        }
+        
         guard let imageData = try? Data(contentsOf: url),
             let source = CGImageSourceCreateWithData((imageData as! CFMutableData), nil),
             let metadata = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [String:Any] else {

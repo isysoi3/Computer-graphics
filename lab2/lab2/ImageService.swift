@@ -107,8 +107,8 @@ class ImageService {
     private func getImageInfoFromFile(url: URL) -> String? {
         if url.pathExtension == "pcx",
             let imageData = try? Data(contentsOf: url) {
-            var buffer = [UInt8](repeating: 0, count: imageData.count)
-            imageData.copyBytes(to: &buffer, count: imageData.count)
+            var buffer = [UInt8](repeating: 0, count: 50)
+            imageData.copyBytes(to: &buffer, count: 50)
             let intBytes = buffer.map { Int($0) }
             
             print(intBytes.prefix(30))

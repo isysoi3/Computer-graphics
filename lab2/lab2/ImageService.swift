@@ -105,12 +105,40 @@ class ImageService {
     }
     
     private func getImageInfoFromFile(url: URL) -> String? {
-        if url.pathExtension == "pcx" {
-            let info: [String] = [
-                "Name : \(url.lastPathComponent)",
-                "Не получается узнать информацию о файле",
-            ]
-            return info.joined(separator: "\n")
+        if url.pathExtension == "pcx",
+            let imageData = try? Data(contentsOf: url) {
+            var buffer = [UInt8](repeating: 0, count: imageData.count)
+            imageData.copyBytes(to: &buffer, count: imageData.count)
+            let intBytes = buffer.map { Int($0) }
+            
+            print(intBytes.prefix(30))
+            
+            if !intBytes.isEmpty,
+                intBytes.first == 10 {
+                let xmin = UInt16(buffer[5]) << 8 | UInt16(buffer[4])
+                let ymin = UInt16(buffer[7]) << 8 | UInt16(buffer[6])
+                let xmax = UInt16(buffer[9]) << 8 | UInt16(buffer[8])
+                let ymax = UInt16(buffer[11]) << 8 | UInt16(buffer[10])
+                let hRes = UInt16(buffer[13]) << 8 | UInt16(buffer[12])
+                let vRes = UInt16(buffer[15]) << 8 | UInt16(buffer[14])
+                
+                let info: [String] = [
+                    "Name : \(url.lastPathComponent)",
+                    "PixelWidth : \(xmax - xmin + 1)",
+                    "PixelHeight : \(ymax - ymin + 1)",
+                    "DPIWidth : \(vRes)",
+                    "DPIHeight : \(hRes)",
+                    "Depth : \(intBytes[3])",
+                    intBytes[2] == 1 ? "Compression : true" : "false"
+                ]
+                return info.joined(separator: "\n")
+            } else {
+                let info: [String] = [
+                    "Name : \(url.lastPathComponent)",
+                    "Не получается узнать информацию о файле",
+                    ]
+                return info.joined(separator: "\n")
+            }
         }
         
         guard let imageData = try? Data(contentsOf: url),
@@ -128,6 +156,7 @@ class ImageService {
             "DPIWidth : \(metadata["DPIWidth"] ?? "")",
             "DPIHeight : \(metadata["DPIHeight"] ?? "")",
             "ColorModel : \(metadata["ColorModel"] ?? "")",
+            "ProfileName : \(metadata["ProfileName"] ?? "")",
             "Depth : \(metadata["Depth"] ?? "")"
         ]
         

@@ -88,7 +88,7 @@ class ImageService {
                                  includingPropertiesForKeys: nil) else { return completionBlock(nil) }
         var result: [String] = []
         
-        fileURLs.chunked(into: 25).forEach { fileURLChunk in
+        fileURLs.chunked(into: 50).forEach { fileURLChunk in
             backgroundQueue.async(group: group) {
                 fileURLChunk.forEach { [weak self] fileUrl in
                     guard fileUrl.isFileURL,
@@ -152,14 +152,24 @@ class ImageService {
         var info: [String] = [
             "Name : \(url.lastPathComponent)",
             "PixelWidth : \(metadata["PixelWidth"] ?? "")",
-            "PixelHeight : \(metadata["PixelHeight"] ?? "")",
-            "DPIWidth : \(metadata["DPIWidth"] ?? "")",
-            "DPIHeight : \(metadata["DPIHeight"] ?? "")",
-            "ColorModel : \(metadata["ColorModel"] ?? "")",
-            "ProfileName : \(metadata["ProfileName"] ?? "")",
-            "Depth : \(metadata["Depth"] ?? "")"
+            "PixelHeight : \(metadata["PixelHeight"] ?? "")"
         ]
         
+        if metadata["DPIWidth"] != nil {
+            info.append("DPIWidth : \(metadata["DPIWidth"]!)")
+        }
+        if metadata["DPIHeight"] != nil {
+            info.append("DPIHeight : \(metadata["DPIHeight"]!)")
+        }
+        if metadata["ColorModel"] != nil {
+            info.append("ColorModel : \(metadata["ColorModel"]!)")
+        }
+        if metadata["ProfileName"] != nil {
+            info.append("ProfileName : \(metadata["ProfileName"]!)")
+        }
+        if metadata["Depth"] != nil {
+            info.append("Depth : \(metadata["Depth"]!)")
+        }
         
         if let tiffData = metadata["{TIFF}"] as? [String : Any],
             let compressionId = tiffData["Compression"] as? Int,

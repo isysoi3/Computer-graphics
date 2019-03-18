@@ -88,7 +88,7 @@ class ImageService {
                                  includingPropertiesForKeys: nil) else { return completionBlock(nil) }
         var result: [String] = []
         
-        fileURLs.chunked(into: 25).forEach { fileURLChunk in
+        fileURLs.chunked(into: 50).forEach { fileURLChunk in
             backgroundQueue.async(group: group) {
                 fileURLChunk.forEach { [weak self] fileUrl in
                     guard fileUrl.isFileURL,
@@ -105,12 +105,40 @@ class ImageService {
     }
     
     private func getImageInfoFromFile(url: URL) -> String? {
-        if url.pathExtension == "pcx" {
-            let info: [String] = [
-                "Name : \(url.lastPathComponent)",
-                "Не получается узнать информацию о файле",
-            ]
-            return info.joined(separator: "\n")
+        if url.pathExtension == "pcx",
+            let imageData = try? Data(contentsOf: url) {
+            var buffer = [UInt8](repeating: 0, count: 50)
+            imageData.copyBytes(to: &buffer, count: 50)
+            let intBytes = buffer.map { Int($0) }
+            
+            print(intBytes.prefix(30))
+            
+            if !intBytes.isEmpty,
+                intBytes.first == 10 {
+                let xmin = UInt16(buffer[5]) << 8 | UInt16(buffer[4])
+                let ymin = UInt16(buffer[7]) << 8 | UInt16(buffer[6])
+                let xmax = UInt16(buffer[9]) << 8 | UInt16(buffer[8])
+                let ymax = UInt16(buffer[11]) << 8 | UInt16(buffer[10])
+                let hRes = UInt16(buffer[13]) << 8 | UInt16(buffer[12])
+                let vRes = UInt16(buffer[15]) << 8 | UInt16(buffer[14])
+                
+                let info: [String] = [
+                    "Name : \(url.lastPathComponent)",
+                    "PixelWidth : \(xmax - xmin + 1)",
+                    "PixelHeight : \(ymax - ymin + 1)",
+                    "DPIWidth : \(vRes)",
+                    "DPIHeight : \(hRes)",
+                    "Depth : \(intBytes[3])",
+                    intBytes[2] == 1 ? "Compression : true" : "false"
+                ]
+                return info.joined(separator: "\n")
+            } else {
+                let info: [String] = [
+                    "Name : \(url.lastPathComponent)",
+                    "Не получается узнать информацию о файле",
+                    ]
+                return info.joined(separator: "\n")
+            }
         }
         
         guard let imageData = try? Data(contentsOf: url),
@@ -124,13 +152,24 @@ class ImageService {
         var info: [String] = [
             "Name : \(url.lastPathComponent)",
             "PixelWidth : \(metadata["PixelWidth"] ?? "")",
-            "PixelHeight : \(metadata["PixelHeight"] ?? "")",
-            "DPIWidth : \(metadata["DPIWidth"] ?? "")",
-            "DPIHeight : \(metadata["DPIHeight"] ?? "")",
-            "ColorModel : \(metadata["ColorModel"] ?? "")",
-            "Depth : \(metadata["Depth"] ?? "")"
+            "PixelHeight : \(metadata["PixelHeight"] ?? "")"
         ]
         
+        if metadata["DPIWidth"] != nil {
+            info.append("DPIWidth : \(metadata["DPIWidth"]!)")
+        }
+        if metadata["DPIHeight"] != nil {
+            info.append("DPIHeight : \(metadata["DPIHeight"]!)")
+        }
+        if metadata["ColorModel"] != nil {
+            info.append("ColorModel : \(metadata["ColorModel"]!)")
+        }
+        if metadata["ProfileName"] != nil {
+            info.append("ProfileName : \(metadata["ProfileName"]!)")
+        }
+        if metadata["Depth"] != nil {
+            info.append("Depth : \(metadata["Depth"]!)")
+        }
         
         if let tiffData = metadata["{TIFF}"] as? [String : Any],
             let compressionId = tiffData["Compression"] as? Int,
@@ -143,121 +182,4 @@ class ImageService {
     }
     
 }
-/*
- 
- */
 
-/*
- 1:  512х480х96.bmp
- Width: 512
- Height: 480
- Width DPI: 0
- Height DPI: 0
- Color depth: 8
- Compression: BI_RGB
- 
- 2:  512х480х96fax3.tif
- Width: 512
- Height: 480
- Width DPI: 96
- Height DPI: 96
- Color depth: 1
- Compression: BI_RGB
- 
- 3:  512х480х96fax4.tif
- Width: 512
- Height: 480
- Width DPI: 72
- Height DPI: 72
- Color depth: 1
- Compression: BI_RGB
- 
- 4:  512х480х96lzw.tif
- Width: 512
- Height: 480
- Width DPI: 72
- Height DPI: 72
- Color depth: 24
- Compression: BI_RGB
- 
- 5:  512х480х96RLE.tif
- Width: 512
- Height: 480
- Width DPI: 72
- Height DPI: 72
- Color depth: 1
- Compression: BI_RGB
- 
- 6:  1305х864х183.gif
- Width: 1305
- Height: 864
- Width DPI: 72
- Height DPI: 72
- Color depth: 6
- Compression: lzw
- 
- 7:  1305х864х183.jpg
- Width: 1305
- Height: 864
- Width DPI: 183
- Height DPI: 183
- Color depth: 24
- Compression: JPEG
- 
- 8:  1305х864х183.tif
- Width: 1305
- Height: 864
- Width DPI: 183
- Height DPI: 183
- Color depth: 4
- Compression: JPEG
- 
- 9:  1305х864х183LZW+diff.tif
- Width: 1305
- Height: 864
- Width DPI: 183
- Height DPI: 183
- Color depth: 24
- Compression: JPEG
- 
- 10:  1305х864х183none.pcx
- Width: 1305
- Height: 864
- Width DPI: 183
- Height DPI: 183
- Color depth: 24
- Compression: JPEG
- 
- 11:  1305х864х183palette.png
- Width: 1305
- Height: 864
- Width DPI: 183
- Height DPI: 183
- Color depth: 8
- Compression: deflate
- 
- 12:  1305х864х183RLE.bmp
- Width: 1305
- Height: 864
- Width DPI: 0
- Height DPI: 0
- Color depth: 24
- Compression: BI_RGB
- 
- 13:  1305х864х183RLE.pcx
- Width: 1305
- Height: 864
- Width DPI: 0
- Height DPI: 0
- Color depth: 24
- Compression: BI_RGB
- 
- 14:  3888х2592х72.jpg
- Width: 3888
- Height: 2592
- Width DPI: 72
- Height DPI: 72
- Color depth: 24
- Compression: JPEG
- 
- */

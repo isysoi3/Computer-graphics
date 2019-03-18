@@ -56,5 +56,17 @@ extension ViewController {
 
     }
     
+    /*
+     func workWithUrl(_ url: URL) {
+     guard let imageData = try? Data(contentsOf: url),
+     let result = ImageService().linearContrast(imageData: imageData) else { return }
+     let image = NSImage(data: imageData)
+     inputImageView.image = image
+     
+     outputImageView.image = NSImage(data: result)
+     
+     }
+     */
+    
 }
 

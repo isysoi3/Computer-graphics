@@ -96,3 +96,20 @@ class ImageService {
     }
     
 }
+
+/*
+ func linearContrast(imageData: Data) -> Data? {
+ guard let max = imageData.max(),
+ let min = imageData.min() else {
+ return nil
+ }
+ 
+ let tmp = UInt8.max / (max - min)
+ 
+ let newImageData = imageData.map{$0}.map { tmp * ($0 - min)}
+ print(imageData.map{$0}.prefix(30))
+ print(newImageData.prefix(30))
+ 
+ return Data(bytes: newImageData, count: newImageData.count)
+ }
+ */

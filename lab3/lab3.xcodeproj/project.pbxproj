@@ -11,6 +11,8 @@
 		09F6001E223F67FD00E2F6E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6001D223F67FD00E2F6E0 /* ViewController.swift */; };
 		09F60020223F67FE00E2F6E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09F6001F223F67FE00E2F6E0 /* Assets.xcassets */; };
 		09F60023223F67FE00E2F6E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09F60021223F67FE00E2F6E0 /* Main.storyboard */; };
+		09F6002C223F703B00E2F6E0 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6002B223F703B00E2F6E0 /* ImageService.swift */; };
+		09F6002E223F731C00E2F6E0 /* NSImage+CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6002D223F731C00E2F6E0 /* NSImage+CGImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		09F60022223F67FE00E2F6E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		09F60024223F67FE00E2F6E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09F60025223F67FE00E2F6E0 /* lab3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lab3.entitlements; sourceTree = "<group>"; };
+		09F6002B223F703B00E2F6E0 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		09F6002D223F731C00E2F6E0 /* NSImage+CGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+CGImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 				09F60021223F67FE00E2F6E0 /* Main.storyboard */,
 				09F60024223F67FE00E2F6E0 /* Info.plist */,
 				09F60025223F67FE00E2F6E0 /* lab3.entitlements */,
+				09F6002B223F703B00E2F6E0 /* ImageService.swift */,
+				09F6002D223F731C00E2F6E0 /* NSImage+CGImage.swift */,
 			);
 			path = lab3;
 			sourceTree = "<group>";
@@ -133,8 +139,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F6002E223F731C00E2F6E0 /* NSImage+CGImage.swift in Sources */,
 				09F6001E223F67FD00E2F6E0 /* ViewController.swift in Sources */,
 				09F6001C223F67FD00E2F6E0 /* AppDelegate.swift in Sources */,
+				09F6002C223F703B00E2F6E0 /* ImageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

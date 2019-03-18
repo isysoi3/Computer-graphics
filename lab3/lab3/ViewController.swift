@@ -9,7 +9,19 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    
+    enum ImageOperationsEnum {
+        case linearContrast
+        case negative
+        case adding
+        case multiple
+        case log
+        case pow
+        case morf
+    }
+    
+    var currentMode: ImageOperationsEnum = .linearContrast
+    
     @IBOutlet weak var inputImageView: NSImageView!
     
     @IBOutlet weak var outputImageView: NSImageView!
@@ -20,6 +32,27 @@ class ViewController: NSViewController {
         super.viewDidLoad()
     }
 
+    @IBAction func popUpValueChanged(_ sender: NSPopUpButton) {
+        switch sender.title {
+        case "Линейное контрастирование":
+            currentMode = .linearContrast
+        case "Добавление константы":
+            currentMode = .adding
+        case "Негатив":
+            currentMode = .negative
+        case "Умножение на константу":
+            currentMode = .multiple
+        case "Степенное преобразование":
+            currentMode = .pow
+        case "Логарифмическое преобразование":
+            currentMode = .log
+        case "Морфологическая обработка":
+            currentMode = .morf
+        default:
+            return
+        }
+        workWithResultImage(fromImage: inputImageView.image?.cgImage)
+    }
 }
 
 extension ViewController {
@@ -48,12 +81,42 @@ extension ViewController {
     func workWithUrl(_ url: URL) {
         let image = NSImage(byReferencing: url)
         inputImageView.image = image
-        guard let result = ImageService().linearContrast(image: image.cgImage),
-            let resultImage = result.0 else { return }
-        
-        outputImageView.image = NSImage(cgImage: resultImage,
-                                        size: result.1)
+       
+        workWithResultImage(fromImage: image.cgImage)
+    }
 
+    func workWithResultImage(fromImage image: CGImage?) {
+        let service = ImageService()
+        let resultImage: CGImage?
+        let size: CGSize
+        
+        switch currentMode {
+        case .adding:
+            guard let result = service.addingValue(image: image, constant: 10) else { return }
+            (resultImage, size) = result
+        case .linearContrast:
+            guard let result = service.linearContrast(image: image) else { return }
+            (resultImage, size) = result
+        case .negative:
+            guard let result = service.negative(image: image) else { return }
+            (resultImage, size) = result
+        case .multiple:
+            guard let result = service.multipleValue(image: image, constant: 2.5) else { return }
+            (resultImage, size) = result
+        case .log:
+            guard let result = service.logValue(image: image, constant: 1.5) else { return }
+            (resultImage, size) = result
+        case .pow:
+            guard let result = service.powValue(image: image, constant: 1.5)else { return }
+            (resultImage, size) = result
+        case .morf:
+            guard let result = service.linearContrast(image: image) else { return }
+            (resultImage, size) = result
+        }
+        
+        guard let unImage = resultImage else { return }
+        outputImageView.image = NSImage(cgImage: unImage,
+                                        size: size)
     }
     
     /*

@@ -10,6 +10,12 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var inputImageView: NSImageView!
+    
+    @IBOutlet weak var outputImageView: NSImageView!
+    
+    var mouseDownEvent: NSEvent?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -40,7 +46,7 @@ extension ViewController {
     }
     
     func workWithUrl(_ url: URL) {
-        
+         inputImageView.image = NSImage(byReferencing: url)
     }
     
 }

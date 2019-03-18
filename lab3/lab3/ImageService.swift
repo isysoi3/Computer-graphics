@@ -138,13 +138,53 @@ class ImageService {
     func multipleValue(image: CGImage?, constant: Float) -> (CGImage?, CGSize)? {
         let info = pixelValues(fromCGImage: image)
         guard let pixels = info.pixelValues,
-            constant >= 0 ,
-            constant <= 1 else {
+            constant > 1,
+            constant < 1 else {
                 return nil
         }
         
         let newPixels = pixels.map { pixel -> UInt8 in
             return UInt8(Float(pixel) * constant)
+        }
+        
+        return (self.image(fromPixelValues: newPixels,
+                           width: info.width,
+                           height: info.height),
+                CGSize(width: info.width,
+                       height: info.height)
+        )
+    }
+    
+    func powValue(image: CGImage?, constant: Float) -> (CGImage?, CGSize)? {
+        let info = pixelValues(fromCGImage: image)
+        guard let pixels = info.pixelValues,
+            constant > 1,
+            constant < 1,
+            let max = pixels.max() else {
+                return nil
+        }
+        
+        let newPixels = pixels.map { pixel -> UInt8 in
+            return UInt8.max * UInt8(pow(Double((pixel/max)),Double(constant)))
+        }
+        
+        return (self.image(fromPixelValues: newPixels,
+                           width: info.width,
+                           height: info.height),
+                CGSize(width: info.width,
+                       height: info.height)
+        )
+    }
+    
+    func logValue(image: CGImage?, constant: Float) -> (CGImage?, CGSize)? {
+        let info = pixelValues(fromCGImage: image)
+        guard let pixels = info.pixelValues,
+            let max = pixels.max() else {
+                return nil
+        }
+        
+        let newPixels = pixels.map { pixel -> UInt8 in
+            return UInt8.max * UInt8(log(Float(1+pixel)) / log(Float(1+max)))
         }
         
         return (self.image(fromPixelValues: newPixels,

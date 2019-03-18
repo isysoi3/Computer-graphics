@@ -95,6 +95,66 @@ class ImageService {
         )
     }
     
+    func negative(image: CGImage?) -> (CGImage?, CGSize)? {
+        let info = pixelValues(fromCGImage: image)
+        guard let pixels = info.pixelValues else {
+                return nil
+        }
+        
+        let newPixels = pixels.map { UInt8.max - $0}
+        
+        return (self.image(fromPixelValues: newPixels,
+                           width: info.width,
+                           height: info.height),
+                CGSize(width: info.width,
+                       height: info.height)
+        )
+    }
+    
+    func addingValue(image: CGImage?, constant: Int16) -> (CGImage?, CGSize)? {
+        let info = pixelValues(fromCGImage: image)
+        guard let pixels = info.pixelValues else {
+            return nil
+        }
+        
+        let newPixels = pixels.map { pixel -> UInt8 in
+            let value = Int16(pixel) + constant
+            if value > UInt8.max {
+                return UInt8.max
+            } else if value < UInt8.min {
+                return UInt8.min
+            }
+            return UInt8(value)
+        }
+        
+        return (self.image(fromPixelValues: newPixels,
+                           width: info.width,
+                           height: info.height),
+                CGSize(width: info.width,
+                       height: info.height)
+        )
+    }
+    
+    func multipleValue(image: CGImage?, constant: Float) -> (CGImage?, CGSize)? {
+        let info = pixelValues(fromCGImage: image)
+        guard let pixels = info.pixelValues,
+            constant >= 0 ,
+            constant <= 1 else {
+                return nil
+        }
+        
+        let newPixels = pixels.map { pixel -> UInt8 in
+            return UInt8(Float(pixel) * constant)
+        }
+        
+        return (self.image(fromPixelValues: newPixels,
+                           width: info.width,
+                           height: info.height),
+                CGSize(width: info.width,
+                       height: info.height)
+        )
+    }
+    
 }
 
 /*

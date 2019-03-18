@@ -46,8 +46,13 @@ extension ViewController {
     }
     
     func workWithUrl(_ url: URL) {
-        inputImageView.image = NSImage(byReferencing: url)
-        //ImageService().pixelValues(fromCGImage: inputImageView.image?.cgImage)
+        let image = NSImage(byReferencing: url)
+        inputImageView.image = image
+        guard let result = ImageService().linearContrast(image: image.cgImage),
+            let resultImage = result.0 else { return }
+        
+        outputImageView.image = NSImage(cgImage: resultImage,
+                                        size: result.1)
 
     }
     

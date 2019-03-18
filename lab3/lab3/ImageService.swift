@@ -75,4 +75,24 @@ class ImageService {
         return imageRef
     }
     
+    func linearContrast(image: CGImage?) -> (CGImage?, CGSize)? {
+        let info = pixelValues(fromCGImage: image)
+        guard let pixels = info.pixelValues,
+            let max = pixels.max(),
+            let min = pixels.min() else {
+                return nil
+        }
+        
+        let tmp = UInt8.max / (max - min)
+        
+        let newPixels = pixels.map { tmp * ($0 - min)}
+        
+        return (self.image(fromPixelValues: newPixels,
+                           width: info.width,
+                           height: info.height),
+                CGSize(width: info.width,
+                       height: info.height)
+        )
+    }
+    
 }

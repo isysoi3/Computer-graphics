@@ -157,7 +157,7 @@ extension ViewController {
                                            constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
         case .pow:
             resultImage = service.powValue(image: image,
-                                           constant: 1.5)
+                                           constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
         case .morf:
             return
         }

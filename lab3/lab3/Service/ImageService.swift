@@ -125,6 +125,7 @@ class ImageService {
         let (red, green, blue) = getMinAndMaxForComponents(image: info)
         
         return info.map{ pixel -> RGBA<UInt8> in
+            //TODO: IS: log 1 = 0
             let redValue = (log(CGFloat(1+pixel.red)) / log(CGFloat(1+red.max)))
             let greenValue = (log(CGFloat(1+pixel.green)) / log(CGFloat(1+green.max)))
             let blueValue = (log(CGFloat(1+pixel.blue)) / log(CGFloat(1+blue.max)))

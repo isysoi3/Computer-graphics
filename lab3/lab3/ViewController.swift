@@ -52,11 +52,11 @@ class ViewController: NSViewController {
         case "Морфологическая обработка":
             currentMode = .morf
             slider.isEnabled = false
-        case "Добавление константы":
-            currentMode = .adding
-            slider.isEnabled = true
         case "Негатив":
             currentMode = .negative
+            slider.isEnabled = false
+        case "Добавление константы":
+            currentMode = .adding
             slider.isEnabled = true
         case "Умножение на константу":
             currentMode = .multiple

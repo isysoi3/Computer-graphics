@@ -53,6 +53,16 @@ class ViewController: NSViewController {
         }
         workWithResultImage(fromImage: inputImageView.image?.cgImage)
     }
+    
+    private func showAlert(message: String, text: String) {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+    
 }
 
 extension ViewController {
@@ -87,37 +97,33 @@ extension ViewController {
 
     func workWithResultImage(fromImage image: CGImage?) {
         let service = ImageService()
-        let resultImage: CGImage?
-        let size: CGSize
+        let resultImage: NSImage?
         
         switch currentMode {
         case .adding:
-            guard let result = service.addingValue(image: image, constant: 10) else { return }
-            (resultImage, size) = result
+            resultImage = service.addingValue(image: image, constant: 10)
         case .linearContrast:
-            guard let result = service.linearContrast(image: image) else { return }
-            (resultImage, size) = result
+            resultImage = service.linearContrast(image: image)
         case .negative:
-            guard let result = service.negative(image: image) else { return }
-            (resultImage, size) = result
+            resultImage = service.negative(image: image)
         case .multiple:
-            guard let result = service.multipleValue(image: image, constant: 2.5) else { return }
-            (resultImage, size) = result
+            resultImage = service.multipleValue(image: image, constant: 1.5)
         case .log:
-            guard let result = service.logValue(image: image, constant: 1.5) else { return }
-            (resultImage, size) = result
+            resultImage = service.logValue(image: image, constant: 1.5)
         case .pow:
-            guard let result = service.powValue(image: image, constant: 1.5)else { return }
-            (resultImage, size) = result
+            resultImage = service.powValue(image: image, constant: 1.5)
         case .morf:
-            guard let result = service.linearContrast(image: image) else { return }
-            (resultImage, size) = result
+            return
         }
-        
-        guard let unImage = resultImage else { return }
-        outputImageView.image = NSImage(cgImage: unImage,
-                                        size: size)
+        switch resultImage {
+        case .some(let output):
+            outputImageView.image = output
+        case .none:
+            showAlert(message: "test", text: "tee")
+        }
     }
+    
+    
     
     /*
      func workWithUrl(_ url: URL) {

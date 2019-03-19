@@ -147,6 +147,15 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		09C3F1742240CE6D000F92FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				09F6001F223F67FE00E2F6E0 /* Assets.xcassets */,
+				09F60024223F67FE00E2F6E0 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		09F6000F223F67FD00E2F6E0 = {
 			isa = PBXGroup;
 			children = (
@@ -172,9 +181,8 @@
 				09C3F1722240BF30000F92FF /* Service */,
 				09F6001B223F67FD00E2F6E0 /* AppDelegate.swift */,
 				09F6001D223F67FD00E2F6E0 /* ViewController.swift */,
-				09F6001F223F67FE00E2F6E0 /* Assets.xcassets */,
 				09F60021223F67FE00E2F6E0 /* Main.storyboard */,
-				09F60024223F67FE00E2F6E0 /* Info.plist */,
+				09C3F1742240CE6D000F92FF /* Supporting Files */,
 				09F60025223F67FE00E2F6E0 /* lab3.entitlements */,
 			);
 			path = lab3;
@@ -472,7 +480,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = K3EBJ8K5KL;
-				INFOPLIST_FILE = lab3/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/lab3/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -492,7 +500,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = K3EBJ8K5KL;
-				INFOPLIST_FILE = lab3/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/lab3/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

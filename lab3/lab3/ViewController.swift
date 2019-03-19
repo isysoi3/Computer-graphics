@@ -48,24 +48,46 @@ class ViewController: NSViewController {
         switch sender.title {
         case "Линейное контрастирование":
             currentMode = .linearContrast
+            
+            slideValueTextField.doubleValue = 0
             slider.isEnabled = false
         case "Морфологическая обработка":
             currentMode = .morf
+            
+            slideValueTextField.doubleValue = 0
             slider.isEnabled = false
         case "Негатив":
             currentMode = .negative
+            
+            slideValueTextField.doubleValue = 0
             slider.isEnabled = false
         case "Добавление константы":
             currentMode = .adding
+            
+            slider.maxValue = 255
+            slider.minValue = -255
+            slideValueTextField.doubleValue = 0
             slider.isEnabled = true
         case "Умножение на константу":
             currentMode = .multiple
+            
+            slider.maxValue = 3
+            slider.minValue = 0
+            slideValueTextField.doubleValue = 1
             slider.isEnabled = true
         case "Степенное преобразование":
             currentMode = .pow
+            
+            slider.maxValue = 3
+            slider.minValue = 0
+            slideValueTextField.doubleValue = 1
             slider.isEnabled = true
         case "Логарифмическое преобразование":
             currentMode = .log
+            
+            slider.maxValue = 3
+            slider.minValue = 0
+            slideValueTextField.doubleValue = 1
             slider.isEnabled = true
         default:
             return

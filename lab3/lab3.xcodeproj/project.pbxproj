@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		09C3F16D2240BED1000F92FF /* EasyImagy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C3F1642240BE88000F92FF /* EasyImagy.framework */; };
 		09C3F16E2240BED1000F92FF /* EasyImagy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09C3F1642240BE88000F92FF /* EasyImagy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		09C3F17E2240E58A000F92FF /* Double+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C3F1772240E58A000F92FF /* Double+Round.swift */; };
 		09F6001C223F67FD00E2F6E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6001B223F67FD00E2F6E0 /* AppDelegate.swift */; };
 		09F6001E223F67FD00E2F6E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6001D223F67FD00E2F6E0 /* ViewController.swift */; };
 		09F60020223F67FE00E2F6E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09F6001F223F67FE00E2F6E0 /* Assets.xcassets */; };
@@ -93,6 +94,7 @@
 
 /* Begin PBXFileReference section */
 		09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EasyImagy.xcodeproj; path = ../../EasyImagy/EasyImagy.xcodeproj; sourceTree = "<group>"; };
+		09C3F1772240E58A000F92FF /* Double+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Double+Round.swift"; path = "../../../lab1/lab1/Helper/Double+Round.swift"; sourceTree = "<group>"; };
 		09F60018223F67FD00E2F6E0 /* lab3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lab3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09F6001B223F67FD00E2F6E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09F6001D223F67FD00E2F6E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				09F6002D223F731C00E2F6E0 /* NSImage+CGImage.swift */,
+				09C3F1772240E58A000F92FF /* Double+Round.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09F6002E223F731C00E2F6E0 /* NSImage+CGImage.swift in Sources */,
+				09C3F17E2240E58A000F92FF /* Double+Round.swift in Sources */,
 				09F6001E223F67FD00E2F6E0 /* ViewController.swift in Sources */,
 				09F6001C223F67FD00E2F6E0 /* AppDelegate.swift in Sources */,
 				09F6002C223F703B00E2F6E0 /* ImageService.swift in Sources */,

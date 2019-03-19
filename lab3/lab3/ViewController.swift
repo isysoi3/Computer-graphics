@@ -26,32 +26,51 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var outputImageView: NSImageView!
     
-    var mouseDownEvent: NSEvent?
+    @IBOutlet weak var slideValueTextField: NSTextField!
+    
+    @IBOutlet weak var slider: NSSlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        slider.isEnabled = false
+        slideValueTextField.isEnabled = false
+        slideValueTextField.isContinuous = false
     }
 
+    @IBAction func sliderValueChanged(_ sender: NSSlider) {
+        slideValueTextField.doubleValue = sender.doubleValue.rounded(toPlaces: 2)
+        
+        workWithImage(fromImage: inputImageView.image?.cgImage)
+    }
+    
     @IBAction func popUpValueChanged(_ sender: NSPopUpButton) {
         switch sender.title {
         case "Линейное контрастирование":
             currentMode = .linearContrast
-        case "Добавление константы":
-            currentMode = .adding
-        case "Негатив":
-            currentMode = .negative
-        case "Умножение на константу":
-            currentMode = .multiple
-        case "Степенное преобразование":
-            currentMode = .pow
-        case "Логарифмическое преобразование":
-            currentMode = .log
+            slider.isEnabled = false
         case "Морфологическая обработка":
             currentMode = .morf
+            slider.isEnabled = false
+        case "Добавление константы":
+            currentMode = .adding
+            slider.isEnabled = true
+        case "Негатив":
+            currentMode = .negative
+            slider.isEnabled = true
+        case "Умножение на константу":
+            currentMode = .multiple
+            slider.isEnabled = true
+        case "Степенное преобразование":
+            currentMode = .pow
+            slider.isEnabled = true
+        case "Логарифмическое преобразование":
+            currentMode = .log
+            slider.isEnabled = true
         default:
             return
         }
-        workWithResultImage(fromImage: inputImageView.image?.cgImage)
+        workWithImage(fromImage: inputImageView.image?.cgImage)
     }
     
     private func showAlert(message: String, text: String) {
@@ -92,50 +111,41 @@ extension ViewController {
         let image = NSImage(byReferencing: url)
         inputImageView.image = image
        
-        workWithResultImage(fromImage: image.cgImage)
+        workWithImage(fromImage: image.cgImage)
     }
 
-    func workWithResultImage(fromImage image: CGImage?) {
+    func workWithImage(fromImage image: CGImage?) {
+        guard let image = image else { return }
         let service = ImageService()
         let resultImage: NSImage?
         
         switch currentMode {
         case .adding:
-            resultImage = service.addingValue(image: image, constant: 10)
+            resultImage = service.addingValue(image: image,
+                                              constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
         case .linearContrast:
             resultImage = service.linearContrast(image: image)
         case .negative:
             resultImage = service.negative(image: image)
         case .multiple:
-            resultImage = service.multipleValue(image: image, constant: 1.5)
+            resultImage = service.multipleValue(image: image,
+                                                constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
         case .log:
-            resultImage = service.logValue(image: image, constant: 1.5)
+            resultImage = service.logValue(image: image,
+                                           constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
         case .pow:
-            resultImage = service.powValue(image: image, constant: 1.5)
+            resultImage = service.powValue(image: image,
+                                           constant: 1.5)
         case .morf:
             return
         }
+        
         switch resultImage {
         case .some(let output):
             outputImageView.image = output
         case .none:
-            showAlert(message: "test", text: "tee")
+            showAlert(message: "Ошибка", text: "Не удалось обработать изображение")
         }
     }
-    
-    
-    
-    /*
-     func workWithUrl(_ url: URL) {
-     guard let imageData = try? Data(contentsOf: url),
-     let result = ImageService().linearContrast(imageData: imageData) else { return }
-     let image = NSImage(data: imageData)
-     inputImageView.image = image
-     
-     outputImageView.image = NSImage(data: result)
-     
-     }
-     */
-    
 }
 

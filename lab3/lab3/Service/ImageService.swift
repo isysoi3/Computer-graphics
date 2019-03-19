@@ -49,8 +49,7 @@ class ImageService {
                     blue: (minBlue, maxBlue))
     }
     
-    func linearContrast(image: CGImage?) -> NSImage? {
-        guard let image = image else { return nil }
+    func linearContrast(image: CGImage) -> NSImage? {
         let info = Image<RGBA<UInt8>>(cgImage: image)
         let (red, green, blue) = getMinAndMaxForComponents(image: info)
        
@@ -66,8 +65,7 @@ class ImageService {
             }.nsImage
     }
     
-    func negative(image: CGImage?) -> NSImage? {
-        guard let image = image else { return nil }
+    func negative(image: CGImage) -> NSImage? {
         let info = Image<RGBA<UInt8>>(cgImage: image)
         
         
@@ -79,23 +77,21 @@ class ImageService {
             }.nsImage
     }
     
-    func addingValue(image: CGImage?, constant: Int16) -> NSImage? {
-        guard let image = image else { return nil }
+    func addingValue(image: CGImage, constant: CGFloat) -> NSImage? {
         let info = Image<RGBA<UInt8>>(cgImage: image)
         
         return info.map{ pixel -> RGBA<UInt8> in
-            let redValue = Int16(pixel.red) + constant
-            let greenValue = Int16(pixel.green) + constant
-            let blueValue = Int16(pixel.blue) + constant
-            return RGBA<UInt8>(red: (redValue > UInt8.max ? UInt8.max : (redValue < UInt8.min ? UInt8.min : UInt8(redValue))),
-                               green: (greenValue > UInt8.max ? UInt8.max : (greenValue < UInt8.min ? UInt8.min : UInt8(greenValue))),
-                               blue: (blueValue > UInt8.max ? UInt8.max : (blueValue < UInt8.min ? UInt8.min : UInt8(blueValue))),
+            let redValue = CGFloat(pixel.red) + constant
+            let greenValue = CGFloat(pixel.green) + constant
+            let blueValue = CGFloat(pixel.blue) + constant
+            return RGBA<UInt8>(red: (redValue > 255 ? UInt8.max : (redValue < 0 ? UInt8.min : UInt8(redValue))),
+                               green: (greenValue > 255 ? UInt8.max : (greenValue < 0 ? UInt8.min : UInt8(greenValue))),
+                               blue: (blueValue > 255 ? UInt8.max : (blueValue < 0 ? UInt8.min : UInt8(blueValue))),
                                alpha: pixel.alpha)
             }.nsImage
     }
     
-    func multipleValue(image: CGImage?, constant: CGFloat) -> NSImage? {
-        guard let image = image else { return nil }
+    func multipleValue(image: CGImage, constant: CGFloat) -> NSImage? {
         let info = Image<RGBA<UInt8>>(cgImage: image)
         
         return info.map{ pixel -> RGBA<UInt8> in
@@ -109,8 +105,7 @@ class ImageService {
             }.nsImage
     }
     
-    func powValue(image: CGImage?, constant: CGFloat) -> NSImage? {
-        guard let image = image else { return nil }
+    func powValue(image: CGImage, constant: CGFloat) -> NSImage? {
         let info = Image<RGBA<UInt8>>(cgImage: image)
         let (red, green, blue) = getMinAndMaxForComponents(image: info)
         
@@ -125,8 +120,7 @@ class ImageService {
             }.nsImage
     }
     
-    func logValue(image: CGImage?, constant: CGFloat) -> NSImage? {
-        guard let image = image else { return nil }
+    func logValue(image: CGImage, constant: CGFloat) -> NSImage? {
         let info = Image<RGBA<UInt8>>(cgImage: image)
         let (red, green, blue) = getMinAndMaxForComponents(image: info)
         

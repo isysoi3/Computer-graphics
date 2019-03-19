@@ -12,205 +12,144 @@ import EasyImagy
 
 class ImageService {
     
-    func pixelValues(fromCGImage imageRef: CGImage?) -> (pixelValues: [UInt8]?, width: Int, height: Int) {
-        var width = 0
-        var height = 0
-        var pixelValues: [UInt8]?
-        guard let imageRef = imageRef else {
-            return (pixelValues, width, height)
-        }
-        
-        width = imageRef.width
-        height = imageRef.height
-        let bitsPerComponent = imageRef.bitsPerComponent
-        let bytesPerRow = imageRef.bytesPerRow
-        let totalBytes = height * bytesPerRow
-        
-        let colorSpace = CGColorSpaceCreateDeviceGray()
-        var intensities = [UInt8](repeating: 0, count: totalBytes)
-        
-        let contextRef = CGContext(data: &intensities, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0)
-        contextRef?.draw(imageRef, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)))
-        
-        pixelValues = intensities
-        return (pixelValues, width, height)
-    }
+    typealias MinAndMax = (min: UInt8, max: UInt8)
     
-    func image(fromPixelValues pixelValues: [UInt8]?, width: Int, height: Int) -> CGImage? {
-        var imageRef: CGImage?
-        guard var pixelValues = pixelValues else {
-            return imageRef
-        }
-        
-        let bitsPerComponent = 8
-        let bytesPerPixel = 1
-        let bitsPerPixel = bytesPerPixel * bitsPerComponent
-        let bytesPerRow = bytesPerPixel * width
-        let totalBytes = height * bytesPerRow
-        
-        imageRef = withUnsafePointer(to: &pixelValues) { ptr -> CGImage? in
-            var imageRef: CGImage?
-            let colorSpaceRef = CGColorSpaceCreateDeviceGray()
-            let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue).union(CGBitmapInfo())
-            let data = UnsafeRawPointer(ptr.pointee).assumingMemoryBound(to: UInt8.self)
-            let releaseData: CGDataProviderReleaseDataCallback = {
-                (info: UnsafeMutableRawPointer?, data: UnsafeRawPointer, size: Int) -> () in
+    private func getMinAndMaxForComponents(image: Image<RGBA<UInt8>>)
+        -> (red: MinAndMax, green: MinAndMax, blue: MinAndMax) {
+            var maxRed: UInt8 = UInt8.min
+            var minRed: UInt8 = UInt8.max
+            var maxGreen: UInt8 = UInt8.min
+            var minGreen: UInt8 = UInt8.max
+            var maxBlue: UInt8 = UInt8.min
+            var minBlue: UInt8 = UInt8.max
+            
+            for pixel in image {
+                if pixel.red < minRed {
+                    minRed = pixel.red
+                }
+                if pixel.red > maxRed {
+                    maxRed = pixel.red
+                }
+                if pixel.green < minGreen {
+                    minGreen = pixel.green
+                }
+                if pixel.green > maxGreen {
+                    maxGreen = pixel.green
+                }
+                if pixel.blue < minBlue {
+                    minBlue = pixel.blue
+                }
+                if pixel.blue > maxBlue {
+                    maxBlue = pixel.blue
+                }
             }
             
-            if let providerRef = CGDataProvider(dataInfo: nil, data: data, size: totalBytes, releaseData: releaseData) {
-                imageRef = CGImage(width: width,
-                                   height: height,
-                                   bitsPerComponent: bitsPerComponent,
-                                   bitsPerPixel: bitsPerPixel,
-                                   bytesPerRow: bytesPerRow,
-                                   space: colorSpaceRef,
-                                   bitmapInfo: bitmapInfo,
-                                   provider: providerRef,
-                                   decode: nil,
-                                   shouldInterpolate: false,
-                                   intent: CGColorRenderingIntent.defaultIntent)
-            }
-            
-            return imageRef
-        }
-        return imageRef
+            return (red: (minRed, maxRed),
+                    green: (minGreen, maxGreen),
+                    blue: (minBlue, maxBlue))
     }
     
-    func linearContrast(image: CGImage?) -> (CGImage?, CGSize)? {
-        let info = pixelValues(fromCGImage: image)
-        guard let pixels = info.pixelValues,
-            let max = pixels.max(),
-            let min = pixels.min() else {
-                return nil
-        }
+    func linearContrast(image: CGImage?) -> NSImage? {
+        guard let image = image else { return nil }
+        let info = Image<RGBA<UInt8>>(cgImage: image)
+        let (red, green, blue) = getMinAndMaxForComponents(image: info)
+       
+        let redTmp = UInt8.max / (red.max - red.min)
+        let greenTmp = UInt8.max / (green.max - green.min)
+        let blueTmp = UInt8.max / (blue.max - blue.min)
         
-        let tmp = UInt8.max / (max - min)
-        
-        let newPixels = pixels.map { tmp * ($0 - min)}
-        
-        return (self.image(fromPixelValues: newPixels,
-                           width: info.width,
-                           height: info.height),
-                CGSize(width: info.width,
-                       height: info.height)
-        )
+        return info.map { pixel in
+            return RGBA<UInt8>(red: redTmp * (pixel.red - red.min),
+                               green: greenTmp * (pixel.green - green.min),
+                               blue: blueTmp * (pixel.blue - blue.min),
+                               alpha: pixel.alpha)
+            }.nsImage
     }
     
-    func negative(image: CGImage?) -> (CGImage?, CGSize)? {
-        let info = pixelValues(fromCGImage: image)
-        guard let pixels = info.pixelValues else {
-                return nil
-        }
+    func negative(image: CGImage?) -> NSImage? {
+        guard let image = image else { return nil }
+        let info = Image<RGBA<UInt8>>(cgImage: image)
         
-        let newPixels = pixels.map { UInt8.max - $0}
         
-        return (self.image(fromPixelValues: newPixels,
-                           width: info.width,
-                           height: info.height),
-                CGSize(width: info.width,
-                       height: info.height)
-        )
+        return info.map { pixel in
+            return RGBA<UInt8>(red: UInt8.max - pixel.red,
+                               green: UInt8.max - pixel.green,
+                               blue: UInt8.max - pixel.blue,
+                               alpha: pixel.alpha)
+            }.nsImage
     }
     
-    func addingValue(image: CGImage?, constant: Int16) -> (CGImage?, CGSize)? {
-        let info = pixelValues(fromCGImage: image)
-        guard let pixels = info.pixelValues else {
-            return nil
-        }
+    func addingValue(image: CGImage?, constant: Int16) -> NSImage? {
+        guard let image = image else { return nil }
+        let info = Image<RGBA<UInt8>>(cgImage: image)
         
-        let newPixels = pixels.map { pixel -> UInt8 in
-            let value = Int16(pixel) + constant
-            if value > UInt8.max {
-                return UInt8.max
-            } else if value < UInt8.min {
-                return UInt8.min
-            }
-            return UInt8(value)
-        }
-        
-        return (self.image(fromPixelValues: newPixels,
-                           width: info.width,
-                           height: info.height),
-                CGSize(width: info.width,
-                       height: info.height)
-        )
+        return info.map{ pixel -> RGBA<UInt8> in
+            let redValue = Int16(pixel.red) + constant
+            let greenValue = Int16(pixel.green) + constant
+            let blueValue = Int16(pixel.blue) + constant
+            return RGBA<UInt8>(red: (redValue > UInt8.max ? UInt8.max : (redValue < UInt8.min ? UInt8.min : UInt8(redValue))),
+                               green: (greenValue > UInt8.max ? UInt8.max : (greenValue < UInt8.min ? UInt8.min : UInt8(greenValue))),
+                               blue: (blueValue > UInt8.max ? UInt8.max : (blueValue < UInt8.min ? UInt8.min : UInt8(blueValue))),
+                               alpha: pixel.alpha)
+            }.nsImage
     }
     
-    func multipleValue(image: CGImage?, constant: Float) -> (CGImage?, CGSize)? {
-        let info = pixelValues(fromCGImage: image)
-        guard let pixels = info.pixelValues,
+    func multipleValue(image: CGImage?, constant: Float) -> NSImage? {
+        guard let image = image,
             constant > 1,
-            constant < 1 else {
-                return nil
-        }
+            constant < 1 else { return nil }
+        let info = Image<RGBA<UInt8>>(cgImage: image)
         
-        let newPixels = pixels.map { pixel -> UInt8 in
-            return UInt8(Float(pixel) * constant)
-        }
-        
-        return (self.image(fromPixelValues: newPixels,
-                           width: info.width,
-                           height: info.height),
-                CGSize(width: info.width,
-                       height: info.height)
-        )
+        return info.map{ pixel -> RGBA<UInt8> in
+            let redValue = UInt8(Float(pixel.red) * constant)
+            let greenValue = UInt8(Float(pixel.green) * constant)
+            let blueValue = UInt8(Float(pixel.blue) * constant)
+            return RGBA<UInt8>(red: redValue,
+                               green: greenValue,
+                               blue: blueValue,
+                               alpha: pixel.alpha)
+//            return RGBA<UInt8>(red: (redValue > UInt8.max ? UInt8.max : (redValue < UInt8.min ? UInt8.min : UInt8(redValue))),
+//                               green: (greenValue > UInt8.max ? UInt8.max : (greenValue < UInt8.min ? UInt8.min : UInt8(greenValue))),
+//                               blue: (blueValue > UInt8.max ? UInt8.max : (blueValue < UInt8.min ? UInt8.min : UInt8(blueValue))),
+//                               alpha: pixel.alpha)
+            }.nsImage
     }
     
-    func powValue(image: CGImage?, constant: Float) -> (CGImage?, CGSize)? {
-        let info = pixelValues(fromCGImage: image)
-        guard let pixels = info.pixelValues,
+    func powValue(image: CGImage?, constant: Float) -> NSImage? {
+        guard let image = image,
             constant > 1,
-            constant < 1,
-            let max = pixels.max() else {
-                return nil
-        }
+            constant < 1 else { return nil }
+        let info = Image<RGBA<UInt8>>(cgImage: image)
+        let (red, green, blue) = getMinAndMaxForComponents(image: info)
         
-        let newPixels = pixels.map { pixel -> UInt8 in
-            return UInt8.max * UInt8(pow(Double((pixel/max)),Double(constant)))
-        }
-        
-        return (self.image(fromPixelValues: newPixels,
-                           width: info.width,
-                           height: info.height),
-                CGSize(width: info.width,
-                       height: info.height)
-        )
+        return info.map{ pixel -> RGBA<UInt8> in
+            let redValue = UInt8.max * UInt8(pow(Double((pixel.red/red.max)),
+                                                 Double(constant)))
+            let greenValue = UInt8.max * UInt8(pow(Double((pixel.green/green.max)),
+                                                   Double(constant)))
+            let blueValue = UInt8.max * UInt8(pow(Double((pixel.blue/blue.max)),
+                                                  Double(constant)))
+            return RGBA<UInt8>(red: redValue,
+                               green: greenValue,
+                               blue: blueValue,
+                               alpha: pixel.alpha)
+            }.nsImage
     }
     
-    func logValue(image: CGImage?, constant: Float) -> (CGImage?, CGSize)? {
-        let info = pixelValues(fromCGImage: image)
-        guard let pixels = info.pixelValues,
-            let max = pixels.max() else {
-                return nil
-        }
+    func logValue(image: CGImage?, constant: Float) -> NSImage? {
+        guard let image = image else { return nil }
+        let info = Image<RGBA<UInt8>>(cgImage: image)
+        let (red, green, blue) = getMinAndMaxForComponents(image: info)
         
-        let newPixels = pixels.map { pixel -> UInt8 in
-            return UInt8.max * UInt8(log(Float(1+pixel)) / log(Float(1+max)))
-        }
-        
-        return (self.image(fromPixelValues: newPixels,
-                           width: info.width,
-                           height: info.height),
-                CGSize(width: info.width,
-                       height: info.height)
-        )
+        return info.map{ pixel -> RGBA<UInt8> in
+            let redValue = UInt8.max * UInt8(log(Float(1+pixel.red)) / log(Float(1+red.max)))
+            let greenValue = UInt8.max * UInt8(log(Float(1+pixel.green)) / log(Float(1+green.max)))
+            let blueValue = UInt8.max * UInt8(log(Float(1+pixel.blue)) / log(Float(1+blue.max)))
+            return RGBA<UInt8>(red: redValue,
+                               green: greenValue,
+                               blue: blueValue,
+                               alpha: pixel.alpha)
+            }.nsImage
     }
     
 }
-
-/*
- func linearContrast(imageData: Data) -> Data? {
- guard let max = imageData.max(),
- let min = imageData.min() else {
- return nil
- }
- 
- let tmp = UInt8.max / (max - min)
- 
- let newImageData = imageData.map{$0}.map { tmp * ($0 - min)}
- print(imageData.map{$0}.prefix(30))
- print(newImageData.prefix(30))
- 
- return Data(bytes: newImageData, count: newImageData.count)
- }
- */

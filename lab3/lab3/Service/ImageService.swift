@@ -94,60 +94,49 @@ class ImageService {
             }.nsImage
     }
     
-    func multipleValue(image: CGImage?, constant: Float) -> NSImage? {
-        guard let image = image,
-            constant > 1,
-            constant < 1 else { return nil }
+    func multipleValue(image: CGImage?, constant: CGFloat) -> NSImage? {
+        guard let image = image else { return nil }
         let info = Image<RGBA<UInt8>>(cgImage: image)
         
         return info.map{ pixel -> RGBA<UInt8> in
-            let redValue = UInt8(Float(pixel.red) * constant)
-            let greenValue = UInt8(Float(pixel.green) * constant)
-            let blueValue = UInt8(Float(pixel.blue) * constant)
-            return RGBA<UInt8>(red: redValue,
-                               green: greenValue,
-                               blue: blueValue,
-                               alpha: pixel.alpha)
-//            return RGBA<UInt8>(red: (redValue > UInt8.max ? UInt8.max : (redValue < UInt8.min ? UInt8.min : UInt8(redValue))),
-//                               green: (greenValue > UInt8.max ? UInt8.max : (greenValue < UInt8.min ? UInt8.min : UInt8(greenValue))),
-//                               blue: (blueValue > UInt8.max ? UInt8.max : (blueValue < UInt8.min ? UInt8.min : UInt8(blueValue))),
-//                               alpha: pixel.alpha)
-            }.nsImage
-    }
-    
-    func powValue(image: CGImage?, constant: Float) -> NSImage? {
-        guard let image = image,
-            constant > 1,
-            constant < 1 else { return nil }
-        let info = Image<RGBA<UInt8>>(cgImage: image)
-        let (red, green, blue) = getMinAndMaxForComponents(image: info)
-        
-        return info.map{ pixel -> RGBA<UInt8> in
-            let redValue = UInt8.max * UInt8(pow(Double((pixel.red/red.max)),
-                                                 Double(constant)))
-            let greenValue = UInt8.max * UInt8(pow(Double((pixel.green/green.max)),
-                                                   Double(constant)))
-            let blueValue = UInt8.max * UInt8(pow(Double((pixel.blue/blue.max)),
-                                                  Double(constant)))
-            return RGBA<UInt8>(red: redValue,
-                               green: greenValue,
-                               blue: blueValue,
+            let redValue = CGFloat(pixel.red) * constant
+            let greenValue = CGFloat(pixel.green) * constant
+            let blueValue = CGFloat(pixel.blue) * constant
+            return RGBA<UInt8>(red: (redValue > 255 ? UInt8.max : (redValue < 0 ? UInt8.min : UInt8(redValue))),
+                               green: (greenValue > 255 ? UInt8.max : (greenValue < 0 ? UInt8.min : UInt8(greenValue))),
+                               blue: (blueValue > 255 ? UInt8.max : (blueValue < 0 ? UInt8.min : UInt8(blueValue))),
                                alpha: pixel.alpha)
             }.nsImage
     }
     
-    func logValue(image: CGImage?, constant: Float) -> NSImage? {
+    func powValue(image: CGImage?, constant: CGFloat) -> NSImage? {
         guard let image = image else { return nil }
         let info = Image<RGBA<UInt8>>(cgImage: image)
         let (red, green, blue) = getMinAndMaxForComponents(image: info)
         
         return info.map{ pixel -> RGBA<UInt8> in
-            let redValue = UInt8.max * UInt8(log(Float(1+pixel.red)) / log(Float(1+red.max)))
-            let greenValue = UInt8.max * UInt8(log(Float(1+pixel.green)) / log(Float(1+green.max)))
-            let blueValue = UInt8.max * UInt8(log(Float(1+pixel.blue)) / log(Float(1+blue.max)))
-            return RGBA<UInt8>(red: redValue,
-                               green: greenValue,
-                               blue: blueValue,
+            let redValue = pow(Double((pixel.red/red.max)), Double(constant))
+            let greenValue = pow(Double((pixel.green/green.max)), Double(constant))
+            let blueValue = pow(Double((pixel.blue/blue.max)), Double(constant))
+            return RGBA<UInt8>(red: UInt8.max * (redValue > 255 ? UInt8.max : (redValue < 0 ? UInt8.min : UInt8(redValue))),
+                               green: UInt8.max * (greenValue > 255 ? UInt8.max : (greenValue < 0 ? UInt8.min : UInt8(greenValue))),
+                               blue: UInt8.max * (blueValue > 255 ? UInt8.max : (blueValue < 0 ? UInt8.min : UInt8(blueValue))),
+                               alpha: pixel.alpha)
+            }.nsImage
+    }
+    
+    func logValue(image: CGImage?, constant: CGFloat) -> NSImage? {
+        guard let image = image else { return nil }
+        let info = Image<RGBA<UInt8>>(cgImage: image)
+        let (red, green, blue) = getMinAndMaxForComponents(image: info)
+        
+        return info.map{ pixel -> RGBA<UInt8> in
+            let redValue = (log(CGFloat(1+pixel.red)) / log(CGFloat(1+red.max)))
+            let greenValue = (log(CGFloat(1+pixel.green)) / log(CGFloat(1+green.max)))
+            let blueValue = (log(CGFloat(1+pixel.blue)) / log(CGFloat(1+blue.max)))
+            return RGBA<UInt8>(red: UInt8.max * (redValue > 255 ? UInt8.max : (redValue < 0 ? UInt8.min : UInt8(redValue))),
+                               green: UInt8.max * (greenValue > 255 ? UInt8.max : (greenValue < 0 ? UInt8.min : UInt8(greenValue))),
+                               blue: UInt8.max * (blueValue > 255 ? UInt8.max : (blueValue < 0 ? UInt8.min : UInt8(blueValue))),
                                alpha: pixel.alpha)
             }.nsImage
     }

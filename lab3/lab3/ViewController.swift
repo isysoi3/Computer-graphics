@@ -101,30 +101,24 @@ extension ViewController {
         
         switch currentMode {
         case .adding:
-            guard let result = service.addingValue(image: image, constant: 10) else { return }
-            resultImage = result
+            resultImage = service.addingValue(image: image, constant: 10)
         case .linearContrast:
-            guard let result = service.linearContrast(image: image) else { return }
-            resultImage = result
+            resultImage = service.linearContrast(image: image)
         case .negative:
-            guard let result = service.negative(image: image) else { return }
-            resultImage = result
+            resultImage = service.negative(image: image)
         case .multiple:
-            guard let result = service.multipleValue(image: image, constant: 25) else { return }
-            resultImage = result
+            resultImage = service.multipleValue(image: image, constant: 1.5)
         case .log:
-            guard let result = service.logValue(image: image, constant: 1.5) else { return }
-            resultImage = result
+            resultImage = service.logValue(image: image, constant: 1.5)
         case .pow:
-            guard let result = service.powValue(image: image, constant: 1.5) else { return }
-            resultImage = result
+            resultImage = service.powValue(image: image, constant: 1.5)
         case .morf:
             return
         }
         switch resultImage {
         case .some(let output):
             outputImageView.image = output
-        default:
+        case .none:
             showAlert(message: "test", text: "tee")
         }
     }

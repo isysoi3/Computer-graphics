@@ -137,9 +137,8 @@
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="zRc-Iw-OAf"/>
                             </imageView>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tNl-Fv-fbf">
+                            <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tNl-Fv-fbf">
                                 <rect key="frame" x="18" y="342" width="225" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Линейное контрастирование" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="mal-U3-Y0o" id="su8-HP-NTI">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -159,17 +158,35 @@
                                     <action selector="popUpValueChanged:" target="XfG-lQ-9wD" id="7vY-gH-xpJ"/>
                                 </connections>
                             </popUpButton>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M1Q-te-37M">
-                                <rect key="frame" x="18" y="302" width="224" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tga-6J-Rjg">
+                                <rect key="frame" x="217" y="304" width="25" height="23"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="10" id="czs-s5-lYY">
+                                    <font key="font" metaFont="system" size="20"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M1Q-te-37M">
+                                <rect key="frame" x="21" y="306" width="192" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="gg0-r1-AvQ"/>
+                                </constraints>
                                 <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="6v7-Iq-eiC"/>
                             </slider>
                         </subviews>
                         <constraints>
                             <constraint firstItem="03m-Uk-Gkr" firstAttribute="bottom" secondItem="goU-KD-i43" secondAttribute="bottom" id="6i6-OW-qmN"/>
+                            <constraint firstItem="M1Q-te-37M" firstAttribute="centerY" secondItem="Tga-6J-Rjg" secondAttribute="centerY" id="7fT-fh-bmG"/>
+                            <constraint firstItem="03m-Uk-Gkr" firstAttribute="top" secondItem="Tga-6J-Rjg" secondAttribute="bottom" constant="24" id="9tL-5y-IYl"/>
+                            <constraint firstItem="Tga-6J-Rjg" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="219" id="Am6-Km-Qmq"/>
                             <constraint firstAttribute="trailing" secondItem="goU-KD-i43" secondAttribute="trailing" constant="30" id="Ewh-tC-eSJ"/>
                             <constraint firstAttribute="bottom" secondItem="03m-Uk-Gkr" secondAttribute="bottom" constant="30" id="MiU-VK-Zuz"/>
+                            <constraint firstItem="Tga-6J-Rjg" firstAttribute="leading" secondItem="M1Q-te-37M" secondAttribute="trailing" constant="8" id="NhN-Ae-OpO"/>
+                            <constraint firstItem="M1Q-te-37M" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="23" id="Wo2-IH-5Yr"/>
                             <constraint firstItem="03m-Uk-Gkr" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="30" id="gvG-I8-ffY"/>
+                            <constraint firstItem="Tga-6J-Rjg" firstAttribute="trailing" secondItem="tNl-Fv-fbf" secondAttribute="trailing" id="tBb-zK-6Sg"/>
+                            <constraint firstItem="Tga-6J-Rjg" firstAttribute="bottom" secondItem="M1Q-te-37M" secondAttribute="bottom" constant="4" id="tEp-AN-wVZ"/>
+                            <constraint firstItem="Tga-6J-Rjg" firstAttribute="top" secondItem="tNl-Fv-fbf" secondAttribute="bottom" constant="17" id="uxY-qm-HUV"/>
                         </constraints>
                     </view>
                     <connections>

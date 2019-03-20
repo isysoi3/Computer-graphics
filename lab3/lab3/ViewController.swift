@@ -22,6 +22,8 @@ class ViewController: NSViewController {
     
     var currentMode: ImageOperationsEnum = .linearContrast
     
+    let service = ImageService()
+    
     @IBOutlet weak var inputImageView: NSImageView!
     
     @IBOutlet weak var outputImageView: NSImageView!
@@ -134,15 +136,15 @@ extension ViewController {
     }
     
     func workWithUrl(_ url: URL) {
-        let image = NSImage(byReferencing: url)
+        let image = service.getGrayImageFromURL(url)
         inputImageView.image = image
        
-        workWithImage(fromImage: image.cgImage)
+        workWithImage(fromImage: image?.cgImage)
     }
 
     func workWithImage(fromImage image: CGImage?) {
         guard let image = image else { return }
-        let service = ImageService()
+     
         let resultImage: NSImage?
         
         switch currentMode {

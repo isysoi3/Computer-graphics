@@ -14,6 +14,11 @@ class ImageService {
     
     typealias MinAndMax = (min: UInt8, max: UInt8)
     
+    func getGrayImageFromURL(_ url: URL) -> NSImage? {
+        let image = Image<UInt8>(contentsOfFile: url.path)
+        return image?.nsImage
+    }
+    
     private func getMinAndMaxForComponents(image: Image<RGBA<UInt8>>)
         -> (red: MinAndMax, green: MinAndMax, blue: MinAndMax) {
             var maxRed: UInt8 = UInt8.min
@@ -49,91 +54,49 @@ class ImageService {
                     blue: (minBlue, maxBlue))
     }
     
+    private func nearestPixelValue(_ value: CGFloat) -> UInt8 {
+        return value > 255 ? UInt8.max : (value < 0 ? UInt8.min : UInt8(value))
+    }
+    
     func linearContrast(image: CGImage) -> NSImage? {
-        let info = Image<RGBA<UInt8>>(cgImage: image)
-        let (red, green, blue) = getMinAndMaxForComponents(image: info)
-       
-        let redTmp = UInt8.max / (red.max - red.min)
-        let greenTmp = UInt8.max / (green.max - green.min)
-        let blueTmp = UInt8.max / (blue.max - blue.min)
+        let info = Image<UInt8>(cgImage: image)
+        guard let min = info.min(), let max = info.max() else { return nil }
         
-        return info.map { pixel in
-            return RGBA<UInt8>(red: redTmp * (pixel.red - red.min),
-                               green: greenTmp * (pixel.green - green.min),
-                               blue: blueTmp * (pixel.blue - blue.min),
-                               alpha: pixel.alpha)
-            }.nsImage
+        let mult = UInt8.max / (max - min)
+        
+        return info.map { mult * ($0 - min)}.nsImage
     }
     
     func negative(image: CGImage) -> NSImage? {
-        let info = Image<RGBA<UInt8>>(cgImage: image)
+        let info = Image<UInt8>(cgImage: image)
         
-        
-        return info.map { pixel in
-            return RGBA<UInt8>(red: UInt8.max - pixel.red,
-                               green: UInt8.max - pixel.green,
-                               blue: UInt8.max - pixel.blue,
-                               alpha: pixel.alpha)
-            }.nsImage
+        return info.map { UInt8.max - $0 }.nsImage
     }
     
     func addingValue(image: CGImage, constant: CGFloat) -> NSImage? {
-        let info = Image<RGBA<UInt8>>(cgImage: image)
+        let info = Image<UInt8>(cgImage: image)
         
-        return info.map{ pixel -> RGBA<UInt8> in
-            let redValue = CGFloat(pixel.red) + constant
-            let greenValue = CGFloat(pixel.green) + constant
-            let blueValue = CGFloat(pixel.blue) + constant
-            return RGBA<UInt8>(red: (redValue > 255 ? UInt8.max : (redValue < 0 ? UInt8.min : UInt8(redValue))),
-                               green: (greenValue > 255 ? UInt8.max : (greenValue < 0 ? UInt8.min : UInt8(greenValue))),
-                               blue: (blueValue > 255 ? UInt8.max : (blueValue < 0 ? UInt8.min : UInt8(blueValue))),
-                               alpha: pixel.alpha)
-            }.nsImage
+        return info.map { nearestPixelValue(CGFloat($0) + constant) }.nsImage
     }
     
     func multipleValue(image: CGImage, constant: CGFloat) -> NSImage? {
-        let info = Image<RGBA<UInt8>>(cgImage: image)
+        let info = Image<UInt8>(cgImage: image)
         
-        return info.map{ pixel -> RGBA<UInt8> in
-            let redValue = CGFloat(pixel.red) * constant
-            let greenValue = CGFloat(pixel.green) * constant
-            let blueValue = CGFloat(pixel.blue) * constant
-            return RGBA<UInt8>(red: (redValue > 255 ? UInt8.max : (redValue < 0 ? UInt8.min : UInt8(redValue))),
-                               green: (greenValue > 255 ? UInt8.max : (greenValue < 0 ? UInt8.min : UInt8(greenValue))),
-                               blue: (blueValue > 255 ? UInt8.max : (blueValue < 0 ? UInt8.min : UInt8(blueValue))),
-                               alpha: pixel.alpha)
-            }.nsImage
+        return info.map { nearestPixelValue(CGFloat($0) * constant) }.nsImage
     }
     
     func powValue(image: CGImage, constant: CGFloat) -> NSImage? {
-        let info = Image<RGBA<UInt8>>(cgImage: image)
-        let (red, green, blue) = getMinAndMaxForComponents(image: info)
+        let info = Image<UInt8>(cgImage: image)
+        guard let max = info.max() else { return nil }
         
-        return info.map{ pixel -> RGBA<UInt8> in
-            let redValue = pow(Double((pixel.red/red.max)), Double(constant))
-            let greenValue = pow(Double((pixel.green/green.max)), Double(constant))
-            let blueValue = pow(Double((pixel.blue/blue.max)), Double(constant))
-            return RGBA<UInt8>(red: UInt8.max * (redValue > 255 ? UInt8.max : (redValue < 0 ? UInt8.min : UInt8(redValue))),
-                               green: UInt8.max * (greenValue > 255 ? UInt8.max : (greenValue < 0 ? UInt8.min : UInt8(greenValue))),
-                               blue: UInt8.max * (blueValue > 255 ? UInt8.max : (blueValue < 0 ? UInt8.min : UInt8(blueValue))),
-                               alpha: pixel.alpha)
-            }.nsImage
+        return info.map { nearestPixelValue(pow(CGFloat(($0/max)), constant)) }.nsImage
     }
     
     func logValue(image: CGImage, constant: CGFloat) -> NSImage? {
-        let info = Image<RGBA<UInt8>>(cgImage: image)
-        let (red, green, blue) = getMinAndMaxForComponents(image: info)
+        let info = Image<UInt8>(cgImage: image)
+        guard let max = info.max() else { return nil }
         
-        return info.map{ pixel -> RGBA<UInt8> in
-            //TODO: IS: log 1 = 0
-            let redValue = (log(CGFloat(1+pixel.red)) / log(CGFloat(1+red.max)))
-            let greenValue = (log(CGFloat(1+pixel.green)) / log(CGFloat(1+green.max)))
-            let blueValue = (log(CGFloat(1+pixel.blue)) / log(CGFloat(1+blue.max)))
-            return RGBA<UInt8>(red: UInt8.max * (redValue > 255 ? UInt8.max : (redValue < 0 ? UInt8.min : UInt8(redValue))),
-                               green: UInt8.max * (greenValue > 255 ? UInt8.max : (greenValue < 0 ? UInt8.min : UInt8(greenValue))),
-                               blue: UInt8.max * (blueValue > 255 ? UInt8.max : (blueValue < 0 ? UInt8.min : UInt8(blueValue))),
-                               alpha: pixel.alpha)
-            }.nsImage
+        return info.map {nearestPixelValue(255 * (log(CGFloat($0)) / log(CGFloat(max)))) }.nsImage
     }
     
 }

@@ -101,7 +101,7 @@ class ImageService {
         return info.map { lut[Int($0)] }.nsImage
     }
     
-    func morphologicalDilatation(image: NSImage) -> NSImage? {
+    func morphologicalDilatation(image: NSImage, type: Int) -> NSImage? {
         let info = Image<UInt8>(nsImage: image)
         var newImage = info
         
@@ -122,7 +122,7 @@ class ImageService {
         return newImage.nsImage
     }
     
-    func morphologicalErosion(image: NSImage) -> NSImage? {
+    func morphologicalErosion(image: NSImage, type: Int) -> NSImage? {
         let info = Image<UInt8>(nsImage: image)
         var newImage = info
         

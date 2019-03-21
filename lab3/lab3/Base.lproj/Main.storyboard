@@ -179,6 +179,61 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJZ-8E-QUd">
+                                <rect key="frame" x="329" y="331" width="178" height="49"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Pac-M1-PaI">
+                                        <rect key="frame" x="-1" y="-1" width="57" height="51"/>
+                                        <buttonCell key="cell" type="radio" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="boO-J4-ZYo">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <string key="title">□□□
+□■□
+□□□</string>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="firstFilterHandleTap:" target="XfG-lQ-9wD" id="mlc-Bs-Cjt"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tUr-gq-Mqj">
+                                        <rect key="frame" x="61" y="-1" width="57" height="51"/>
+                                        <buttonCell key="cell" type="radio" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="IfW-fm-8Kr">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <string key="title">   □
+□■□
+   □   </string>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="secondFilterHandleTap:" target="XfG-lQ-9wD" id="7OJ-KL-BMb"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hZP-rG-Taq">
+                                        <rect key="frame" x="123" y="-1" width="57" height="51"/>
+                                        <buttonCell key="cell" type="radio" bezelStyle="regularSquare" imagePosition="left" inset="2" id="T8W-jL-gSF">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <string key="title">□■□
+
+□□□</string>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="thirdFilterHandleTap:" target="XfG-lQ-9wD" id="HcV-Fl-NUN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="03m-Uk-Gkr" firstAttribute="bottom" secondItem="goU-KD-i43" secondAttribute="bottom" id="6i6-OW-qmN"/>
@@ -189,6 +244,7 @@
                     </view>
                     <connections>
                         <outlet property="inputImageView" destination="03m-Uk-Gkr" id="rO9-xZ-BGj"/>
+                        <outlet property="morphologicalFiltersStackView" destination="fJZ-8E-QUd" id="bff-sb-nZY"/>
                         <outlet property="outputImageView" destination="goU-KD-i43" id="oHs-dd-6nV"/>
                         <outlet property="slideValueTextField" destination="Tga-6J-Rjg" id="A2W-pI-pMO"/>
                         <outlet property="slider" destination="M1Q-te-37M" id="3nS-ff-Gm9"/>

@@ -25,6 +25,8 @@ class ViewController: NSViewController {
     
     var currentMode: ImageOperationsEnum = .linearContrast
     
+    var morphologicalFilterSelected: Int = 1
+    
     let service = ImageService()
     
     @IBOutlet weak var inputImageView: NSImageView!
@@ -35,18 +37,36 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var slider: NSSlider!
     
+    @IBOutlet weak var morphologicalFiltersStackView: NSStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         slider.isHidden = true
         slideValueTextField.stringValue = ""
         slideValueTextField.isContinuous = false
+        morphologicalFiltersStackView.isHidden = true
     }
-
+    
     @IBAction func sliderValueChanged(_ sender: NSSlider) {
         slideValueTextField.doubleValue = sender.doubleValue.rounded(toPlaces: 2)
         
         workWithImage(fromImage: inputImageView.image)
+    }
+    
+    @IBAction func firstFilterHandleTap(_ sender: NSButton) {
+        offAllButtonsBesides(sender)
+        morphologicalFilterSelected = 1
+    }
+    
+    @IBAction func secondFilterHandleTap(_ sender: NSButton) {
+        offAllButtonsBesides(sender)
+        morphologicalFilterSelected = 2
+    }
+    
+    @IBAction func thirdFilterHandleTap(_ sender: NSButton) {
+        offAllButtonsBesides(sender)
+        morphologicalFilterSelected = 3
     }
     
     @IBAction func popUpValueChanged(_ sender: NSPopUpButton) {
@@ -56,21 +76,13 @@ class ViewController: NSViewController {
             
             slideValueTextField.stringValue = ""
             slider.isHidden = true
-        case "Морфологическая обработка. Дилатация":
-            currentMode = .dilatation
-            
-            slideValueTextField.stringValue = ""
-            slider.isHidden = true
-        case "Морфологическая обработка. Эрозия":
-            currentMode = .erosion
-            
-            slideValueTextField.stringValue = ""
-            slider.isHidden = true
+            morphologicalFiltersStackView.isHidden = true
         case "Негатив":
             currentMode = .negative
             
             slideValueTextField.stringValue = ""
             slider.isHidden = true
+            morphologicalFiltersStackView.isHidden = true
         case "Добавление константы":
             currentMode = .adding
             
@@ -79,6 +91,7 @@ class ViewController: NSViewController {
             slider.doubleValue = 0
             slideValueTextField.doubleValue = 0
             slider.isHidden = false
+            morphologicalFiltersStackView.isHidden = true
         case "Умножение на константу":
             currentMode = .multiple
             
@@ -87,6 +100,7 @@ class ViewController: NSViewController {
             slider.doubleValue = 1
             slideValueTextField.doubleValue = 1
             slider.isHidden = false
+            morphologicalFiltersStackView.isHidden = true
         case "Степенное преобразование":
             currentMode = .pow
             
@@ -95,21 +109,37 @@ class ViewController: NSViewController {
             slider.doubleValue = 1
             slideValueTextField.doubleValue = 1
             slider.isHidden = false
+            morphologicalFiltersStackView.isHidden = true
         case "Логарифмическое преобразование":
             currentMode = .log
             
             slideValueTextField.stringValue = ""
             slider.isHidden = true
+            morphologicalFiltersStackView.isHidden = true
+        case "Морфологическая обработка. Дилатация":
+            currentMode = .dilatation
+            
+            slideValueTextField.stringValue = ""
+            slider.isHidden = true
+            morphologicalFiltersStackView.isHidden = false
+        case "Морфологическая обработка. Эрозия":
+            currentMode = .erosion
+            
+            slideValueTextField.stringValue = ""
+            slider.isHidden = true
+            morphologicalFiltersStackView.isHidden = false
         case "Замыкание":
             currentMode = .closing
             
             slideValueTextField.stringValue = ""
             slider.isHidden = true
+            morphologicalFiltersStackView.isHidden = false
         case "Размыкание":
             currentMode = .breaking
             
             slideValueTextField.stringValue = ""
             slider.isHidden = true
+            morphologicalFiltersStackView.isHidden = false
         default:
             return
         }
@@ -123,6 +153,13 @@ class ViewController: NSViewController {
         alert.alertStyle = .warning
         alert.addButton(withTitle: "OK")
         alert.runModal()
+    }
+    
+    private func offAllButtonsBesides(_ sender: NSButton?) {
+        morphologicalFiltersStackView.arrangedSubviews.forEach {
+            ($0 as? NSButton)?.state = .off
+        }
+        sender?.state = .on
     }
     
 }
@@ -179,18 +216,24 @@ extension ViewController {
             resultImage = service.powValue(image: image,
                                            constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
         case .erosion:
-            resultImage = service.morphologicalErosion(image: image)
+            resultImage = service.morphologicalErosion(image: image,
+                                                       type: morphologicalFilterSelected)
         case .dilatation:
-            resultImage = service.morphologicalDilatation(image: image)
+            resultImage = service.morphologicalDilatation(image: image,
+                                                          type: morphologicalFilterSelected)
         case .closing:
-            if let rmpResultImage = service.morphologicalDilatation(image: image) {
-                resultImage = service.morphologicalErosion(image: rmpResultImage)
+            if let rmpResultImage = service.morphologicalDilatation(image: image,
+                                                                    type: morphologicalFilterSelected) {
+                resultImage = service.morphologicalErosion(image: rmpResultImage,
+                                                           type: morphologicalFilterSelected)
             } else {
                 resultImage = .none
             }
         case .breaking:
-            if let rmpResultImage = service.morphologicalErosion(image: image) {
-                resultImage = service.morphologicalDilatation(image: rmpResultImage)
+            if let rmpResultImage = service.morphologicalErosion(image: image,
+                                                                 type: morphologicalFilterSelected) {
+                resultImage = service.morphologicalDilatation(image: rmpResultImage,
+                                                              type: morphologicalFilterSelected)
             } else {
                 resultImage = .none
             }

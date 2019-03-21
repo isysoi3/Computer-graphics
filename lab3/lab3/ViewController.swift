@@ -43,7 +43,7 @@ class ViewController: NSViewController {
     @IBAction func sliderValueChanged(_ sender: NSSlider) {
         slideValueTextField.doubleValue = sender.doubleValue.rounded(toPlaces: 2)
         
-        workWithImage(fromImage: inputImageView.image?.cgImage)
+        workWithImage(fromImage: inputImageView.image)
     }
     
     @IBAction func popUpValueChanged(_ sender: NSPopUpButton) {
@@ -98,7 +98,7 @@ class ViewController: NSViewController {
         default:
             return
         }
-        workWithImage(fromImage: inputImageView.image?.cgImage)
+        workWithImage(fromImage: inputImageView.image)
     }
     
     private func showAlert(message: String, text: String) {
@@ -139,10 +139,10 @@ extension ViewController {
         let image = service.getGrayImageFromURL(url)
         inputImageView.image = image
        
-        workWithImage(fromImage: image?.cgImage)
+        workWithImage(fromImage: image)
     }
 
-    func workWithImage(fromImage image: CGImage?) {
+    func workWithImage(fromImage image: NSImage?) {
         guard let image = image else { return }
      
         let resultImage: NSImage?

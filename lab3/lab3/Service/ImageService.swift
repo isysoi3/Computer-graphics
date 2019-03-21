@@ -58,8 +58,8 @@ class ImageService {
         return value > 255 ? UInt8.max : (value < 0 ? UInt8.min : UInt8(value))
     }
     
-    func linearContrast(image: CGImage) -> NSImage? {
-        let info = Image<UInt8>(cgImage: image)
+    func linearContrast(image: NSImage) -> NSImage? {
+        let info = Image<UInt8>(nsImage: image)
         guard let min = info.min(), let max = info.max() else { return nil }
         
         let mult = UInt8.max / (max - min)
@@ -67,40 +67,40 @@ class ImageService {
         return info.map { mult * ($0 - min)}.nsImage
     }
     
-    func negative(image: CGImage) -> NSImage? {
-        let info = Image<UInt8>(cgImage: image)
+    func negative(image: NSImage) -> NSImage? {
+        let info = Image<UInt8>(nsImage: image)
         
         return info.map { UInt8.max - $0 }.nsImage
     }
     
-    func addingValue(image: CGImage, constant: CGFloat) -> NSImage? {
-        let info = Image<UInt8>(cgImage: image)
+    func addingValue(image: NSImage, constant: CGFloat) -> NSImage? {
+        let info = Image<UInt8>(nsImage: image)
         
         return info.map { nearestPixelValue(CGFloat($0) + constant) }.nsImage
     }
     
-    func multipleValue(image: CGImage, constant: CGFloat) -> NSImage? {
-        let info = Image<UInt8>(cgImage: image)
+    func multipleValue(image: NSImage, constant: CGFloat) -> NSImage? {
+        let info = Image<UInt8>(nsImage: image)
         
         return info.map { nearestPixelValue(CGFloat($0) * constant) }.nsImage
     }
     
-    func powValue(image: CGImage, constant: CGFloat) -> NSImage? {
-        let info = Image<UInt8>(cgImage: image)
+    func powValue(image: NSImage, constant: CGFloat) -> NSImage? {
+        let info = Image<UInt8>(nsImage: image)
         guard let max = info.max() else { return nil }
         
         return info.map { nearestPixelValue(pow(CGFloat(($0/max)), constant)) }.nsImage
     }
     
-    func logValue(image: CGImage, constant: CGFloat) -> NSImage? {
-        let info = Image<UInt8>(cgImage: image)
+    func logValue(image: NSImage, constant: CGFloat) -> NSImage? {
+        let info = Image<UInt8>(nsImage: image)
         guard let max = info.max() else { return nil }
         
         return info.map {nearestPixelValue(255 * (log(CGFloat($0)) / log(CGFloat(max)))) }.nsImage
     }
     
-    func morphologicalErosion(image: CGImage) -> NSImage? {
-        var info = Image<UInt8>(cgImage: image)
+    func morphologicalErosion(image: NSImage) -> NSImage? {
+        var info = Image<UInt8>(nsImage: image)
         for i in info.xRange {
             for j in info.yRange {
                 if !isBlack(info[i, j]) {
@@ -126,8 +126,8 @@ class ImageService {
         return info.nsImage
     }
     
-    func morphologicalDilatation(image: CGImage) -> NSImage? {
-        var info = Image<UInt8>(cgImage: image)
+    func morphologicalDilatation(image: NSImage) -> NSImage? {
+        var info = Image<UInt8>(nsImage: image)
         for i in info.xRange {
             for j in info.yRange {
                 if !isBlack(info[i, j]) {

@@ -89,10 +89,10 @@ class ImageService {
         let info = Image<UInt8>(nsImage: image)
         guard let max = info.max() else { return nil }
         
-        return info.map { nearestPixelValue(pow(CGFloat(($0/max)), constant)) }.nsImage
+        return info.map { nearestPixelValue(255 * pow(CGFloat(piexel)/CGFloat(max), constant))}.nsImage
     }
     
-    func logValue(image: NSImage, constant: CGFloat) -> NSImage? {
+    func logValue(image: NSImage) -> NSImage? {
         let info = Image<UInt8>(nsImage: image)
         guard let max = info.max() else { return nil }
         

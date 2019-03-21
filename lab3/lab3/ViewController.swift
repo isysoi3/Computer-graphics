@@ -82,7 +82,7 @@ class ViewController: NSViewController {
         case "Степенное преобразование":
             currentMode = .pow
             
-            slider.maxValue = 3
+            slider.maxValue = 10
             slider.minValue = 0
             slider.doubleValue = 1
             slideValueTextField.doubleValue = 1
@@ -90,11 +90,8 @@ class ViewController: NSViewController {
         case "Логарифмическое преобразование":
             currentMode = .log
             
-            slider.maxValue = 3
-            slider.minValue = 0
-            slider.doubleValue = 1
-            slideValueTextField.doubleValue = 1
-            slider.isHidden = false
+            slideValueTextField.stringValue = ""
+            slider.isHidden = true
         default:
             return
         }
@@ -159,8 +156,7 @@ extension ViewController {
             resultImage = service.multipleValue(image: image,
                                                 constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
         case .log:
-            resultImage = service.logValue(image: image,
-                                           constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
+            resultImage = service.logValue(image: image)
         case .pow:
             resultImage = service.powValue(image: image,
                                            constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))

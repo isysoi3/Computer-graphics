@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09C3F16D2240BED1000F92FF /* EasyImagy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C3F1642240BE88000F92FF /* EasyImagy.framework */; };
-		09C3F16E2240BED1000F92FF /* EasyImagy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09C3F1642240BE88000F92FF /* EasyImagy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09C3F17E2240E58A000F92FF /* Double+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C3F1772240E58A000F92FF /* Double+Round.swift */; };
 		09F6001C223F67FD00E2F6E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6001B223F67FD00E2F6E0 /* AppDelegate.swift */; };
 		09F6001E223F67FD00E2F6E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6001D223F67FD00E2F6E0 /* ViewController.swift */; };
@@ -17,61 +15,63 @@
 		09F6002C223F703B00E2F6E0 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6002B223F703B00E2F6E0 /* ImageService.swift */; };
 		09F6002E223F731C00E2F6E0 /* NSImage+CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F6002D223F731C00E2F6E0 /* NSImage+CGImage.swift */; };
 		09F60031223F829400E2F6E0 /* arch.png in Resources */ = {isa = PBXBuildFile; fileRef = 09F60030223F829400E2F6E0 /* arch.png */; };
+		D3CFAAC92243EC3500C798C5 /* EasyImagy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3CFAAC02243EC2000C798C5 /* EasyImagy.framework */; };
+		D3CFAACA2243EC3500C798C5 /* EasyImagy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D3CFAAC02243EC2000C798C5 /* EasyImagy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		09C3F15F2240BE88000F92FF /* PBXContainerItemProxy */ = {
+		D3CFAABB2243EC2000C798C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+			containerPortal = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D6134A0E1F85226C005592A2;
 			remoteInfo = "EasyImagy-iOS";
 		};
-		09C3F1612240BE88000F92FF /* PBXContainerItemProxy */ = {
+		D3CFAABD2243EC2000C798C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+			containerPortal = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D6134A171F85226D005592A2;
 			remoteInfo = "EasyImagyTests-iOS";
 		};
-		09C3F1632240BE88000F92FF /* PBXContainerItemProxy */ = {
+		D3CFAABF2243EC2000C798C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+			containerPortal = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D6134A601F852C80005592A2;
 			remoteInfo = "EasyImagy-macOS";
 		};
-		09C3F1652240BE88000F92FF /* PBXContainerItemProxy */ = {
+		D3CFAAC12243EC2000C798C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+			containerPortal = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D6134A681F852C80005592A2;
 			remoteInfo = "EasyImagyTests-macOS";
 		};
-		09C3F1672240BE88000F92FF /* PBXContainerItemProxy */ = {
+		D3CFAAC32243EC2000C798C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+			containerPortal = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D6134AA21F85D1F9005592A2;
 			remoteInfo = "EasyImagy-tvOS";
 		};
-		09C3F1692240BE88000F92FF /* PBXContainerItemProxy */ = {
+		D3CFAAC52243EC2000C798C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+			containerPortal = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D6134AAA1F85D1FA005592A2;
 			remoteInfo = "EasyImagyTests-tvOS";
 		};
-		09C3F16B2240BE88000F92FF /* PBXContainerItemProxy */ = {
+		D3CFAAC72243EC2000C798C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+			containerPortal = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D6134AD21F85D800005592A2;
 			remoteInfo = "EasyImagy-watchOS";
 		};
-		09C3F16F2240BED1000F92FF /* PBXContainerItemProxy */ = {
+		D3CFAACB2243EC3500C798C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+			containerPortal = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = D6134A5F1F852C80005592A2;
 			remoteInfo = "EasyImagy-macOS";
@@ -85,7 +85,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				09C3F16E2240BED1000F92FF /* EasyImagy.framework in Embed Frameworks */,
+				D3CFAACA2243EC3500C798C5 /* EasyImagy.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,7 +93,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EasyImagy.xcodeproj; path = ../../EasyImagy/EasyImagy.xcodeproj; sourceTree = "<group>"; };
 		09C3F1772240E58A000F92FF /* Double+Round.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Double+Round.swift"; path = "../../../lab1/lab1/Helper/Double+Round.swift"; sourceTree = "<group>"; };
 		09F60018223F67FD00E2F6E0 /* lab3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lab3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09F6001B223F67FD00E2F6E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +104,7 @@
 		09F6002B223F703B00E2F6E0 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		09F6002D223F731C00E2F6E0 /* NSImage+CGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+CGImage.swift"; sourceTree = "<group>"; };
 		09F60030223F829400E2F6E0 /* arch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arch.png; sourceTree = "<group>"; };
+		D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EasyImagy.xcodeproj; path = "../../../../../Downloads/EasyImagy-master/EasyImagy.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,27 +112,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09C3F16D2240BED1000F92FF /* EasyImagy.framework in Frameworks */,
+				D3CFAAC92243EC3500C798C5 /* EasyImagy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		09C3F1562240BE88000F92FF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				09C3F1602240BE88000F92FF /* EasyImagy.framework */,
-				09C3F1622240BE88000F92FF /* EasyImagyTests-iOS.xctest */,
-				09C3F1642240BE88000F92FF /* EasyImagy.framework */,
-				09C3F1662240BE88000F92FF /* EasyImagyTests.xctest */,
-				09C3F1682240BE88000F92FF /* EasyImagy.framework */,
-				09C3F16A2240BE88000F92FF /* EasyImagyTests.xctest */,
-				09C3F16C2240BE88000F92FF /* EasyImagy.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		09C3F1722240BF30000F92FF /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,7 +150,7 @@
 			children = (
 				09F6001A223F67FD00E2F6E0 /* lab3 */,
 				09F60019223F67FD00E2F6E0 /* Products */,
-				09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */,
+				D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -199,6 +185,20 @@
 			path = "test files";
 			sourceTree = "<group>";
 		};
+		D3CFAAB22243EC2000C798C5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3CFAABC2243EC2000C798C5 /* EasyImagy.framework */,
+				D3CFAABE2243EC2000C798C5 /* EasyImagyTests-iOS.xctest */,
+				D3CFAAC02243EC2000C798C5 /* EasyImagy.framework */,
+				D3CFAAC22243EC2000C798C5 /* EasyImagyTests.xctest */,
+				D3CFAAC42243EC2000C798C5 /* EasyImagy.framework */,
+				D3CFAAC62243EC2000C798C5 /* EasyImagyTests.xctest */,
+				D3CFAAC82243EC2000C798C5 /* EasyImagy.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -214,7 +214,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				09C3F1702240BED1000F92FF /* PBXTargetDependency */,
+				D3CFAACC2243EC3500C798C5 /* PBXTargetDependency */,
 			);
 			name = lab3;
 			productName = lab3;
@@ -249,8 +249,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 09C3F1562240BE88000F92FF /* Products */;
-					ProjectRef = 09C3F1552240BE88000F92FF /* EasyImagy.xcodeproj */;
+					ProductGroup = D3CFAAB22243EC2000C798C5 /* Products */;
+					ProjectRef = D3CFAAB12243EC2000C798C5 /* EasyImagy.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -261,53 +261,53 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		09C3F1602240BE88000F92FF /* EasyImagy.framework */ = {
+		D3CFAABC2243EC2000C798C5 /* EasyImagy.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = EasyImagy.framework;
-			remoteRef = 09C3F15F2240BE88000F92FF /* PBXContainerItemProxy */;
+			remoteRef = D3CFAABB2243EC2000C798C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		09C3F1622240BE88000F92FF /* EasyImagyTests-iOS.xctest */ = {
+		D3CFAABE2243EC2000C798C5 /* EasyImagyTests-iOS.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "EasyImagyTests-iOS.xctest";
-			remoteRef = 09C3F1612240BE88000F92FF /* PBXContainerItemProxy */;
+			remoteRef = D3CFAABD2243EC2000C798C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		09C3F1642240BE88000F92FF /* EasyImagy.framework */ = {
+		D3CFAAC02243EC2000C798C5 /* EasyImagy.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = EasyImagy.framework;
-			remoteRef = 09C3F1632240BE88000F92FF /* PBXContainerItemProxy */;
+			remoteRef = D3CFAABF2243EC2000C798C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		09C3F1662240BE88000F92FF /* EasyImagyTests.xctest */ = {
+		D3CFAAC22243EC2000C798C5 /* EasyImagyTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = EasyImagyTests.xctest;
-			remoteRef = 09C3F1652240BE88000F92FF /* PBXContainerItemProxy */;
+			remoteRef = D3CFAAC12243EC2000C798C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		09C3F1682240BE88000F92FF /* EasyImagy.framework */ = {
+		D3CFAAC42243EC2000C798C5 /* EasyImagy.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = EasyImagy.framework;
-			remoteRef = 09C3F1672240BE88000F92FF /* PBXContainerItemProxy */;
+			remoteRef = D3CFAAC32243EC2000C798C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		09C3F16A2240BE88000F92FF /* EasyImagyTests.xctest */ = {
+		D3CFAAC62243EC2000C798C5 /* EasyImagyTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = EasyImagyTests.xctest;
-			remoteRef = 09C3F1692240BE88000F92FF /* PBXContainerItemProxy */;
+			remoteRef = D3CFAAC52243EC2000C798C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		09C3F16C2240BE88000F92FF /* EasyImagy.framework */ = {
+		D3CFAAC82243EC2000C798C5 /* EasyImagy.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = EasyImagy.framework;
-			remoteRef = 09C3F16B2240BE88000F92FF /* PBXContainerItemProxy */;
+			remoteRef = D3CFAAC72243EC2000C798C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -341,10 +341,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		09C3F1702240BED1000F92FF /* PBXTargetDependency */ = {
+		D3CFAACC2243EC3500C798C5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "EasyImagy-macOS";
-			targetProxy = 09C3F16F2240BED1000F92FF /* PBXContainerItemProxy */;
+			targetProxy = D3CFAACB2243EC3500C798C5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

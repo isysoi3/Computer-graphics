@@ -107,22 +107,14 @@ class ImageService {
         
         for i in info.xRange {
             for j in info.yRange {
-                if !isBlack(info[i, j]) {
-                    if i > 0 && isBlack(info[i - 1, j]) {
-                        newImage[i - 1, j] = 255
-                    }
-                    if i + 1 < info.width && isBlack(info[i + 1, j]) {
-                        newImage[i + 1, j] = 255
-                    }
-                    if j > 0 && isBlack(info[i, j - 1]) {
-                        newImage[i, j - 1] = 255
-                    }
-                    if j + 1 < info.height && isBlack(info[i, j + 1]) {
-                        newImage[i, j + 1] = 255
-                    }
-                    newImage[i, j] = 255
+                if  i - 1 > 0, i + 1 < info.width,
+                    j - 1 > 0,  j + 1 < info.height,
+                    isBlack(info[i - 1, j - 1]), isBlack(info[i, j - 1]), isBlack(info[i + 1, j - 1]),
+                    isBlack(info[i - 1, j]), isBlack(info[i, j]), isBlack(info[i + 1, j]),
+                    isBlack(info[i + 1, j - 1]), isBlack(info[i + 1, j]), isBlack(info[i + 1, j + 1]) {
+                    newImage[i, j] = 0
                 } else {
-                   newImage[i, j] = 0
+                    newImage[i, j] = 255
                 }
             }
         }
@@ -130,7 +122,6 @@ class ImageService {
         return newImage.nsImage
     }
     
-    //TODO: IS: fix it
     func morphologicalErosion(image: NSImage) -> NSImage? {
         let info = Image<UInt8>(nsImage: image)
         var newImage = info
@@ -148,22 +139,6 @@ class ImageService {
                 }
             }
         }
-        
-        /*
-         for i in info.xRange {
-         for j in info.yRange {
-         if isWhite(info[i, j]),
-         i + 1 < info.width, isWhite(info[i+1, j]),
-         j + 1 < info.height, isWhite(info[i, j+1]),
-         isWhite(info[i + 1, j+1]) {
-         newImage[i, j] = 255
-         } else {
-         newImage[i, j] = 0
-         }
-         }
-         }
-        */
-        
         return newImage.nsImage
     }
     

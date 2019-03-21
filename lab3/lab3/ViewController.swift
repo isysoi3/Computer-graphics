@@ -169,7 +169,7 @@ extension ViewController {
         case .erosion:
             resultImage = service.morphologicalErosion(image: image)
         case .dilatation:
-            resultImage = service.morphologicalErosion(image: image)
+            resultImage = service.morphologicalDilatation(image: image)
         }
         
         switch resultImage {

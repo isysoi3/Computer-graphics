@@ -165,7 +165,7 @@ extension ViewController {
             resultImage = service.powValue(image: image,
                                            constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
         case .morf:
-            return
+            resultImage = service.morphologicalErosion(image: image)
         }
         
         switch resultImage {

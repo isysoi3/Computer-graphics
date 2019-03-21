@@ -99,4 +99,66 @@ class ImageService {
         return info.map {nearestPixelValue(255 * (log(CGFloat($0)) / log(CGFloat(max)))) }.nsImage
     }
     
+    func morphologicalErosion(image: CGImage) -> NSImage? {
+        var info = Image<UInt8>(cgImage: image)
+        for i in info.xRange {
+            for j in info.yRange {
+                if !isBlack(info[i, j]) {
+                    if i > 0 && isBlack(info[i - 1, j]) {
+                        info[i - 1, j] = 0
+                    }
+                    if i + 1 < info.width && isBlack(info[i + 1, j]) {
+                        info[i + 1, j] = 0
+                    }
+                    if j > 0 && isBlack(info[i, j - 1]) {
+                        info[i, j - 1] = 0
+                    }
+                    if j + 1 < info.height && isBlack(info[i, j + 1]) {
+                        info[i, j + 1] = 0
+                    }
+                    info[i, j] = 255
+                } else {
+                   info[i, j] = 0
+                }
+            }
+        }
+        
+        return info.nsImage
+    }
+    
+    func morphologicalDilatation(image: CGImage) -> NSImage? {
+        var info = Image<UInt8>(cgImage: image)
+        for i in info.xRange {
+            for j in info.yRange {
+                if !isBlack(info[i, j]) {
+                    if i > 0 && isBlack(info[i - 1, j]) {
+                        info[i - 1, j] = 255
+                    }
+                    if i + 1 < info.width && isBlack(info[i + 1, j]) {
+                        info[i + 1, j] = 255
+                    }
+                    if j > 0 && isBlack(info[i, j - 1]) {
+                        info[i, j - 1] = 255
+                    }
+                    if j + 1 < info.height && isBlack(info[i, j + 1]) {
+                        info[i, j + 1] = 255
+                    }
+                    info[i, j] = 255
+                } else {
+                    info[i, j] = 0
+                }
+            }
+        }
+        
+        return info.nsImage
+    }
+    
+    func isBlack(_ pixel: UInt8) -> Bool {
+        return pixel == 0
+    }
+    
+    func isWhite(_ pixel: UInt8) -> Bool {
+        return pixel == 255
+    }
+    
 }

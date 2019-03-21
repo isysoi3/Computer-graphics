@@ -35,8 +35,8 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        slider.isEnabled = false
-        slideValueTextField.isEnabled = false
+        slider.isHidden = true
+        slideValueTextField.stringValue = ""
         slideValueTextField.isContinuous = false
     }
 
@@ -52,17 +52,17 @@ class ViewController: NSViewController {
             currentMode = .linearContrast
             
             slideValueTextField.stringValue = ""
-            slider.isEnabled = false
+            slider.isHidden = true
         case "Морфологическая обработка":
             currentMode = .morf
             
             slideValueTextField.stringValue = ""
-            slider.isEnabled = false
+            slider.isHidden = true
         case "Негатив":
             currentMode = .negative
             
             slideValueTextField.stringValue = ""
-            slider.isEnabled = false
+            slider.isHidden = true
         case "Добавление константы":
             currentMode = .adding
             
@@ -70,7 +70,7 @@ class ViewController: NSViewController {
             slider.minValue = -255
             slider.doubleValue = 0
             slideValueTextField.doubleValue = 0
-            slider.isEnabled = true
+            slider.isHidden = false
         case "Умножение на константу":
             currentMode = .multiple
             
@@ -78,7 +78,7 @@ class ViewController: NSViewController {
             slider.minValue = 0
             slider.doubleValue = 1
             slideValueTextField.doubleValue = 1
-            slider.isEnabled = true
+            slider.isHidden = false
         case "Степенное преобразование":
             currentMode = .pow
             
@@ -86,7 +86,7 @@ class ViewController: NSViewController {
             slider.minValue = 0
             slider.doubleValue = 1
             slideValueTextField.doubleValue = 1
-            slider.isEnabled = true
+            slider.isHidden = false
         case "Логарифмическое преобразование":
             currentMode = .log
             
@@ -94,7 +94,7 @@ class ViewController: NSViewController {
             slider.minValue = 0
             slider.doubleValue = 1
             slideValueTextField.doubleValue = 1
-            slider.isEnabled = true
+            slider.isHidden = false
         default:
             return
         }

@@ -57,16 +57,19 @@ class ViewController: NSViewController {
     @IBAction func firstFilterHandleTap(_ sender: NSButton) {
         offAllButtonsBesides(sender)
         morphologicalFilterSelected = 1
+        workWithImage(fromImage: inputImageView.image)
     }
     
     @IBAction func secondFilterHandleTap(_ sender: NSButton) {
         offAllButtonsBesides(sender)
         morphologicalFilterSelected = 2
+        workWithImage(fromImage: inputImageView.image)
     }
     
     @IBAction func thirdFilterHandleTap(_ sender: NSButton) {
         offAllButtonsBesides(sender)
         morphologicalFilterSelected = 3
+        workWithImage(fromImage: inputImageView.image)
     }
     
     @IBAction func popUpValueChanged(_ sender: NSPopUpButton) {

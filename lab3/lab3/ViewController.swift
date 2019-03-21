@@ -17,7 +17,8 @@ class ViewController: NSViewController {
         case multiple
         case log
         case pow
-        case morf
+        case erosion
+        case dilatation
     }
     
     var currentMode: ImageOperationsEnum = .linearContrast
@@ -53,8 +54,13 @@ class ViewController: NSViewController {
             
             slideValueTextField.stringValue = ""
             slider.isHidden = true
-        case "Морфологическая обработка":
-            currentMode = .morf
+        case "Морфологическая обработка. Дилатация":
+            currentMode = .dilatation
+            
+            slideValueTextField.stringValue = ""
+            slider.isHidden = true
+        case "Морфологическая обработка. Эрозия":
+            currentMode = .erosion
             
             slideValueTextField.stringValue = ""
             slider.isHidden = true
@@ -160,7 +166,9 @@ extension ViewController {
         case .pow:
             resultImage = service.powValue(image: image,
                                            constant: CGFloat(slider.doubleValue.rounded(toPlaces: 2)))
-        case .morf:
+        case .erosion:
+            resultImage = service.morphologicalErosion(image: image)
+        case .dilatation:
             resultImage = service.morphologicalErosion(image: image)
         }
         

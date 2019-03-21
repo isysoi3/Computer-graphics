@@ -19,6 +19,8 @@ class ViewController: NSViewController {
         case pow
         case erosion
         case dilatation
+        case closing
+        case breaking
     }
     
     var currentMode: ImageOperationsEnum = .linearContrast
@@ -98,6 +100,16 @@ class ViewController: NSViewController {
             
             slideValueTextField.stringValue = ""
             slider.isHidden = true
+        case "Замыкание":
+            currentMode = .closing
+            
+            slideValueTextField.stringValue = ""
+            slider.isHidden = true
+        case "Размыкание":
+            currentMode = .breaking
+            
+            slideValueTextField.stringValue = ""
+            slider.isHidden = true
         default:
             return
         }
@@ -170,6 +182,18 @@ extension ViewController {
             resultImage = service.morphologicalErosion(image: image)
         case .dilatation:
             resultImage = service.morphologicalDilatation(image: image)
+        case .closing:
+            if let rmpResultImage = service.morphologicalDilatation(image: image) {
+                resultImage = service.morphologicalErosion(image: rmpResultImage)
+            } else {
+                resultImage = .none
+            }
+        case .breaking:
+            if let rmpResultImage = service.morphologicalErosion(image: image) {
+                resultImage = service.morphologicalDilatation(image: rmpResultImage)
+            } else {
+                resultImage = .none
+            }
         }
         
         switch resultImage {

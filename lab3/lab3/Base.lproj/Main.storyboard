@@ -153,6 +153,8 @@
                                             <menuItem title="Логарифмическое преобразование" id="bT7-E1-1c8"/>
                                             <menuItem title="Морфологическая обработка. Эрозия" id="Jes-HI-jI8"/>
                                             <menuItem title="Морфологическая обработка. Дилатация" id="rOT-7j-5VW"/>
+                                            <menuItem title="Размыкание" id="NeE-mW-9Sb"/>
+                                            <menuItem title="Замыкание" id="L3O-qu-e5k"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>

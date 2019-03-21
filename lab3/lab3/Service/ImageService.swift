@@ -99,66 +99,78 @@ class ImageService {
         return info.map {nearestPixelValue(255 * (log(CGFloat($0)) / log(CGFloat(max)))) }.nsImage
     }
     
-    func morphologicalErosion(image: NSImage) -> NSImage? {
-        var info = Image<UInt8>(nsImage: image)
+    func morphologicalDilatation(image: NSImage) -> NSImage? {
+        let info = Image<UInt8>(nsImage: image)
+        var newImage = info
+        
         for i in info.xRange {
             for j in info.yRange {
                 if !isBlack(info[i, j]) {
                     if i > 0 && isBlack(info[i - 1, j]) {
-                        info[i - 1, j] = 0
+                        newImage[i - 1, j] = 255
                     }
                     if i + 1 < info.width && isBlack(info[i + 1, j]) {
-                        info[i + 1, j] = 0
+                        newImage[i + 1, j] = 255
                     }
                     if j > 0 && isBlack(info[i, j - 1]) {
-                        info[i, j - 1] = 0
+                        newImage[i, j - 1] = 255
                     }
                     if j + 1 < info.height && isBlack(info[i, j + 1]) {
-                        info[i, j + 1] = 0
+                        newImage[i, j + 1] = 255
                     }
-                    info[i, j] = 255
+                    newImage[i, j] = 255
                 } else {
-                   info[i, j] = 0
+                   newImage[i, j] = 0
                 }
             }
         }
         
-        return info.nsImage
+        return newImage.nsImage
     }
     
-    func morphologicalDilatation(image: NSImage) -> NSImage? {
-        var info = Image<UInt8>(nsImage: image)
+    //TODO: IS: fix it
+    func morphologicalErosion(image: NSImage) -> NSImage? {
+        let info = Image<UInt8>(nsImage: image)
+        var newImage = info
+        
         for i in info.xRange {
             for j in info.yRange {
-                if !isBlack(info[i, j]) {
-                    if i > 0 && isBlack(info[i - 1, j]) {
-                        info[i - 1, j] = 255
-                    }
-                    if i + 1 < info.width && isBlack(info[i + 1, j]) {
-                        info[i + 1, j] = 255
-                    }
-                    if j > 0 && isBlack(info[i, j - 1]) {
-                        info[i, j - 1] = 255
-                    }
-                    if j + 1 < info.height && isBlack(info[i, j + 1]) {
-                        info[i, j + 1] = 255
-                    }
-                    info[i, j] = 255
+                if  i - 1 > 0, i + 1 < info.width,
+                    j - 1 > 0,  j + 1 < info.height,
+                    isWhite(info[i - 1, j - 1]), isWhite(info[i, j - 1]), isWhite(info[i + 1, j - 1]),
+                    isWhite(info[i - 1, j]), isWhite(info[i, j]), isWhite(info[i + 1, j]),
+                    isWhite(info[i + 1, j - 1]), isWhite(info[i + 1, j]), isWhite(info[i + 1, j + 1]) {
+                    newImage[i, j] = 255
                 } else {
-                    info[i, j] = 0
+                    newImage[i, j] = 0
                 }
             }
         }
         
-        return info.nsImage
+        /*
+         for i in info.xRange {
+         for j in info.yRange {
+         if isWhite(info[i, j]),
+         i + 1 < info.width, isWhite(info[i+1, j]),
+         j + 1 < info.height, isWhite(info[i, j+1]),
+         isWhite(info[i + 1, j+1]) {
+         newImage[i, j] = 255
+         } else {
+         newImage[i, j] = 0
+         }
+         }
+         }
+        */
+        
+        return newImage.nsImage
     }
     
     func isBlack(_ pixel: UInt8) -> Bool {
-        return pixel == 0
+        return pixel >= 0 && pixel <= 10
     }
     
     func isWhite(_ pixel: UInt8) -> Bool {
-        return pixel == 255
+        return pixel >= 245 && pixel <= 255
     }
     
 }

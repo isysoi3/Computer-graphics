@@ -61,7 +61,6 @@ class ImageService {
     func linearContrast(image: NSImage) -> NSImage? {
         let info = Image<UInt8>(nsImage: image)
         guard let min = info.min(), let max = info.max() else { return nil }
-        
         let mult = UInt8.max / (max - min)
         
         return info.map { mult * ($0 - min)}.nsImage
@@ -81,22 +80,25 @@ class ImageService {
     
     func multipleValue(image: NSImage, constant: CGFloat) -> NSImage? {
         let info = Image<UInt8>(nsImage: image)
+        let lut = (0...255).map {  nearestPixelValue(CGFloat($0) * constant) }
         
-        return info.map { nearestPixelValue(CGFloat($0) * constant) }.nsImage
+        return info.map { lut[Int($0)] }.nsImage
     }
     
     func powValue(image: NSImage, constant: CGFloat) -> NSImage? {
         let info = Image<UInt8>(nsImage: image)
         guard let max = info.max() else { return nil }
+        let lut = (0...255).map { nearestPixelValue(255 * pow(CGFloat($0)/CGFloat(max), constant)) }
         
-        return info.map { nearestPixelValue(255 * pow(CGFloat(piexel)/CGFloat(max), constant))}.nsImage
+        return info.map { lut[Int($0)] }.nsImage
     }
     
     func logValue(image: NSImage) -> NSImage? {
         let info = Image<UInt8>(nsImage: image)
         guard let max = info.max() else { return nil }
+        let lut = (0...255).map { nearestPixelValue(255 * (log(CGFloat($0)) / log(CGFloat(max)))) }
         
-        return info.map {nearestPixelValue(255 * (log(CGFloat($0)) / log(CGFloat(max)))) }.nsImage
+        return info.map { lut[Int($0)] }.nsImage
     }
     
     func morphologicalDilatation(image: NSImage) -> NSImage? {

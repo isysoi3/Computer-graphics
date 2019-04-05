@@ -14,6 +14,7 @@
 		09349272225732D3002598DE /* RasterAlgorithmsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09349271225732D3002598DE /* RasterAlgorithmsService.swift */; };
 		0934927422573714002598DE /* CGPoint+Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934927322573714002598DE /* CGPoint+Add.swift */; };
 		0934927622573DC9002598DE /* Int+Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934927522573DC9002598DE /* Int+Sign.swift */; };
+		09F3CB472257625500C319E9 /* TimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F3CB462257625500C319E9 /* TimeService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		09349271225732D3002598DE /* RasterAlgorithmsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RasterAlgorithmsService.swift; sourceTree = "<group>"; };
 		0934927322573714002598DE /* CGPoint+Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Add.swift"; sourceTree = "<group>"; };
 		0934927522573DC9002598DE /* Int+Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Sign.swift"; sourceTree = "<group>"; };
+		09F3CB462257625500C319E9 /* TimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				09349271225732D3002598DE /* RasterAlgorithmsService.swift */,
 				0934927322573714002598DE /* CGPoint+Add.swift */,
 				0934927522573DC9002598DE /* Int+Sign.swift */,
+				09F3CB462257625500C319E9 /* TimeService.swift */,
 			);
 			path = lab4;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 				0934927622573DC9002598DE /* Int+Sign.swift in Sources */,
 				09349272225732D3002598DE /* RasterAlgorithmsService.swift in Sources */,
 				0934926422572261002598DE /* ViewController.swift in Sources */,
+				09F3CB472257625500C319E9 /* TimeService.swift in Sources */,
 				0934926222572261002598DE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

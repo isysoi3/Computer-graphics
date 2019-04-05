@@ -11,6 +11,9 @@
 		0934926422572261002598DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934926322572261002598DE /* ViewController.swift */; };
 		0934926622572262002598DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0934926522572262002598DE /* Assets.xcassets */; };
 		0934926922572262002598DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0934926722572262002598DE /* Main.storyboard */; };
+		09349272225732D3002598DE /* RasterAlgorithmsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09349271225732D3002598DE /* RasterAlgorithmsService.swift */; };
+		0934927422573714002598DE /* CGPoint+Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934927322573714002598DE /* CGPoint+Add.swift */; };
+		0934927622573DC9002598DE /* Int+Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934927522573DC9002598DE /* Int+Sign.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +24,9 @@
 		0934926822572262002598DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0934926A22572262002598DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0934926B22572262002598DE /* lab4.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = lab4.entitlements; sourceTree = "<group>"; };
+		09349271225732D3002598DE /* RasterAlgorithmsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RasterAlgorithmsService.swift; sourceTree = "<group>"; };
+		0934927322573714002598DE /* CGPoint+Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Add.swift"; sourceTree = "<group>"; };
+		0934927522573DC9002598DE /* Int+Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Sign.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,9 @@
 				0934926722572262002598DE /* Main.storyboard */,
 				0934926A22572262002598DE /* Info.plist */,
 				0934926B22572262002598DE /* lab4.entitlements */,
+				09349271225732D3002598DE /* RasterAlgorithmsService.swift */,
+				0934927322573714002598DE /* CGPoint+Add.swift */,
+				0934927522573DC9002598DE /* Int+Sign.swift */,
 			);
 			path = lab4;
 			sourceTree = "<group>";
@@ -133,6 +142,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0934927422573714002598DE /* CGPoint+Add.swift in Sources */,
+				0934927622573DC9002598DE /* Int+Sign.swift in Sources */,
+				09349272225732D3002598DE /* RasterAlgorithmsService.swift in Sources */,
 				0934926422572261002598DE /* ViewController.swift in Sources */,
 				0934926222572261002598DE /* AppDelegate.swift in Sources */,
 			);

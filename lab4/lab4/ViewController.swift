@@ -12,7 +12,13 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let startPont = CGPoint(x: 0, y: 0)
+        let finishPoint = CGPoint(x: 6, y: 4)
+        print(RasterAlgorithmsService().stepByStep(startPoint: startPont, finishPoint: finishPoint))
+        print(RasterAlgorithmsService().bresenhamLine(startPoint: startPont, finishPoint: finishPoint))
+        print((RasterAlgorithmsService().digitalDifferentialAnalyzer(startPoint: startPont, finishPoint: finishPoint)))
+        print((RasterAlgorithmsService().bresenhamCircle(startPoint: startPont, radius: 6)))
         // Do any additional setup after loading the view.
     }
 

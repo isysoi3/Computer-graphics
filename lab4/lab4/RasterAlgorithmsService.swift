@@ -79,10 +79,8 @@ class RasterAlgorithmsService {
         var d = 3 - 2 * radius
         
         while(x <= y) {
-            for octant in 0...7 {
-                let point = switchFromOctantZeroTo(octant:octant, point: CGPoint(x: x, y: y))
-                way.append(startPoint.addToPoint(x: point.x, y: point.y))
-            }
+            let point = switchFromOctantZeroTo(octant: 0, point: CGPoint(x: x, y: y))
+            way.append(startPoint.addToPoint(x: point.x, y: point.y))
             
             if (d < 0){
                 d = d + 4*x + 6;
@@ -92,6 +90,11 @@ class RasterAlgorithmsService {
             }
             x = x + 1;
         }
+//        let wayReversed = way.reversed()
+//        let tmp = Array(0...7).map { octant -> [CGPoint] in
+//            return wayReversed.map {switchFromOctantZeroTo(octant: octant, point: $0)}
+//        }.reduce(into: [], {$0.append(contentsOf: $1)})
+//        way.append(contentsOf: tmp)
         
         return way
     }
@@ -113,8 +116,21 @@ class RasterAlgorithmsService {
     
     func digitalDifferentialAnalyzer(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
         var way = [startPoint]
+        let dx = finishPoint.x - startPoint.x
+        let dy = finishPoint.y - startPoint.y
+        let L = max(dx, dy)
+        var currentPoint = startPoint
+        let xOffset = dx/L
+        let yOffset = dy/L
         
-        return way
+        var i: CGFloat = 0
+        while (i < L) {
+            currentPoint = currentPoint.addToPoint(x: xOffset, y: yOffset)
+            way.append(currentPoint)
+            i += 1
+        }
+        
+        return way.map { CGPoint(x: round($0.x), y: round($0.y))}
     }
     
 }

@@ -14,4 +14,10 @@ extension CGPoint {
         return CGPoint(x: self.x + x, y: self.y + y)
     }
     
+    static func distance(_ a: CGPoint, _ b: CGPoint) -> Int {
+        let xDist = a.x - b.x
+        let yDist = a.y - b.y
+        return Int(sqrt(xDist * xDist + yDist * yDist))
+    }
+    
 }

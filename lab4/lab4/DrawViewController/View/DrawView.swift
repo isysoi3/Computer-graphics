@@ -11,7 +11,7 @@ class DrawView: NSView {
 
     typealias Line = (from: NSPoint, to: NSPoint)
     
-    var penRadius: CGFloat = 4.0 {
+    var penRadius: CGFloat = 4 {
         didSet {
             window?.invalidateCursorRects(for: self)
         }
@@ -21,9 +21,8 @@ class DrawView: NSView {
     var currentLine: Line?
 
     var runOnce = false
-    var circlePoints: [CGPoint] = []
-    var circleMidPoints: [CGPoint] = []
-    var octantPoints: [CGPoint] = []
+    var coordinateXPoints: [CGPoint] = []
+    var coordinateYPoints: [CGPoint] = []
 
     // Optimize the rendering
     override var isOpaque: Bool {
@@ -36,6 +35,11 @@ class DrawView: NSView {
         
         guard let context: CGContext = NSGraphicsContext.current?.cgContext else {
             return
+        }
+        
+        if (!runOnce){
+            runOnce = true
+            calculateCoordinateSystem()
         }
         
         context.setFillColor(.white)
@@ -52,8 +56,26 @@ class DrawView: NSView {
             context.setFillColor(.black)
             context.fillPixels(pts)
         }
+        
+        context.setFillColor(NSColor.red.cgColor)
+        
+        // Draw coordinate X and Y Points
+        context.fillPixels(coordinateXPoints)
+        context.fillPixels(coordinateYPoints)
     }
 
+    
+    func calculateCoordinateSystem() {
+        let midX = Int(self.frame.midX)
+        let midY = Int(self.frame.midY)
+        coordinateXPoints = Array(Int(self.frame.minX)...Int(self.frame.maxX)).map {
+            CGPoint(x: $0, y: midY)
+        }
+        coordinateYPoints = Array(Int(self.frame.minY)...Int(self.frame.maxY)).map {
+            CGPoint(x: midX, y: $0)
+        }
+    }
+    
 }
 
 extension DrawView {
@@ -89,9 +111,9 @@ extension DrawView {
     override func resetCursorRects() {
         super.resetCursorRects()
         
-        addCursorRect(bounds, cursor:
-            NSCursor(radius: penRadius * NSScreen.main!.backingScaleFactor,
-                     color: NSColor.black))
+        addCursorRect(bounds,
+                      cursor: NSCursor(radius: penRadius * NSScreen.main!.backingScaleFactor,
+                                       color: NSColor.black))
     }
     
 }

@@ -683,11 +683,11 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="lab4" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                <windowController id="B8D-0N-5wS" customClass="WindowController" customModule="lab4" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="lab4" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="Window" customModule="lab4" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="500" height="500"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
@@ -701,18 +701,39 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Draw View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="lab4" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <viewController id="XfG-lQ-9wD" customClass="DrawViewController" customModule="lab4" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl" customClass="DrawView" customModule="lab4" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9QU-Wg-sbH">
+                                <rect key="frame" x="18" y="463" width="104" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="NDx-Cc-95w"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="(0.0, 0.0)" id="Hjp-bD-0V0">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="9QU-Wg-sbH" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="3Bh-lW-Lu9"/>
+                            <constraint firstItem="9QU-Wg-sbH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="m7n-4r-AkY"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="drawView" destination="m2S-Jp-Qdl" id="EOi-yf-G5g"/>
+                        <outlet property="mouseLocationLabel" destination="9QU-Wg-sbH" id="C9q-jD-gvN"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="-514" y="740"/>
         </scene>
     </scenes>
 </document>

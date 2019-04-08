@@ -8,19 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		0934926222572261002598DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934926122572261002598DE /* AppDelegate.swift */; };
-		0934926422572261002598DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934926322572261002598DE /* ViewController.swift */; };
+		0934926422572261002598DE /* DrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934926322572261002598DE /* DrawViewController.swift */; };
 		0934926622572262002598DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0934926522572262002598DE /* Assets.xcassets */; };
 		0934926922572262002598DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0934926722572262002598DE /* Main.storyboard */; };
 		09349272225732D3002598DE /* RasterAlgorithmsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09349271225732D3002598DE /* RasterAlgorithmsService.swift */; };
 		0934927422573714002598DE /* CGPoint+Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934927322573714002598DE /* CGPoint+Add.swift */; };
 		0934927622573DC9002598DE /* Int+Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0934927522573DC9002598DE /* Int+Sign.swift */; };
+		0956ED2C225B22320051C569 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED2B225B22320051C569 /* Window.swift */; };
+		0956ED2E225B224C0051C569 /* MouseTrackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED2D225B224B0051C569 /* MouseTrackDelegate.swift */; };
+		0956ED33225B22E30051C569 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED32225B22E30051C569 /* DrawView.swift */; };
+		0956ED35225B233C0051C569 /* NSPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED34225B233C0051C569 /* NSPoint+.swift */; };
+		0956ED37225B23EC0051C569 /* CGContext+Pixels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED36225B23EC0051C569 /* CGContext+Pixels.swift */; };
+		0956ED3B225B24DE0051C569 /* NSCursor+Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED3A225B24DE0051C569 /* NSCursor+Circle.swift */; };
+		0956ED3D225B25C10051C569 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED3C225B25C10051C569 /* WindowController.swift */; };
 		09F3CB472257625500C319E9 /* TimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F3CB462257625500C319E9 /* TimeService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0934925E22572261002598DE /* lab4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lab4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0934926122572261002598DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0934926322572261002598DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0934926322572261002598DE /* DrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawViewController.swift; sourceTree = "<group>"; };
 		0934926522572262002598DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0934926822572262002598DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0934926A22572262002598DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -28,6 +35,13 @@
 		09349271225732D3002598DE /* RasterAlgorithmsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RasterAlgorithmsService.swift; sourceTree = "<group>"; };
 		0934927322573714002598DE /* CGPoint+Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Add.swift"; sourceTree = "<group>"; };
 		0934927522573DC9002598DE /* Int+Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Sign.swift"; sourceTree = "<group>"; };
+		0956ED2B225B22320051C569 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		0956ED2D225B224B0051C569 /* MouseTrackDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseTrackDelegate.swift; sourceTree = "<group>"; };
+		0956ED32225B22E30051C569 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		0956ED34225B233C0051C569 /* NSPoint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPoint+.swift"; sourceTree = "<group>"; };
+		0956ED36225B23EC0051C569 /* CGContext+Pixels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGContext+Pixels.swift"; sourceTree = "<group>"; };
+		0956ED3A225B24DE0051C569 /* NSCursor+Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCursor+Circle.swift"; sourceTree = "<group>"; };
+		0956ED3C225B25C10051C569 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		09F3CB462257625500C319E9 /* TimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,18 +75,73 @@
 		0934926022572261002598DE /* lab4 */ = {
 			isa = PBXGroup;
 			children = (
-				0934926122572261002598DE /* AppDelegate.swift */,
-				0934926322572261002598DE /* ViewController.swift */,
-				0934926522572262002598DE /* Assets.xcassets */,
+				0956ED38225B24B10051C569 /* Common */,
+				0956ED40225B2BA30051C569 /* Service */,
+				0956ED3F225B2B8F0051C569 /* DrawViewController */,
 				0934926722572262002598DE /* Main.storyboard */,
-				0934926A22572262002598DE /* Info.plist */,
-				0934926B22572262002598DE /* lab4.entitlements */,
-				09349271225732D3002598DE /* RasterAlgorithmsService.swift */,
-				0934927322573714002598DE /* CGPoint+Add.swift */,
-				0934927522573DC9002598DE /* Int+Sign.swift */,
-				09F3CB462257625500C319E9 /* TimeService.swift */,
+				0956ED3E225B28590051C569 /* Supporting Files */,
 			);
 			path = lab4;
+			sourceTree = "<group>";
+		};
+		0956ED31225B22D70051C569 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0956ED32225B22E30051C569 /* DrawView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0956ED38225B24B10051C569 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0956ED39225B24BA0051C569 /* Extensions */,
+				0956ED2D225B224B0051C569 /* MouseTrackDelegate.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		0956ED39225B24BA0051C569 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0934927322573714002598DE /* CGPoint+Add.swift */,
+				0934927522573DC9002598DE /* Int+Sign.swift */,
+				0956ED34225B233C0051C569 /* NSPoint+.swift */,
+				0956ED36225B23EC0051C569 /* CGContext+Pixels.swift */,
+				0956ED3A225B24DE0051C569 /* NSCursor+Circle.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0956ED3E225B28590051C569 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0956ED2B225B22320051C569 /* Window.swift */,
+				0934926122572261002598DE /* AppDelegate.swift */,
+				0934926522572262002598DE /* Assets.xcassets */,
+				0934926A22572262002598DE /* Info.plist */,
+				0934926B22572262002598DE /* lab4.entitlements */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0956ED3F225B2B8F0051C569 /* DrawViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0956ED31225B22D70051C569 /* View */,
+				0934926322572261002598DE /* DrawViewController.swift */,
+				0956ED3C225B25C10051C569 /* WindowController.swift */,
+			);
+			path = DrawViewController;
+			sourceTree = "<group>";
+		};
+		0956ED40225B2BA30051C569 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				09F3CB462257625500C319E9 /* TimeService.swift */,
+				09349271225732D3002598DE /* RasterAlgorithmsService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,8 +216,15 @@
 			files = (
 				0934927422573714002598DE /* CGPoint+Add.swift in Sources */,
 				0934927622573DC9002598DE /* Int+Sign.swift in Sources */,
+				0956ED2E225B224C0051C569 /* MouseTrackDelegate.swift in Sources */,
+				0956ED2C225B22320051C569 /* Window.swift in Sources */,
 				09349272225732D3002598DE /* RasterAlgorithmsService.swift in Sources */,
-				0934926422572261002598DE /* ViewController.swift in Sources */,
+				0956ED37225B23EC0051C569 /* CGContext+Pixels.swift in Sources */,
+				0956ED35225B233C0051C569 /* NSPoint+.swift in Sources */,
+				0956ED33225B22E30051C569 /* DrawView.swift in Sources */,
+				0956ED3D225B25C10051C569 /* WindowController.swift in Sources */,
+				0956ED3B225B24DE0051C569 /* NSCursor+Circle.swift in Sources */,
+				0934926422572261002598DE /* DrawViewController.swift in Sources */,
 				09F3CB472257625500C319E9 /* TimeService.swift in Sources */,
 				0934926222572261002598DE /* AppDelegate.swift in Sources */,
 			);
@@ -287,11 +363,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = lab4/lab4.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "lab4/Supporting Files/lab4.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = K3EBJ8K5KL;
-				INFOPLIST_FILE = lab4/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/lab4/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -306,11 +382,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = lab4/lab4.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "lab4/Supporting Files/lab4.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = K3EBJ8K5KL;
-				INFOPLIST_FILE = lab4/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/lab4/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

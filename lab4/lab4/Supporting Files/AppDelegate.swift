@@ -18,19 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func changedAlgorithmType(_ sender: NSMenuItem) {
-        let type: RasterAlgorithmsTypeEnum
-        switch sender.title {
-        case "Пошаговый":
-            type = .linear
-        case "ЦДА":
-            type = .DDA
-        case "Брезенхема":
-            type = .bresenhamLine
-        case "Брезенхема (окружность)":
-            type = .bresenhamCircle
-        default:
-            return
-        }
+        guard let type = RasterAlgorithmsTypeEnum(rawValue: sender.title) else { return }
         sender.menu?.items.forEach { $0.state = .off}
         sender.state = .on
         if let vc = rootViewController as? DrawViewController {

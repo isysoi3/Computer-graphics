@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum RasterAlgorithmsTypeEnum {
-    case linear
-    case bresenhamLine
-    case bresenhamCircle
-    case DDA
+enum RasterAlgorithmsTypeEnum: String {
+    case linear = "Пошаговый"
+    case bresenhamLine = "Брезенхема"
+    case bresenhamCircle = "Брезенхема (окружность)"
+    case DDA = "ЦДА"
 }
 
 typealias Line = (from: NSPoint, to: NSPoint)
@@ -37,10 +37,12 @@ class RasterAlgorithmsService {
             points = digitalDifferentialAnalyzer(startPoint: line.from,
                                                  finishPoint: line.to)
         }
+        consolePrint("Points: \(points)")
         return points
     }
     
     func stepByStep(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
+        consolePrint("Draw linear line from \(startPoint) to \(finishPoint)")
         var way = [startPoint]
         let dx = finishPoint.x - startPoint.x
         let dy = finishPoint.y - startPoint.y
@@ -59,6 +61,7 @@ class RasterAlgorithmsService {
     }
     
     func bresenhamLine(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
+        consolePrint("Draw bresenham line from \(startPoint) to \(finishPoint)")
         guard !startPoint.equalTo(finishPoint) else { return []}
         var way: [CGPoint] = []
         
@@ -103,6 +106,7 @@ class RasterAlgorithmsService {
     }
     
     func bresenhamCircle(startPoint: CGPoint, radius: Int) -> [CGPoint] {
+        consolePrint("Draw bresenham circle from \(startPoint) with radius \(radius)")
         var way: [CGPoint] = []
         var x = 0
         var y = radius
@@ -128,6 +132,7 @@ class RasterAlgorithmsService {
 
     
     func digitalDifferentialAnalyzer(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
+        consolePrint("Draw Digital Differential Analyzer line from \(startPoint) to \(finishPoint)")
         var way = [startPoint]
         let dx = finishPoint.x - startPoint.x
         let dy = finishPoint.y - startPoint.y

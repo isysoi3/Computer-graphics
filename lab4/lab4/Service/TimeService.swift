@@ -10,11 +10,11 @@ import Foundation
 
 class TimeService {
     
-    func timeMeasure(_ f: () -> ()){
+    func timeMeasure(_ f: () -> (String)){
         let start = Date()
-        f()
+        let name = f()
         let timeInterval: Double = Date().timeIntervalSince(start)
-        print("\(timeInterval) seconds")
+        consolePrint("Time for \"\(name)\": \(timeInterval) seconds")
     }
     
     

@@ -21,6 +21,7 @@
 		0956ED37225B23EC0051C569 /* CGContext+Pixels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED36225B23EC0051C569 /* CGContext+Pixels.swift */; };
 		0956ED3B225B24DE0051C569 /* NSCursor+Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED3A225B24DE0051C569 /* NSCursor+Circle.swift */; };
 		0956ED3D225B25C10051C569 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956ED3C225B25C10051C569 /* WindowController.swift */; };
+		09D4244D225C987F007B8AF8 /* ConsolePrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D4244C225C987F007B8AF8 /* ConsolePrint.swift */; };
 		09F3CB472257625500C319E9 /* TimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F3CB462257625500C319E9 /* TimeService.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		0956ED36225B23EC0051C569 /* CGContext+Pixels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGContext+Pixels.swift"; sourceTree = "<group>"; };
 		0956ED3A225B24DE0051C569 /* NSCursor+Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCursor+Circle.swift"; sourceTree = "<group>"; };
 		0956ED3C225B25C10051C569 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		09D4244C225C987F007B8AF8 /* ConsolePrint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsolePrint.swift; sourceTree = "<group>"; };
 		09F3CB462257625500C319E9 /* TimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				0956ED39225B24BA0051C569 /* Extensions */,
+				09D4244C225C987F007B8AF8 /* ConsolePrint.swift */,
 				0956ED2D225B224B0051C569 /* MouseTrackDelegate.swift */,
 			);
 			path = Common;
@@ -227,6 +230,7 @@
 				0934926422572261002598DE /* DrawViewController.swift in Sources */,
 				09F3CB472257625500C319E9 /* TimeService.swift in Sources */,
 				0934926222572261002598DE /* AppDelegate.swift in Sources */,
+				09D4244D225C987F007B8AF8 /* ConsolePrint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

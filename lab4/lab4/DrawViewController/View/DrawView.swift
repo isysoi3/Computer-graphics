@@ -120,6 +120,7 @@ extension DrawView {
                 helperRasterAlgorithms
                     .performAlgorithmBasedOn(currentAlgorithmType, line: currentLine)
                     .flatMap { lines.append([$0]) }
+                return currentAlgorithmType.rawValue
             }
         }
         currentLine = nil

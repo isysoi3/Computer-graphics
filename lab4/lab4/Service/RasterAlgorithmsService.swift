@@ -13,6 +13,7 @@ enum RasterAlgorithmsTypeEnum: String {
     case bresenhamLine = "Брезенхема"
     case bresenhamCircle = "Брезенхема (окружность)"
     case DDA = "ЦДА"
+    case castePitvera = "Кастла-Питвея"
 }
 
 typealias Line = (from: NSPoint, to: NSPoint)
@@ -42,6 +43,10 @@ class RasterAlgorithmsService {
             consolePrint("Draw Digital Differential Analyzer line from \(line.from) to \(line.to)")
             points = digitalDifferentialAnalyzer(startPoint: line.from,
                                                  finishPoint: line.to)
+        case .castePitvera:
+            consolePrint("Draw Caste-Pitvera line from \(line.from) to \(line.to)")
+            points = castePitveraAlgorithm(startPoint: line.from,
+                                           finishPoint: line.to)
         }
         consolePrint("Points: \(points)")
         return points

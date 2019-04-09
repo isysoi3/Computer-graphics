@@ -26,5 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        NSApplication.shared.helpMenu = nil
+    }
+    
 }
 

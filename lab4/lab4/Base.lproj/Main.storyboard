@@ -83,17 +83,10 @@
                                                 <action selector="changedAlgorithmType:" target="Voe-Tx-rLC" id="eM0-lS-NbL"/>
                                             </connections>
                                         </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Help" id="9U7-lK-LkF" userLabel="Help">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Help" systemMenu="help" id="UWR-9L-XIY">
-                                    <items>
-                                        <menuItem title="help" id="ZVb-4Y-K8P" userLabel="Help">
+                                        <menuItem title="Кастла-Питвея" id="ojn-Wk-8sO">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="changedAlgorithmType:" target="Voe-Tx-rLC" id="frs-eJ-2Yu"/>
+                                                <action selector="changedAlgorithmType:" target="Voe-Tx-rLC" id="kQl-mw-rQw"/>
                                             </connections>
                                         </menuItem>
                                     </items>

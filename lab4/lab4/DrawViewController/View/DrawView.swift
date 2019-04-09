@@ -17,19 +17,16 @@ class DrawView: NSView {
         }
     }
 
-    var lines: [Line] = []
+    var lines: [[CGPoint]] = []
     var currentLine: Line?
-
-    var runOnce = false
-    var coordinateXPoints: [CGPoint] = []
-    var coordinateYPoints: [CGPoint] = []
+    
+    let helperRasterAlgorithms = RasterAlgorithmsService()
 
     // Optimize the rendering
     override var isOpaque: Bool {
         return true
     }
 
-    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
@@ -37,43 +34,57 @@ class DrawView: NSView {
             return
         }
         
-        if (!runOnce){
-            runOnce = true
-            calculateCoordinateSystem()
-        }
-        
         context.setFillColor(.white)
         context.fill(bounds)
+        drawCoordinateSystem()
         
-        for line in lines {
-            let pts = RasterAlgorithmsService().bresenhamLine(startPoint: line.from, finishPoint: line.to)
+        for points in lines {
             context.setFillColor(.black)
-            context.fillPixels(pts)
+            context.fillPixels(points)
         }
         
         if let currentLine = currentLine {
-            let pts =  RasterAlgorithmsService().bresenhamLine(startPoint: currentLine.from, finishPoint: currentLine.to)
+            let points = helperRasterAlgorithms.bresenhamLine(startPoint: currentLine.from, finishPoint: currentLine.to)
             context.setFillColor(.black)
-            context.fillPixels(pts)
+            context.fillPixels(points)
         }
-        
-        context.setFillColor(NSColor.red.cgColor)
-        
-        // Draw coordinate X and Y Points
-        context.fillPixels(coordinateXPoints)
-        context.fillPixels(coordinateYPoints)
     }
-
     
-    func calculateCoordinateSystem() {
-        let midX = Int(self.frame.midX)
-        let midY = Int(self.frame.midY)
-        coordinateXPoints = Array(Int(self.frame.minX)...Int(self.frame.maxX)).map {
-            CGPoint(x: $0, y: midY)
+    private func drawCoordinateSystem() {
+        let bezierGrid = NSBezierPath()
+        bezierGrid.lineWidth = 0.1
+        let ponints = Array(0...500)
+        ponints.forEach { point in
+            if point == 250 { return }
+            
+            bezierGrid.move(to: CGPoint(x: 0, y: point))
+            bezierGrid.line(to: CGPoint(x: 500, y: point))
+            
+            bezierGrid.move(to: CGPoint(x: point, y: 0))
+            bezierGrid.line(to: CGPoint(x: point, y: 500))
         }
-        coordinateYPoints = Array(Int(self.frame.minY)...Int(self.frame.maxY)).map {
-            CGPoint(x: midX, y: $0)
-        }
+        NSColor.lightGray.setStroke()
+        bezierGrid.stroke()
+        bezierGrid.close()
+        
+        let bezierMain = NSBezierPath()
+        bezierMain.lineWidth = 2
+        bezierMain.move(to: CGPoint(x: 0, y: 250))
+        bezierMain.line(to: CGPoint(x: 500, y: 250))
+        bezierMain.line(to: CGPoint(x: 490, y: 240))
+        bezierMain.move(to: CGPoint(x: 500, y: 250))
+        bezierMain.line(to: CGPoint(x: 490, y: 260))
+        
+        bezierMain.move(to: CGPoint(x: 250, y: 0))
+        bezierMain.line(to: CGPoint(x: 250, y: 500))
+        bezierMain.line(to: CGPoint(x: 240, y: 490))
+        bezierMain.move(to: CGPoint(x: 250, y: 500))
+        bezierMain.line(to: CGPoint(x: 260, y: 490))
+        
+        NSColor.red.setStroke()
+        bezierMain.stroke()
+        
+        bezierMain.close()
     }
     
 }
@@ -103,7 +114,15 @@ extension DrawView {
         
         let pixel = convert(event.locationInWindow, from: nil).round()
         currentLine?.to = pixel
-        currentLine.flatMap { lines.append($0) }
+        
+        if let currentLine = currentLine {
+            TimeService().timeMeasure {
+                helperRasterAlgorithms
+                    .bresenhamLine(startPoint: currentLine.from, finishPoint: currentLine.to)
+                    .flatMap { lines.append([$0]) }
+            }
+        }
+        currentLine = nil
         
         setNeedsDisplay(bounds)
     }

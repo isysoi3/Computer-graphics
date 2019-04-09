@@ -10,11 +10,11 @@ import Foundation
 
 extension CGContext {
     
-    func fillPixels(_ pixels: [CGPoint]) {
-        pixels.forEach(fill)
+    func fillPixels(_ pixels: [CGPoint], with size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+        pixels.forEach { fill($0, size: size) }
     }
     
-    func fill(_ pixel: CGPoint) {
-        fill(CGRect(origin: pixel, size: CGSize(width: 1.0, height: 1.0)))
+    func fill(_ pixel: CGPoint, size: CGSize) {
+        fill(CGRect(origin: pixel, size: size))
     }
 }

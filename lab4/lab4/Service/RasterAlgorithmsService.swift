@@ -52,20 +52,25 @@ class RasterAlgorithmsService {
         return points
     }
     
+    //fix it!
     func stepByStep(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
-        var way = [startPoint]
+        var way: [CGPoint] = []
+        var startPoint = startPoint
+        var finishPoint = finishPoint
+        if startPoint.x >= finishPoint.x {
+            let tmp = startPoint
+            startPoint = finishPoint
+            finishPoint = tmp
+        }
         let dx = finishPoint.x - startPoint.x
         let dy = finishPoint.y - startPoint.y
         let k = dy/dx
         let b = startPoint.y - k * startPoint.x
-        var currentXPoint = startPoint.x + 1
         
-        while (currentXPoint != finishPoint.x) {
-            way.append(CGPoint(x: Int(currentXPoint),
-                               y: Int(k * currentXPoint + b)))
-            currentXPoint += 1
+        for x in Int(startPoint.x)...Int(finishPoint.x) {
+            let y = startPoint.y + (CGFloat(x) - startPoint.x) * k
+            way.append(CGPoint(x: x, y: Int(y)))
         }
-        way.append(finishPoint)
         
         return way
     }

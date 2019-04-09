@@ -14,6 +14,15 @@ class DrawViewController: NSViewController {
     
     @IBOutlet weak var mouseLocationLabel: NSTextField!
     
+    var currentAlgorithmType: RasterAlgorithmsTypeEnum {
+        set {
+            drawView.currentAlgorithmType = newValue
+        }
+        get {
+            return drawView.currentAlgorithmType
+        }
+    }
+    
     private var scale: Int = 0
     
     var mouseLocation: NSPoint = NSPoint() {

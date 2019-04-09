@@ -8,8 +8,8 @@
 import Cocoa
 
 class DrawView: NSView {
-
-    typealias Line = (from: NSPoint, to: NSPoint)
+    
+    var currentAlgorithmType: RasterAlgorithmsTypeEnum = .bresenhamLine
     
     var penRadius: CGFloat = 4 {
         didSet {
@@ -118,7 +118,7 @@ extension DrawView {
         if let currentLine = currentLine {
             TimeService().timeMeasure {
                 helperRasterAlgorithms
-                    .bresenhamLine(startPoint: currentLine.from, finishPoint: currentLine.to)
+                    .performAlgorithmBasedOn(currentAlgorithmType, line: currentLine)
                     .flatMap { lines.append([$0]) }
             }
         }

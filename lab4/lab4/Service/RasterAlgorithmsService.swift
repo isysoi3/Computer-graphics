@@ -8,7 +8,37 @@
 
 import Foundation
 
+enum RasterAlgorithmsTypeEnum {
+    case linear
+    case bresenhamLine
+    case bresenhamCircle
+    case DDA
+}
+
+typealias Line = (from: NSPoint, to: NSPoint)
+
 class RasterAlgorithmsService {
+    
+
+    func performAlgorithmBasedOn(_ type: RasterAlgorithmsTypeEnum,
+                                 line: Line) -> [CGPoint] {
+        let points: [CGPoint]
+        switch type {
+        case .bresenhamLine:
+            points = bresenhamLine(startPoint: line.from,
+                                   finishPoint: line.to)
+        
+        case .linear:
+            points = stepByStep(startPoint: line.from,
+                                finishPoint: line.to)
+        case .bresenhamCircle:
+            points = bresenhamCircle(startPoint: line.from, radius: Int(CGPoint.distance(line.from, line.to)))
+        case .DDA:
+            points = digitalDifferentialAnalyzer(startPoint: line.from,
+                                                 finishPoint: line.to)
+        }
+        return points
+    }
     
     func stepByStep(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
         var way = [startPoint]

@@ -21,5 +21,44 @@ class lab4Tests: XCTestCase {
         XCTAssert(actual == expected)
     }
     
+    
+    func testStepByStep() {
+        let actual = RasterAlgorithmsService().stepByStep(startPoint: CGPoint(x: 0, y: 0), finishPoint: CGPoint(x: 5, y: 4))
+        let expected = [CGPoint(x: 0.0, y: 0.0),
+                        CGPoint(x: 1.0, y: 0.0),
+                        CGPoint(x: 2.0, y: 1.0),
+                        CGPoint(x: 3.0, y: 2.0),
+                        CGPoint(x: 4.0, y: 3.0),
+                        CGPoint(x: 5.0, y: 4.0)]
+        XCTAssert(actual == expected)
+    }
+    
+    func testBresenhamLine() {
+        let actual = RasterAlgorithmsService().bresenhamLine(startPoint: CGPoint(x: 0, y: 0), finishPoint: CGPoint(x: 5, y: 4))
+        let expected = [CGPoint(x: 0.0, y: 0.0),
+                        CGPoint(x: 1.0, y: 1.0),
+                        CGPoint(x: 2.0, y: 2.0),
+                        CGPoint(x: 3.0, y: 2.0),
+                        CGPoint(x: 4.0, y: 3.0),
+                        CGPoint(x: 5.0, y: 4.0)]
+        XCTAssert(actual == expected)
+    }
+    
+    func testDDA() {
+        let actual = RasterAlgorithmsService().digitalDifferentialAnalyzer(startPoint: CGPoint(x: 0, y: 0), finishPoint: CGPoint(x: 5, y: 4))
+        let expected = [CGPoint(x: 0.0, y: 0.0),
+                        CGPoint(x: 1.0, y: 1.0),
+                        CGPoint(x: 2.0, y: 2.0),
+                        CGPoint(x: 3.0, y: 2.0),
+                        CGPoint(x: 4.0, y: 3.0),
+                        CGPoint(x: 5.0, y: 4.0)]
+        XCTAssert(actual == expected)
+    }
+    
+    func testBresenhamLineAndDDA() {
+        let actual = RasterAlgorithmsService().bresenhamLine(startPoint: CGPoint(x: 0, y: 0), finishPoint: CGPoint(x: 5, y: 4))
+        let expected = RasterAlgorithmsService().digitalDifferentialAnalyzer(startPoint: CGPoint(x: 0, y: 0), finishPoint: CGPoint(x: 5, y: 4))
+        XCTAssert(actual == expected)
+    }
 
 }

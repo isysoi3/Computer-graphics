@@ -25,15 +25,21 @@ class RasterAlgorithmsService {
         let points: [CGPoint]
         switch type {
         case .bresenhamLine:
+            consolePrint("Draw bresenham line from \(line.from) to \(line.to)")
             points = bresenhamLine(startPoint: line.from,
                                    finishPoint: line.to)
         
         case .linear:
+            consolePrint("Draw linear line from \(line.from) to \(line.to)")
             points = stepByStep(startPoint: line.from,
                                 finishPoint: line.to)
         case .bresenhamCircle:
-            points = bresenhamCircle(startPoint: line.from, radius: Int(CGPoint.distance(line.from, line.to)))
+            let radius = Int(CGPoint.distance(line.from, line.to))
+            consolePrint("Draw bresenham circle from \(line.from) with radius \(radius)")
+            points = bresenhamCircle(startPoint: line.from,
+                                     radius: radius)
         case .DDA:
+            consolePrint("Draw Digital Differential Analyzer line from \(line.from) to \(line.to)")
             points = digitalDifferentialAnalyzer(startPoint: line.from,
                                                  finishPoint: line.to)
         }
@@ -42,7 +48,6 @@ class RasterAlgorithmsService {
     }
     
     func stepByStep(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
-        consolePrint("Draw linear line from \(startPoint) to \(finishPoint)")
         var way = [startPoint]
         let dx = finishPoint.x - startPoint.x
         let dy = finishPoint.y - startPoint.y
@@ -61,7 +66,6 @@ class RasterAlgorithmsService {
     }
     
     func bresenhamLine(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
-        consolePrint("Draw bresenham line from \(startPoint) to \(finishPoint)")
         guard !startPoint.equalTo(finishPoint) else { return []}
         var way: [CGPoint] = []
         
@@ -106,7 +110,6 @@ class RasterAlgorithmsService {
     }
     
     func bresenhamCircle(startPoint: CGPoint, radius: Int) -> [CGPoint] {
-        consolePrint("Draw bresenham circle from \(startPoint) with radius \(radius)")
         var way: [CGPoint] = []
         var x = 0
         var y = radius
@@ -132,7 +135,6 @@ class RasterAlgorithmsService {
 
     
     func digitalDifferentialAnalyzer(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
-        consolePrint("Draw Digital Differential Analyzer line from \(startPoint) to \(finishPoint)")
         var way = [startPoint]
         let dx = finishPoint.x - startPoint.x
         let dy = finishPoint.y - startPoint.y

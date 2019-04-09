@@ -143,13 +143,13 @@ class RasterAlgorithmsService {
         var way = [startPoint]
         let dx = finishPoint.x - startPoint.x
         let dy = finishPoint.y - startPoint.y
-        let L = max(dx, dy)
+        let step = abs(dx) >= abs(dy) ? abs(dx) : abs(dy)
+        let xOffset = dx/step
+        let yOffset = dy/step
         var currentPoint = startPoint
-        let xOffset = dx/L
-        let yOffset = dy/L
         
-        var i: CGFloat = 0
-        while (i < L) {
+        var i: CGFloat = 1
+        while (i <= step) {
             currentPoint = currentPoint.addToPoint(x: xOffset, y: yOffset)
             way.append(currentPoint)
             i += 1

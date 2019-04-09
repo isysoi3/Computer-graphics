@@ -153,6 +153,30 @@ class RasterAlgorithmsService {
         return way.map { CGPoint(x: round($0.x), y: round($0.y))}
     }
     
+    func castePitveraAlgorithm(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
+        var way = [startPoint]
+        let a = abs(Int(finishPoint.x - startPoint.x))
+        let b = abs(Int(finishPoint.y - startPoint.y))
+        var y = b;
+        var x = a - b;
+        
+        var m1 = "s", m2 = "d"
+        while x != y {
+            if (x > y){
+                x = x - y;
+                m2 = m1 + m2.reversed();
+            } else {
+                y = y - x;
+                m1 = m2 + m1.reversed();
+            }
+        }
+        let rez = m2 + m1.reversed();
+        rez.forEach { step in
+            way.append(way.last!.addToPoint(x: 1, y: step == "s" ? 0 : 1))
+        }
+        return way
+    }
+    
     func switchFromOctantZeroTo(octant: Int, point: CGPoint) -> CGPoint{
         switch(octant) {
         case 0:  return CGPoint(x: point.x,  y: point.y)

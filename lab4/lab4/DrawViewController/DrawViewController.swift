@@ -26,7 +26,8 @@ class DrawViewController: NSViewController {
         super.viewDidLoad()
     }
     
-    var tte: [CGFloat] = [125, 187.5, 218.75, 234.375, 242.1875, 246.09375, 248.046875]//1, 2, 3 scale
+    var scalesCenterPoints: [CGFloat] = Array(0...6).map { 250.0 - (250.0 / pow(CGFloat(2), CGFloat($0)))}
+//    [0, 125, 187.5, 218.75, 234.375, 242.1875, 246.09375, 248.046875]//1, 2, 3 scale
     var lastScaleNumber: CGFloat = 0
     
     override func scrollWheel(with event: NSEvent) {
@@ -40,17 +41,12 @@ class DrawViewController: NSViewController {
             scale -= 1
         }
         switch scale {
-        case 0...5:
+        case 0...4:
             drawView.scaleUnitSquare(to: size)
-//            let tmp = drawView.convert(event.locationInWindow, from: nil)
-//            print(tmp, event.locationInWindow)
-            //fix for reverse way
-            let newScaleNumber = lastScaleNumber + 125.0 / pow(CGFloat(2), CGFloat(scale-1))
-            lastScaleNumber = newScaleNumber
-            drawView.bounds.origin = CGPoint(x: tte[scale-1],
-                                             y: tte[scale-1])
+            drawView.bounds.origin = CGPoint(x: event.locationInWindow.x - (250.0 / pow(CGFloat(2), CGFloat(scale))),
+                                             y: event.locationInWindow.y - (250.0 / pow(CGFloat(2), CGFloat(scale))))
             drawView.needsDisplay = true
-        case 6...:
+        case 5...:
             scale -= 1
             break
         default:

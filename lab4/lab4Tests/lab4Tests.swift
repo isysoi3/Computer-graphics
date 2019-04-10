@@ -89,3 +89,11 @@ class lab4Tests: XCTestCase {
     }
     
 }
+
+/*
+ ^ TimeService.swift[17], timeMeasure(_:): Time for "stepByStep":                  0.0003579854965209961 seconds
+ ^ TimeService.swift[17], timeMeasure(_:): Time for "digitalDifferentialAnalyzer": 0.0003459453582763672 seconds
+ ^ TimeService.swift[17], timeMeasure(_:): Time for "bresenhamLine":               0.00007891654         seconds
+ ^ TimeService.swift[17], timeMeasure(_:): Time for "castePitveraAlgorithm":       0.0021439790725708008 seconds
+ ^ TimeService.swift[17], timeMeasure(_:): Time for "bresenhamCircle":             0.0004138946533203125 seconds
+ */

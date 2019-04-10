@@ -26,29 +26,29 @@ class RasterAlgorithmsService {
         let points: [CGPoint]
         switch type {
         case .bresenhamLine:
-            consolePrint("Draw bresenham line from \(line.from) to \(line.to)")
+            consolePrint("Draw bresenham line from \(line.from.addToPoint(x: -250, y: -250)) to \(line.to.addToPoint(x: -250, y: -250))")
             points = bresenhamLine(startPoint: line.from,
                                    finishPoint: line.to)
         
         case .linear:
-            consolePrint("Draw linear line from \(line.from) to \(line.to)")
+            consolePrint("Draw linear line from \(line.from.addToPoint(x: -250, y: -250)) to \(line.to.addToPoint(x: -250, y: -250))")
             points = stepByStep(startPoint: line.from,
                                 finishPoint: line.to)
         case .bresenhamCircle:
             let radius = Int(CGPoint.distance(line.from, line.to))
-            consolePrint("Draw bresenham circle from \(line.from) with radius \(radius)")
+            consolePrint("Draw bresenham circle from \(line.from.addToPoint(x: -250, y: -250)) with radius \(radius)")
             points = bresenhamCircle(centerPoint: line.from,
                                      radius: radius)
         case .DDA:
-            consolePrint("Draw Digital Differential Analyzer line from \(line.from) to \(line.to)")
+            consolePrint("Draw Digital Differential Analyzer line from \(line.from.addToPoint(x: -250, y: -250)) to \(line.to.addToPoint(x: -250, y: -250))")
             points = digitalDifferentialAnalyzer(startPoint: line.from,
                                                  finishPoint: line.to)
         case .castePitvera:
-            consolePrint("Draw Caste-Pitvera line from \(line.from) to \(line.to)")
+            consolePrint("Draw Caste-Pitvera line from \(line.from.addToPoint(x: -250, y: -250)) to \(line.to.addToPoint(x: -250, y: -250))")
             points = castePitveraAlgorithm(startPoint: line.from,
                                            finishPoint: line.to)
         }
-        consolePrint("Points: \(points)")
+        consolePrint("Points: \(points.map {$0.addToPoint(x: -250, y: -250)})")
         return points
     }
     

@@ -199,7 +199,6 @@ class RasterAlgorithmsService {
                 }
             }
             let rez = m2 + m1.reversed()
-            print(rez)
             String(repeating: rez, count: x).forEach { step in
                 way.append(way.last!.addToPoint(x: 1, y: step == "s" ? 0 : 1))
             }

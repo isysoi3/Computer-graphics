@@ -61,4 +61,31 @@ class lab4Tests: XCTestCase {
         XCTAssert(actual == expected)
     }
 
+    func testTime() {
+        let startPoint = CGPoint(x: -100, y: -25)
+        let finishPoint = CGPoint(x: 100, y: 15)
+        let timeService = TimeService()
+        let t = RasterAlgorithmsService()
+        timeService.timeMeasure {
+            t.stepByStep(startPoint: startPoint, finishPoint: finishPoint)
+            return "stepByStep"
+        }
+        timeService.timeMeasure {
+            t.digitalDifferentialAnalyzer(startPoint: startPoint, finishPoint: finishPoint)
+            return "digitalDifferentialAnalyzer"
+        }
+        timeService.timeMeasure {
+            t.bresenhamLine(startPoint: startPoint, finishPoint: finishPoint)
+            return "bresenhamLine"
+        }
+        timeService.timeMeasure {
+            t.castePitveraAlgorithm(startPoint: startPoint, finishPoint: finishPoint)
+            return "castePitveraAlgorithm"
+        }
+        timeService.timeMeasure {
+            t.bresenhamCircle(centerPoint: startPoint, radius: CGPoint.distance(startPoint, finishPoint))
+            return "bresenhamCircle"
+        }
+    }
+    
 }

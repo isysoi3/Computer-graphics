@@ -49,6 +49,10 @@ class DrawView: NSView {
             bezierPath.stroke()
             bezierPath.close()
         }
+        
+//        let font = NSFont.systemFont(ofSize: 1.5)
+//        let string = NSAttributedString(string: "0", attributes: [NSAttributedString.Key.font: font])
+//        string.draw(at: CGPoint(x: 249.5, y: 248.5))
     }
     
     private func drawCoordinateSystem() {

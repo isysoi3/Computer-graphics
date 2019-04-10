@@ -14,6 +14,10 @@ extension CGPoint {
         return CGPoint(x: self.x + x, y: self.y + y)
     }
     
+    func addToPoint(x: Int = 0, y: Int = 0) -> CGPoint {
+        return CGPoint(x: self.x + CGFloat(x), y: self.y + CGFloat(y))
+    }
+    
     static func distance(_ a: CGPoint, _ b: CGPoint) -> Int {
         let xDist = a.x - b.x
         let yDist = a.y - b.y

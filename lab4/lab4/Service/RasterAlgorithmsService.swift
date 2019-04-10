@@ -37,7 +37,7 @@ class RasterAlgorithmsService {
         case .bresenhamCircle:
             let radius = Int(CGPoint.distance(line.from, line.to))
             consolePrint("Draw bresenham circle from \(line.from) with radius \(radius)")
-            points = bresenhamCircle(startPoint: line.from,
+            points = bresenhamCircle(centerPoint: line.from,
                                      radius: radius)
         case .DDA:
             consolePrint("Draw Digital Differential Analyzer line from \(line.from) to \(line.to)")
@@ -57,9 +57,7 @@ class RasterAlgorithmsService {
         var startPoint = startPoint
         var finishPoint = finishPoint
         if startPoint.x > finishPoint.x {
-            let tmp = startPoint
-            startPoint = finishPoint
-            finishPoint = tmp
+            (startPoint, finishPoint) = (finishPoint, startPoint)
         }
         let dx = finishPoint.x - startPoint.x
         let dy = finishPoint.y - startPoint.y
@@ -77,14 +75,15 @@ class RasterAlgorithmsService {
     }
     
     func bresenhamLine(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
-        guard !startPoint.equalTo(finishPoint) else { return []}
+        guard !startPoint.equalTo(finishPoint) else { return [startPoint]}
         var way: [CGPoint] = []
         
-        var dx = abs(Int(finishPoint.x - startPoint.x))
-        var dy = abs(Int(finishPoint.y - startPoint.y))
-        let xSign = Int(finishPoint.x - startPoint.x).sign()
-        let ySign = Int(finishPoint.y - startPoint.y).sign()
-        
+        var dx = Int(finishPoint.x - startPoint.x)
+        var dy = Int(finishPoint.y - startPoint.y)
+        let xSign = dx.sign()
+        let ySign = dy.sign()
+        dx = abs(dx)
+        dy = abs(dy)
         
         var isSwap = false
         if dy > dx {
@@ -97,8 +96,8 @@ class RasterAlgorithmsService {
         var y = Int(startPoint.y)
         
         for _ in 0...dx {
-            let pt = CGPoint(x: x, y: y)
-            way.append(pt)
+            let point = CGPoint(x: x, y: y)
+            way.append(point)
             
             if e >= 0 {
                 if isSwap {
@@ -120,7 +119,7 @@ class RasterAlgorithmsService {
         return way
     }
     
-    func bresenhamCircle(startPoint: CGPoint, radius: Int) -> [CGPoint] {
+    func bresenhamCircle(centerPoint: CGPoint, radius: Int) -> [CGPoint] {
         var way: [CGPoint] = []
         var x = 0
         var y = radius
@@ -129,61 +128,81 @@ class RasterAlgorithmsService {
         while(x <= y) {
             for octant in 0...7 {
                 let point = switchFromOctantZeroTo(octant: octant, point: CGPoint(x: x, y: y))
-                way.append(startPoint.addToPoint(x: point.x, y: point.y))
+                way.append(centerPoint.addToPoint(x: point.x, y: point.y))
             }
             
-            if (d < 0){
-                d = d + 4*x + 6;
+            if (d < 0) {
+                d = d + 4 * x + 6;
             } else {
-                d = d + 4*(x-y) + 10;
-                y = y-1;
+                d = d + 4 * (x-y) + 10;
+                y -= 1;
             }
-            x = x + 1;
+            x += 1;
         }
         
         return way
     }
 
-    
     func digitalDifferentialAnalyzer(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
         var way = [startPoint]
         let dx = finishPoint.x - startPoint.x
         let dy = finishPoint.y - startPoint.y
-        let step = abs(dx) >= abs(dy) ? abs(dx) : abs(dy)
-        let xOffset = dx/step
-        let yOffset = dy/step
+        let L = abs(dx) >= abs(dy) ? abs(dx) : abs(dy)
+        let xOffset = dx/L
+        let yOffset = dy/L
         var currentPoint = startPoint
         
         var i: CGFloat = 1
-        while (i <= step) {
+        while (i <= L) {
             currentPoint = currentPoint.addToPoint(x: xOffset, y: yOffset)
             way.append(currentPoint)
             i += 1
         }
         
-        return way.map { CGPoint(x: round($0.x), y: round($0.y))}
+        return way.map { CGPoint(x: $0.x.rounded(), y: $0.y.rounded())}
     }
     
     func castePitveraAlgorithm(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
+        var startPoint = startPoint
+        var finishPoint = finishPoint
+        if startPoint.x > finishPoint.x {
+            (startPoint, finishPoint) = (finishPoint, startPoint)
+        }
         var way = [startPoint]
-        let a = abs(Int(finishPoint.x - startPoint.x))
-        let b = abs(Int(finishPoint.y - startPoint.y))
-        var y = b;
-        var x = a - b;
+        var a = Int(finishPoint.x - startPoint.x)
+        var b = Int(finishPoint.y - startPoint.y)
+        let xSign = a.sign()
+        let ySign = b.sign()
+        a = abs(a)
+        b = abs(b)
+        
+//        var isSwap = false
+//        if a < b {
+//            (a, b) = (b, a)
+//            isSwap = true
+//        }
+        var y = b
+        var x = abs(a - b)
         
         var m1 = "s", m2 = "d"
-        while x != y {
-            if (x > y){
-                x = x - y;
-                m2 = m1 + m2.reversed();
-            } else {
-                y = y - x;
-                m1 = m2 + m1.reversed();
+        if y != 0, x != 0 {
+            while x != y {
+                if x > y {
+                    x -= y
+                    m2 = m1 + m2.reversed()
+                } else {
+                    y -= x
+                    m1 = m2 + m1.reversed()
+                }
             }
-        }
-        let rez = m2 + m1.reversed();
-        rez.forEach { step in
-            way.append(way.last!.addToPoint(x: 1, y: step == "s" ? 0 : 1))
+            let rez = m2 + m1.reversed()
+            print(rez)
+            String(repeating: rez, count: x).forEach { step in
+                way.append(way.last!.addToPoint(x: xSign, y: step == "s" ? 0 : ySign))
+                
+            }
+        } else {
+            
         }
         return way
     }
@@ -201,6 +220,5 @@ class RasterAlgorithmsService {
         default: return CGPoint(x: point.x,  y: point.y)
         }
     }
-    
     
 }

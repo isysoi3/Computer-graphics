@@ -10,7 +10,10 @@ import Foundation
 
 extension CGContext {
     
-    func fillPixels(_ pixels: [CGPoint], with size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+    func fillPixels(_ pixels: [CGPoint],
+                    withSize size: CGSize = CGSize(width: 1.0, height: 1.0),
+                    withColor color: CGColor = CGColor.black) {
+        setFillColor(color)
         pixels.forEach { fill($0, size: size) }
     }
     

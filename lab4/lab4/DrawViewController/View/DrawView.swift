@@ -38,15 +38,16 @@ class DrawView: NSView {
         context.fill(bounds)
         drawCoordinateSystem()
         
-        for points in lines {
-            context.setFillColor(.black)
-            context.fillPixels(points)
-        }
+        lines.forEach { context.fillPixels($0) }
         
         if let currentLine = currentLine {
-            let points = helperRasterAlgorithms.bresenhamLine(startPoint: currentLine.from, finishPoint: currentLine.to)
-            context.setFillColor(.black)
-            context.fillPixels(points)
+            let bezierPath = NSBezierPath()
+            bezierPath.lineWidth = 0.5
+            bezierPath.move(to: currentLine.from)
+            bezierPath.line(to: currentLine.to)
+            NSColor.blue.setStroke()
+            bezierPath.stroke()
+            bezierPath.close()
         }
     }
     

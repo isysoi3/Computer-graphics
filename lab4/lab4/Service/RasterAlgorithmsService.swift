@@ -169,23 +169,26 @@ class RasterAlgorithmsService {
             (startPoint, finishPoint) = (finishPoint, startPoint)
         }
         var way = [startPoint]
-        var a = Int(finishPoint.x - startPoint.x)
-        var b = Int(finishPoint.y - startPoint.y)
-        let xSign = a.sign()
-        let ySign = b.sign()
-        a = abs(a)
-        b = abs(b)
-        
-//        var isSwap = false
-//        if a < b {
-//            (a, b) = (b, a)
-//            isSwap = true
-//        }
+        let a = Int(finishPoint.x - startPoint.x)
+        let b = Int(finishPoint.y - startPoint.y)
+        if b > a || b < 0 || a <= 0 {
+            consolePrint("Failed to draw line")
+            return []
+        }
+       
         var y = b
-        var x = abs(a - b)
+        var x = a - b
         
         var m1 = "s", m2 = "d"
-        if y != 0, x != 0 {
+        if y == 0 {
+            Array(0..<x).forEach { step in
+                way.append(way.last!.addToPoint(x: 1, y: 0))
+            }
+        } else if  x == 0 {
+            Array(0..<y).forEach { step in
+                way.append(way.last!.addToPoint(x: 1, y: 1))
+            }
+        } else {
             while x != y {
                 if x > y {
                     x -= y
@@ -198,11 +201,8 @@ class RasterAlgorithmsService {
             let rez = m2 + m1.reversed()
             print(rez)
             String(repeating: rez, count: x).forEach { step in
-                way.append(way.last!.addToPoint(x: xSign, y: step == "s" ? 0 : ySign))
-                
+                way.append(way.last!.addToPoint(x: 1, y: step == "s" ? 0 : 1))
             }
-        } else {
-            
         }
         return way
     }

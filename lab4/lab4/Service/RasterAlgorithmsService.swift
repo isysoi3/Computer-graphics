@@ -120,7 +120,7 @@ class RasterAlgorithmsService {
     }
     
     func bresenhamCircle(centerPoint: CGPoint, radius: Int) -> [CGPoint] {
-        var way: [CGPoint] = []
+        var way: [CGPoint] = [centerPoint]
         var x = 0
         var y = radius
         var d = 3 - 2 * radius

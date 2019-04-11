@@ -26,6 +26,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @IBAction func clearPlotAction(_ sender: NSMenuItem) {
+        if let vc = rootViewController as? DrawViewController {
+            vc.clearPlot()
+        }
+    }
+    
     func applicationWillFinishLaunching(_ notification: Notification) {
         NSApplication.shared.helpMenu = nil
     }

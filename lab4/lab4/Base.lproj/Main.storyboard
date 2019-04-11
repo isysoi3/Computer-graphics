@@ -92,6 +92,19 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="График" id="HoF-a8-uMY">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="График" systemMenu="help" id="pcK-RN-fjo">
+                                    <items>
+                                        <menuItem title="Очистить" id="anx-Ln-1Ep">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="clearPlotAction:" target="Voe-Tx-rLC" id="I2F-x6-1cY"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                         </items>
                     </menu>
                     <connections>

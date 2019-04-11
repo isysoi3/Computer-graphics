@@ -65,6 +65,11 @@ class DrawViewController: NSViewController {
         }
     }
     
+    func clearPlot() {
+        drawView.lines = []
+        drawView.setNeedsDisplay(drawView.bounds)
+    }
+    
 }
 
 // MARK: - ViewController: CMKMouseTrackDelegate

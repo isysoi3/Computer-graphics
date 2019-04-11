@@ -90,6 +90,7 @@ class lab4Tests: XCTestCase {
     
 }
 
+
 /*
 Time for "stepByStep":                  0.0003579854965209961 seconds
 Time for "digitalDifferentialAnalyzer": 0.0003459453582763672 seconds

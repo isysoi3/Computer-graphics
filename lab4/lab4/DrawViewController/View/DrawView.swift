@@ -124,7 +124,7 @@ extension DrawView {
             TimeService().timeMeasure {
                 helperRasterAlgorithms
                     .performAlgorithmBasedOn(currentAlgorithmType, line: currentLine)
-                    .flatMap { lines.append([$0]) }
+                    .compactMap { lines.append([$0]) }
                 return currentAlgorithmType.rawValue
             }
         }

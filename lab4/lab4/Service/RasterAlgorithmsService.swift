@@ -20,7 +20,7 @@ typealias Line = (from: NSPoint, to: NSPoint)
 
 class RasterAlgorithmsService {
     
-
+    
     func performAlgorithmBasedOn(_ type: RasterAlgorithmsTypeEnum,
                                  line: Line) -> [CGPoint] {
         let points: [CGPoint]
@@ -29,7 +29,7 @@ class RasterAlgorithmsService {
             consolePrint("Draw bresenham line from \(line.from.addToPoint(x: -250, y: -250)) to \(line.to.addToPoint(x: -250, y: -250))")
             points = bresenhamLine(startPoint: line.from,
                                    finishPoint: line.to)
-        
+            
         case .linear:
             consolePrint("Draw linear line from \(line.from.addToPoint(x: -250, y: -250)) to \(line.to.addToPoint(x: -250, y: -250))")
             points = stepByStep(startPoint: line.from,
@@ -113,7 +113,7 @@ class RasterAlgorithmsService {
             } else {
                 x += xSign
             }
-
+            
             e += 2 * dy
         }
         return way
@@ -142,7 +142,7 @@ class RasterAlgorithmsService {
         
         return way
     }
-
+    
     func digitalDifferentialAnalyzer(startPoint: CGPoint, finishPoint: CGPoint) -> [CGPoint] {
         var way = [startPoint]
         let dx = finishPoint.x - startPoint.x
@@ -175,7 +175,7 @@ class RasterAlgorithmsService {
             consolePrint("Failed to draw line")
             return []
         }
-       
+        
         var y = b
         var x = a - b
         

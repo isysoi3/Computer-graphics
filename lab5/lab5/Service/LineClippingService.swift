@@ -83,7 +83,7 @@ class LineClippingService {
         return clippedLines
     }
     
-    func  byConvexPolygon(lines: [Line]) {
+    func byConvexPolygon(lines: [Line], polygon: Polygon) {
         
     }
     

@@ -14,6 +14,8 @@
 		097A8BCE226D90D70029B366 /* LineClippingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097A8BCD226D90D70029B366 /* LineClippingService.swift */; };
 		097A8BD0226D97260029B366 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097A8BCF226D97260029B366 /* FileService.swift */; };
 		097A8BD4226D9EF10029B366 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 097A8BD3226D9EF10029B366 /* test.txt */; };
+		097A8BD8226DB5250029B366 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097A8BD7226DB5250029B366 /* Polygon.swift */; };
+		097A8BDA226DB54C0029B366 /* test2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 097A8BD9226DB54C0029B366 /* test2.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		097A8BCD226D90D70029B366 /* LineClippingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineClippingService.swift; sourceTree = "<group>"; };
 		097A8BCF226D97260029B366 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		097A8BD3226D9EF10029B366 /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		097A8BD7226DB5250029B366 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
+		097A8BD9226DB54C0029B366 /* test2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 				097A8BC5226D902A0029B366 /* Info.plist */,
 				097A8BC6226D902A0029B366 /* lab5.entitlements */,
 				097A8BD3226D9EF10029B366 /* test.txt */,
+				097A8BD9226DB54C0029B366 /* test2.txt */,
 			);
 			path = lab5;
 			sourceTree = "<group>";
@@ -76,6 +81,7 @@
 			children = (
 				097A8BCD226D90D70029B366 /* LineClippingService.swift */,
 				097A8BCF226D97260029B366 /* FileService.swift */,
+				097A8BD7226DB5250029B366 /* Polygon.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -139,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				097A8BC1226D902A0029B366 /* Assets.xcassets in Resources */,
+				097A8BDA226DB54C0029B366 /* test2.txt in Resources */,
 				097A8BD4226D9EF10029B366 /* test.txt in Resources */,
 				097A8BC4226D902A0029B366 /* Main.storyboard in Resources */,
 			);
@@ -152,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				097A8BBF226D902A0029B366 /* ViewController.swift in Sources */,
+				097A8BD8226DB5250029B366 /* Polygon.swift in Sources */,
 				097A8BD0226D97260029B366 /* FileService.swift in Sources */,
 				097A8BCE226D90D70029B366 /* LineClippingService.swift in Sources */,
 				097A8BBD226D902A0029B366 /* AppDelegate.swift in Sources */,

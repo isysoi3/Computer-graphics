@@ -13,7 +13,10 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let path = Bundle.main.path(forResource: "test", ofType: "txt") // file path for file "data.txt"
+        guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
+        let tmp = FileService().readFromFile(text)
+        LineClippingService().algorithmCohenSutherland(lines: tmp!.0, rect: tmp!.1)
     }
 
     override var representedObject: Any? {

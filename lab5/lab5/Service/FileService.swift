@@ -70,6 +70,10 @@ class FileService {
                     guard let x = Int(points[i]), let y = Int(points[i+1]) else { return }
                     polygonPoints.append(NSPoint(x: x, y: y))
                 }
+                for i in 0..<polygonPoints.count-1 {
+                    polygonLines.append((polygonPoints[i], polygonPoints[i+1]))
+                }
+                 polygonLines.append((polygonPoints[polygonPoints.count-1], polygonPoints[0]))
                 
                 polygon = Polygon(lines: polygonLines)
             default:

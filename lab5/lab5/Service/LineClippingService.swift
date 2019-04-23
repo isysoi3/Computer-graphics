@@ -83,10 +83,10 @@ class LineClippingService {
         return clippedLines
     }
     
-    func byConvexPolygon(lines: [(Line, CGFloat)], polygon: Polygon) -> [Line] {
+    func byConvexPolygon(lines: [Line], polygon: Polygon) -> [Line] {
         var clippedLines: [Line] = []
         let lineWithNormal = polygon.lines.reversed().map {($0,calculateNoramlForLine($0))}
-        lines.forEach { (line, t) in
+        lines.forEach { line in
             var tIn: [CGFloat] = []
             var tOut: [CGFloat] = []
             let lineVector = CGVector(dx: line.to.x - line.from.x,

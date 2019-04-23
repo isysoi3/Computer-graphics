@@ -11,9 +11,6 @@ import Foundation
 class FileService {
     
     func readFromFile(_ file: String) -> ([Line], NSRect)? {
-        //        guard let string = try? String(contentsOfFile: file) else {
-        //            return nil
-        //        }
         let stringLines = file.trimmingCharacters(in: .newlines)
             .components(separatedBy: .newlines)
         guard let numberOfLinesString = stringLines.first,
@@ -46,16 +43,13 @@ class FileService {
         return (lines, rect)
     }
     
-    func readFromFile2(_ file: String) -> ([(Line, CGFloat)], Polygon)? {
-        //        guard let string = try? String(contentsOfFile: file) else {
-        //            return nil
-        //        }
+    func readFromFile2(_ file: String) -> ([Line], Polygon)? {
         let stringLines = file.trimmingCharacters(in: .newlines)
             .components(separatedBy: .newlines)
         guard let numberOfLinesString = stringLines.first,
             let numberOfLines = Int(numberOfLinesString),
             numberOfLines > 0 else { return nil }
-        var lines: [(Line, CGFloat)] = []
+        var lines: [Line] = []
         var polygon: Polygon!
         
         stringLines.enumerated().forEach { index, element in
@@ -78,13 +72,11 @@ class FileService {
                 polygon = Polygon(lines: polygonLines)
             default:
                 let points = element.components(separatedBy: " ")
-                guard points.count == 5,
+                guard points.count == 4,
                     let x1 = Int(points[0]), let y1 = Int(points[1]),
-                    let x2 = Int(points[2]), let y2 = Int(points[3]),
-                    let n = NumberFormatter().number(from: points[4]) else { return }
-                lines.append((( from: NSPoint(x: x1, y: y1),
-                                to: NSPoint(x: x2, y: y2)),
-                              CGFloat(n.floatValue)))
+                    let x2 = Int(points[2]), let y2 = Int(points[3]) else { return }
+                lines.append((from: NSPoint(x: x1, y: y1),
+                              to: NSPoint(x: x2, y: y2)))
             }
         }
         

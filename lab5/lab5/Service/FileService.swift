@@ -10,7 +10,7 @@ import Foundation
 
 class FileService {
     
-    func readFromFile(_ file: String) -> ([Line], NSRect)? {
+    func readFromFileWithRect(_ file: String) -> ([Line], NSRect)? {
         let stringLines = file.trimmingCharacters(in: .newlines)
             .components(separatedBy: .newlines)
         guard let numberOfLinesString = stringLines.first,
@@ -43,7 +43,7 @@ class FileService {
         return (lines, rect)
     }
     
-    func readFromFile2(_ file: String) -> ([Line], Polygon)? {
+    func readFromFileWithPolygon(_ file: String) -> ([Line], Polygon)? {
         let stringLines = file.trimmingCharacters(in: .newlines)
             .components(separatedBy: .newlines)
         guard let numberOfLinesString = stringLines.first,

@@ -12,6 +12,11 @@ typealias Line = (from: NSPoint, to: NSPoint)
 
 class LineClippingService {
     
+    public enum LineClippingAlgorithmEnum {
+        case cohenSutherland
+        case byConvexPolygon
+    }
+    
     static let INSIDE = 0; // 0000
     static let LEFT = 1;   // 0001
     static let RIGHT = 2;  // 0010

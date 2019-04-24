@@ -9,27 +9,39 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let path = Bundle.main.path(forResource: "test", ofType: "txt") // file path for file "data.txt"
-        guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
-        let tmp = FileService().readFromFileWithRect(text)
-        LineClippingService().algorithmCohenSutherland(lines: tmp!.0, rect: tmp!.1)
-        
-        let path1 = Bundle.main.path(forResource: "test2", ofType: "txt") // file path for file "data.txt"
-        guard let text1 = try? String(contentsOfFile: path1!, encoding: .utf8) else { return }
-        let tmp1 = FileService().readFromFileWithPolygon(text1)
-        LineClippingService().byConvexPolygon(lines: tmp1!.0, polygon: tmp1!.1)
-    }
-
-    override var representedObject: Any? {
+    
+    @IBOutlet weak var drawView: DrawView!
+    
+    private let fileService = FileService()
+    private let lineClippingService = LineClippingService()
+    
+    var currentAlgorithm: LineClippingService.LineClippingAlgorithmEnum? {
         didSet {
-        // Update the view, if already loaded.
+            if let currentAlgorithm = currentAlgorithm {
+                recountAllFor(currentAlgorithm)
+            }
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()qwe123
+    }
 
-
+    private func recountAllFor(_ algorithm: LineClippingService.LineClippingAlgorithmEnum) {
+        switch algorithm {
+        case .cohenSutherland:
+            let path = Bundle.main.path(forResource: "cohenSutherland", ofType: "txt")
+            guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
+            let infoFromFile = fileService.readFromFileWithRect(text)
+            let result = lineClippingService.algorithmCohenSutherland(lines: infoFromFile!.lines, rect: infoFromFile!.rect)
+            drawView.linesWithRect = (result, infoFromFile!.rect)
+        case .byConvexPolygon:
+            let path = Bundle.main.path(forResource: "convexPolygon", ofType: "txt")
+            guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
+            let infoFromFile = fileService.readFromFileWithPolygon(text)
+            lineClippingService.byConvexPolygon(lines: infoFromFile!.0, polygon: infoFromFile!.1)
+        }
+    }
+    
 }
 

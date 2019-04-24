@@ -10,7 +10,10 @@ import Foundation
 
 class FileService {
     
-    func readFromFileWithRect(_ file: String) -> ([Line], NSRect)? {
+    func readFromFileWithRect(_ file: String) -> (lines: [Line], rect: NSRect)? {
+        //        guard let string = try? String(contentsOfFile: file) else {
+        //            return nil
+        //        }
         let stringLines = file.trimmingCharacters(in: .newlines)
             .components(separatedBy: .newlines)
         guard let numberOfLinesString = stringLines.first,

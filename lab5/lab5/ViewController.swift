@@ -17,12 +17,12 @@ class ViewController: NSViewController {
         
         switch currentAlgorithm {
         case .cohenSutherland:
-            let path = Bundle.main.path(forResource: "test", ofType: "txt")
+            let path = Bundle.main.path(forResource: "cohenSutherland", ofType: "txt")
             guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
             let infoFromFile = FileService().readFromFile(text)
             LineClippingService().algorithmCohenSutherland(lines: infoFromFile!.0, rect: infoFromFile!.1)
         case .byConvexPolygon:
-            let path = Bundle.main.path(forResource: "test2", ofType: "txt")
+            let path = Bundle.main.path(forResource: "convexPolygon", ofType: "txt")
             guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
             let infoFromFile = FileService().readFromFile2(text)
             LineClippingService().byConvexPolygon(lines: infoFromFile!.0, polygon: infoFromFile!.1)

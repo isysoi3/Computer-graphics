@@ -10,7 +10,7 @@ import Foundation
 
 class FileService {
     
-    func readFromFile(_ file: String) -> ([Line], NSRect)? {
+    func readFromFile(_ file: String) -> (lines: [Line], rect: NSRect)? {
         //        guard let string = try? String(contentsOfFile: file) else {
         //            return nil
         //        }

@@ -14,6 +14,24 @@ class DrawView: NSView {
         return true
     }
     
+    var linesWithPolygon: ([Line], Polygon)? {
+        didSet {
+            if let linesWithPolygon = linesWithPolygon {
+                linesWithRect = .none
+                setNeedsDisplay(bounds)
+            }
+        }
+    }
+    
+    var linesWithRect: ([Line], NSRect)? {
+        didSet {
+            if let linesWithRect = linesWithRect {
+                linesWithPolygon = .none
+                setNeedsDisplay(bounds)
+            }
+        }
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
@@ -25,6 +43,46 @@ class DrawView: NSView {
         context.fill(bounds)
         drawCoordinateSystem()
         
+        if let (lines, polygon) = linesWithPolygon {
+            let bezierPath = NSBezierPath(polygon: polygon)
+            NSColor.green.setStroke()
+            bezierPath.stroke()
+            bezierPath.close()
+            
+            let bezierPathLines = NSBezierPath()
+            lines/*.map { line -> Line in
+                 (CGPoint(x: line.from.x + 250, y: line.from.y + 250),
+                 CGPoint(x: line.to.x + 250, y: line.to.y + 250))
+                 }*/
+                .forEach {
+                    bezierPathLines.move(to: $0.from)
+                    bezierPathLines.line(to: $0.to)
+            }
+            NSColor.black.setStroke()
+            bezierPathLines.stroke()
+            bezierPathLines.close()
+        }
+        
+        if let (lines, rect) = linesWithRect {
+            
+            let bezierPathRect = NSBezierPath(rect: rect)
+            NSColor.green.setStroke()
+            bezierPathRect.stroke()
+            bezierPathRect.close()
+            
+            let bezierPathLines = NSBezierPath()
+            lines/*.map { line -> Line in
+                (CGPoint(x: line.from.x + 250, y: line.from.y + 250),
+                 CGPoint(x: line.to.x + 250, y: line.to.y + 250))
+                }*/
+                .forEach {
+                    bezierPathLines.move(to: $0.from)
+                    bezierPathLines.line(to: $0.to)
+            }
+            NSColor.black.setStroke()
+            bezierPathLines.stroke()
+            bezierPathLines.close()
+        }
     }
     
     private func drawCoordinateSystem() {

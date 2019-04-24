@@ -10,12 +10,23 @@ import Cocoa
 
 class ViewController: NSViewController {
     
-    var currentAlgorithm: LineClippingService.LineClippingAlgorithmEnum = .cohenSutherland
+    @IBOutlet weak var drawView: DrawView!
+    
+    var currentAlgorithm: LineClippingService.LineClippingAlgorithmEnum? {
+        didSet {
+            if let currentAlgorithm = currentAlgorithm {
+                recountAllFor(currentAlgorithm)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        switch currentAlgorithm {
+    }
+
+    private func recountAllFor(_ algorithm: LineClippingService.LineClippingAlgorithmEnum) {
+        switch algorithm {
         case .cohenSutherland:
             let path = Bundle.main.path(forResource: "cohenSutherland", ofType: "txt")
             guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
@@ -27,9 +38,7 @@ class ViewController: NSViewController {
             let infoFromFile = FileService().readFromFile2(text)
             LineClippingService().byConvexPolygon(lines: infoFromFile!.0, polygon: infoFromFile!.1)
         }
-       
-        
     }
-
+    
 }
 

@@ -11,16 +11,30 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+    var rootViewController: NSViewController? {
+        get {
+            return NSApplication.shared.mainWindow?.windowController?.contentViewController
+        }
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+    
+    
+    @IBAction func changedAlgorithmType(_ sender: NSMenuItem) {
+        sender.menu?.items.forEach { $0.state = .off}
+        sender.state = .on
+        switch sender.title {
+        case "Сазерленда-Коэна":
+            (rootViewController as? ViewController)?.currentAlgorithm = .cohenSutherland
+        case "Отсечения отрезков выпуклым многоугольником":
+            (rootViewController as? ViewController)?.currentAlgorithm = .byConvexPolygon
+        default:
+            break
+        }
     }
-
+    
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        NSApplication.shared.helpMenu = nil
+    }
+    
 
 }
 

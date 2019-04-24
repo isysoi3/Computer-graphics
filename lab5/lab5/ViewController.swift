@@ -24,7 +24,7 @@ class ViewController: NSViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()qwe123
+        super.viewDidLoad()
     }
 
     private func recountAllFor(_ algorithm: LineClippingService.LineClippingAlgorithmEnum) {

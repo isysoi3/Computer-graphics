@@ -9,27 +9,27 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    
+    var currentAlgorithm: LineClippingService.LineClippingAlgorithmEnum = .cohenSutherland
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        let path = Bundle.main.path(forResource: "test", ofType: "txt") // file path for file "data.txt"
-//        guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
-//        let tmp = FileService().readFromFile(text)
-//        LineClippingService().algorithmCohenSutherland(lines: tmp!.0, rect: tmp!.1)
         
-        let path = Bundle.main.path(forResource: "test2", ofType: "txt") // file path for file "data.txt"
-        guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
-        let tmp = FileService().readFromFile2(text)
-        LineClippingService().byConvexPolygon(lines: tmp!.0, polygon: tmp!.1)
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
+        switch currentAlgorithm {
+        case .cohenSutherland:
+            let path = Bundle.main.path(forResource: "test", ofType: "txt")
+            guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
+            let infoFromFile = FileService().readFromFile(text)
+            LineClippingService().algorithmCohenSutherland(lines: infoFromFile!.0, rect: infoFromFile!.1)
+        case .byConvexPolygon:
+            let path = Bundle.main.path(forResource: "test2", ofType: "txt")
+            guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
+            let infoFromFile = FileService().readFromFile2(text)
+            LineClippingService().byConvexPolygon(lines: infoFromFile!.0, polygon: infoFromFile!.1)
         }
+       
+        
     }
-
 
 }
 

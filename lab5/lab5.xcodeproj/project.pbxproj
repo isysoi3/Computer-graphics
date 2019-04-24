@@ -50,6 +50,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09795C042270830C0055D934 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				09795BFE22707FB90055D934 /* NSBezierPath+Polygon.swift */,
+				09795C02227082ED0055D934 /* CGPoint+Add.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		09795C05227083230055D934 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				097A8BBC226D902A0029B366 /* AppDelegate.swift */,
+				097A8BC0226D902A0029B366 /* Assets.xcassets */,
+				097A8BC2226D902A0029B366 /* Main.storyboard */,
+				097A8BC5226D902A0029B366 /* Info.plist */,
+				097A8BC6226D902A0029B366 /* lab5.entitlements */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		097A8BB0226D902A0029B366 = {
 			isa = PBXGroup;
 			children = (
@@ -69,18 +90,13 @@
 		097A8BBB226D902A0029B366 /* lab5 */ = {
 			isa = PBXGroup;
 			children = (
+				09795C042270830C0055D934 /* Common */,
 				097A8BCC226D90BC0029B366 /* Service */,
-				097A8BBC226D902A0029B366 /* AppDelegate.swift */,
 				097A8BBE226D902A0029B366 /* ViewController.swift */,
-				097A8BC0226D902A0029B366 /* Assets.xcassets */,
-				097A8BC2226D902A0029B366 /* Main.storyboard */,
-				097A8BC5226D902A0029B366 /* Info.plist */,
-				097A8BC6226D902A0029B366 /* lab5.entitlements */,
+				097B5FFF227072AE00C29CB2 /* DrawView.swift */,
+				09795C05227083230055D934 /* Supporting Files */,
 				097A8BD3226D9EF10029B366 /* cohenSutherland.txt */,
 				097A8BD9226DB54C0029B366 /* convexPolygon.txt */,
-				097B5FFF227072AE00C29CB2 /* DrawView.swift */,
-				09795BFE22707FB90055D934 /* NSBezierPath+Polygon.swift */,
-				09795C02227082ED0055D934 /* CGPoint+Add.swift */,
 			);
 			path = lab5;
 			sourceTree = "<group>";
@@ -311,11 +327,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = lab5/lab5.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "lab5/Supporting Files/lab5.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = K3EBJ8K5KL;
-				INFOPLIST_FILE = lab5/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/lab5/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -330,11 +346,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = lab5/lab5.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "lab5/Supporting Files/lab5.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = K3EBJ8K5KL;
-				INFOPLIST_FILE = lab5/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/lab5/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

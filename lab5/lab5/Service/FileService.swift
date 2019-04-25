@@ -46,7 +46,7 @@ class FileService {
         return (lines, rect)
     }
     
-    func readFromFileWithPolygon(_ file: String) -> ([Line], Polygon)? {
+    func readFromFileWithPolygon(_ file: String) -> (lines: [Line], polygon: Polygon)? {
         let stringLines = file.trimmingCharacters(in: .newlines)
             .components(separatedBy: .newlines)
         guard let numberOfLinesString = stringLines.first,

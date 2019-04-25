@@ -55,6 +55,19 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="File" id="k93-Mk-arg">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="File" id="wf2-Ep-QyW">
+                                    <items>
+                                        <menuItem title="Open" id="5Qw-zP-wrI" userLabel="Open">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="openDocument:" target="Voe-Tx-rLC" id="dx8-wH-9Id"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Алгоритм" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Алгоритм" id="bib-Uj-vzu">

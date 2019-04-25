@@ -17,9 +17,13 @@ class ViewController: NSViewController {
     
     var currentAlgorithm: LineClippingService.LineClippingAlgorithmEnum? {
         didSet {
-            if let currentAlgorithm = currentAlgorithm {
-                recountAllFor(currentAlgorithm)
-            }
+            recountAll()
+        }
+    }
+    
+    var currentFile: URL? {
+        didSet {
+           recountAll()
         }
     }
     
@@ -27,19 +31,40 @@ class ViewController: NSViewController {
         super.viewDidLoad()
     }
 
-    private func recountAllFor(_ algorithm: LineClippingService.LineClippingAlgorithmEnum) {
+    private func recountAll() {
+        guard let algorithm = currentAlgorithm,
+            let file = currentFile,
+            let text = try? String(contentsOf: file, encoding: .utf8) else { return }
+        
         switch algorithm {
         case .cohenSutherland:
-            let path = Bundle.main.path(forResource: "cohenSutherland", ofType: "txt")
-            guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
             let infoFromFile = fileService.readFromFileWithRect(text)
             let result = lineClippingService.algorithmCohenSutherland(lines: infoFromFile!.lines, rect: infoFromFile!.rect)
             drawView.linesWithRect = (result, infoFromFile!.rect)
         case .byConvexPolygon:
-            let path = Bundle.main.path(forResource: "convexPolygon", ofType: "txt")
-            guard let text = try? String(contentsOfFile: path!, encoding: .utf8) else { return }
             let infoFromFile = fileService.readFromFileWithPolygon(text)
-            lineClippingService.byConvexPolygon(lines: infoFromFile!.0, polygon: infoFromFile!.1)
+            let result = lineClippingService.byConvexPolygon(lines: infoFromFile!.lines, polygon: infoFromFile!.polygon)
+            drawView.linesWithPolygon = (result, infoFromFile!.polygon)
+        }
+    }
+    
+    func chooseDocument() {
+        let dialog = NSOpenPanel();
+        
+        dialog.title = "Choose a file with points";
+        dialog.showsResizeIndicator = false
+        dialog.showsHiddenFiles = false
+        dialog.canChooseDirectories = false
+        dialog.canCreateDirectories = false
+        dialog.allowsMultipleSelection = false
+        dialog.allowedFileTypes = ["txt"]
+        
+        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+            guard let result = dialog.url else { return }
+            currentFile = result
+            NSDocumentController.shared.noteNewRecentDocumentURL(result)
+        } else {
+            return
         }
     }
     

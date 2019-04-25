@@ -31,6 +31,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @IBAction func openDocument(_ sender: Any) {
+        print("openDocument got called")
+        guard let vc = rootViewController as? ViewController else { return }
+        vc.chooseDocument()
+    }
+    
     func applicationWillFinishLaunching(_ notification: Notification) {
         NSApplication.shared.helpMenu = nil
     }

@@ -34,17 +34,30 @@ class ViewController: NSViewController {
     private func recountAll() {
         guard let algorithm = currentAlgorithm,
             let file = currentFile,
-            let text = try? String(contentsOf: file, encoding: .utf8) else { return }
+            let text = try? String(contentsOf: file, encoding: .utf8) else {
+                drawView.clear()
+                return
+        }
         
         switch algorithm {
         case .cohenSutherland:
             let infoFromFile = fileService.readFromFileWithRect(text)
-            let result = lineClippingService.algorithmCohenSutherland(lines: infoFromFile!.lines, rect: infoFromFile!.rect)
-            drawView.linesWithRect = (result, infoFromFile!.rect)
+            guard let (lines, rect) = infoFromFile else {
+                drawView.clear()
+                return
+            }
+            let result = lineClippingService.algorithmCohenSutherland(lines: lines,
+                                                                      rect: rect)
+            drawView.linesWithRect = (result, rect)
         case .byConvexPolygon:
             let infoFromFile = fileService.readFromFileWithPolygon(text)
-            let result = lineClippingService.byConvexPolygon(lines: infoFromFile!.lines, polygon: infoFromFile!.polygon)
-            drawView.linesWithPolygon = (result, infoFromFile!.polygon)
+            guard let (lines, polygon) = infoFromFile else {
+                drawView.clear()
+                return
+            }
+            let result = lineClippingService.byConvexPolygon(lines: lines,
+                                                             polygon: polygon)
+            drawView.linesWithPolygon = (result, polygon)
         }
     }
     

@@ -43,7 +43,7 @@ class FileService {
             }
         }
         
-        return (lines, rect)
+        return rect == nil || lines.isEmpty ? .none : (lines, rect)
     }
     
     func readFromFileWithPolygon(_ file: String) -> (lines: [Line], polygon: Polygon)? {
@@ -83,7 +83,7 @@ class FileService {
             }
         }
         
-        return (lines, polygon)
+        return polygon == nil || lines.isEmpty ? .none : (lines, polygon)
     }
     
 }

@@ -16,19 +16,13 @@ class DrawView: NSView {
     
     var linesWithPolygon: ([Line], Polygon)? {
         didSet {
-            if let linesWithPolygon = linesWithPolygon {
-                linesWithRect = .none
-                setNeedsDisplay(bounds)
-            }
+            setNeedsDisplay(bounds)
         }
     }
     
     var linesWithRect: ([Line], NSRect)? {
         didSet {
-            if let linesWithRect = linesWithRect {
-                linesWithPolygon = .none
-                setNeedsDisplay(bounds)
-            }
+            setNeedsDisplay(bounds)
         }
     }
     
@@ -44,16 +38,20 @@ class DrawView: NSView {
         drawCoordinateSystem()
         
         if let (lines, polygon) = linesWithPolygon {
-            let bezierPath = NSBezierPath(polygon: polygon)
-            NSColor.green.setStroke()
+            let bezierPath = NSBezierPath(polygon: Polygon(lines: polygon.lines.map { line -> Line in
+                (transformToViewCordinates(line.from),
+                 transformToViewCordinates(line.to))
+            }))
+            NSColor.red.setStroke()
             bezierPath.stroke()
             bezierPath.close()
             
             let bezierPathLines = NSBezierPath()
-            lines/*.map { line -> Line in
-                 (CGPoint(x: line.from.x + 250, y: line.from.y + 250),
-                 CGPoint(x: line.to.x + 250, y: line.to.y + 250))
-                 }*/
+            lines
+                .map { line -> Line in
+                    (transformToViewCordinates(line.from),
+                     transformToViewCordinates(line.to))
+                }
                 .forEach {
                     bezierPathLines.move(to: $0.from)
                     bezierPathLines.line(to: $0.to)
@@ -64,17 +62,20 @@ class DrawView: NSView {
         }
         
         if let (lines, rect) = linesWithRect {
-            
-            let bezierPathRect = NSBezierPath(rect: rect)
-            NSColor.green.setStroke()
+            let bezierPathRect = NSBezierPath(rect:
+                NSRect(origin: transformToViewCordinates(rect.origin),
+                       size: CGSize(width: rect.width * 10,
+                                    height: rect.height * 10)))
+            NSColor.red.setStroke()
             bezierPathRect.stroke()
             bezierPathRect.close()
             
             let bezierPathLines = NSBezierPath()
-            lines/*.map { line -> Line in
-                (CGPoint(x: line.from.x + 250, y: line.from.y + 250),
-                 CGPoint(x: line.to.x + 250, y: line.to.y + 250))
-                }*/
+            lines
+                .map { line -> Line in
+                    (transformToViewCordinates(line.from),
+                     transformToViewCordinates(line.to))
+                }
                 .forEach {
                     bezierPathLines.move(to: $0.from)
                     bezierPathLines.line(to: $0.to)
@@ -86,41 +87,57 @@ class DrawView: NSView {
     }
     
     private func drawCoordinateSystem() {
-        let viewSize = self.bounds
+        let viewHeight = Int(self.bounds.height)
+        let viewWidth = Int(self.bounds.width)
         
         let bezierGrid = NSBezierPath()
         bezierGrid.lineWidth = 1
-        Array(0...500).forEach { point in
-            if point == 250 { return }
-            
+        
+        stride(from: 0, to: viewHeight, by: 10).forEach { point in
             bezierGrid.move(to: CGPoint(x: 0, y: point))
-            bezierGrid.line(to: CGPoint(x: 500, y: point))
-            
-            bezierGrid.move(to: CGPoint(x: point, y: 0))
-            bezierGrid.line(to: CGPoint(x: point, y: 500))
+            bezierGrid.line(to: CGPoint(x: viewWidth, y: point))
         }
+        stride(from: 0, to: viewWidth, by: 10).forEach { point in
+            bezierGrid.move(to: CGPoint(x: point, y: 0))
+            bezierGrid.line(to: CGPoint(x: point, y: viewHeight))
+        }
+     
+        
         NSColor.lightGray.setStroke()
         bezierGrid.stroke()
         bezierGrid.close()
         
         let bezierMain = NSBezierPath()
-        bezierMain.lineWidth = 2
-        bezierMain.move(to: CGPoint(x: 0, y: 250))
-        bezierMain.line(to: CGPoint(x: 500, y: 250))
-        bezierMain.line(to: CGPoint(x: 490, y: 240))
-        bezierMain.move(to: CGPoint(x: 500, y: 250))
-        bezierMain.line(to: CGPoint(x: 490, y: 260))
+        bezierMain.lineWidth = 1
+        bezierMain.move(to: CGPoint(x: 0, y: viewHeight/2))
+        bezierMain.line(to: CGPoint(x: viewWidth, y: viewHeight/2))
+        bezierMain.line(to: CGPoint(x: viewWidth-5, y: viewHeight/2-5))
+        bezierMain.move(to: CGPoint(x: viewWidth, y: viewHeight/2))
+        bezierMain.line(to: CGPoint(x: viewWidth-5, y: viewHeight/2+5))
         
-        bezierMain.move(to: CGPoint(x: 250, y: 0))
-        bezierMain.line(to: CGPoint(x: 250, y: 500))
-        bezierMain.line(to: CGPoint(x: 240, y: 490))
-        bezierMain.move(to: CGPoint(x: 250, y: 500))
-        bezierMain.line(to: CGPoint(x: 260, y: 490))
+        bezierMain.move(to: CGPoint(x: viewWidth/2, y: 0))
+        bezierMain.line(to: CGPoint(x: viewWidth/2, y: viewHeight))
+        bezierMain.line(to: CGPoint(x: viewWidth/2-5, y: viewHeight-5))
+        bezierMain.move(to: CGPoint(x: viewWidth/2, y: viewHeight))
+        bezierMain.line(to: CGPoint(x: viewWidth/2+5, y: viewHeight-5))
         
-        NSColor.red.setStroke()
+        NSColor.blue.setStroke()
         bezierMain.stroke()
         
         bezierMain.close()
+
+    }
+    
+    private func transformToViewCordinates(_ point: CGPoint) -> CGPoint {
+        let viewHeight = self.bounds.height
+        let viewWidth = self.bounds.width
+        
+        return CGPoint(x: point.x*10 + viewWidth/2, y: point.y*10 + viewHeight/2)
+    }
+    
+    func clear() {
+        linesWithPolygon = .none
+        linesWithRect = .none
     }
     
 }

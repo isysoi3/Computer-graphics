@@ -52,7 +52,8 @@ class LineClippingService {
             
             while true {
                 if (codeFromPoint | codeToPoint) == 0 {
-                    clippedLines.append((fromPoint, toPoint)) // bitwise OR is 0: both points inside window; trivially accept and exit loop
+                    clippedLines.append((fromPoint, toPoint))
+                    // bitwise OR is 0: both points inside window; trivially accept and exit loop
                     break
                 } else if (codeFromPoint & codeToPoint) != 0 {
                     // bitwise AND is not 0: both points share an outside zone (LEFT, RIGHT, TOP,
@@ -62,16 +63,28 @@ class LineClippingService {
                     let outcodeOut = codeFromPoint != 0 ? codeFromPoint : codeToPoint
                     var x, y: CGFloat!
                     if (outcodeOut & LineClippingService.TOP) != 0 {
-                        x = fromPoint.x + (toPoint.x - fromPoint.x) * (rect.maxY - fromPoint.y) / (toPoint.y - fromPoint.y)  // point is above the clip window
+                        // point is above the clip window
+                        x = fromPoint.x + (toPoint.x - fromPoint.x)
+                            * (rect.maxY - fromPoint.y)
+                            / (toPoint.y - fromPoint.y)
                         y = rect.maxY
-                    } else if (outcodeOut & LineClippingService.BOTTOM) != 0 { // point is below the clip window
-                        x = fromPoint.x + (toPoint.x - fromPoint.x) * (rect.minY - fromPoint.y) / (toPoint.y - fromPoint.y);
+                    } else if (outcodeOut & LineClippingService.BOTTOM) != 0 {
+                        // point is below the clip window
+                        x = fromPoint.x + (toPoint.x - fromPoint.x)
+                            * (rect.minY - fromPoint.y)
+                            / (toPoint.y - fromPoint.y)
                         y = rect.minY
-                    } else if (outcodeOut & LineClippingService.RIGHT) != 0 {  // point is to the right of clip window
-                        y = fromPoint.y + (toPoint.y - fromPoint.y) * (rect.maxX - fromPoint.x) / (toPoint.x - fromPoint.x);
+                    } else if (outcodeOut & LineClippingService.RIGHT) != 0 {
+                        // point is to the right of clip window
+                        y = fromPoint.y + (toPoint.y - fromPoint.y)
+                            * (rect.maxX - fromPoint.x)
+                            / (toPoint.x - fromPoint.x)
                         x = rect.maxX
-                    } else if (outcodeOut & LineClippingService.LEFT) != 0 {   // point is to the left of clip window
-                        y = fromPoint.y + (toPoint.y - fromPoint.y) * (rect.minX - fromPoint.x) / (toPoint.x - fromPoint.x);
+                    } else if (outcodeOut & LineClippingService.LEFT) != 0 {
+                        // point is to the left of clip window
+                        y = fromPoint.y + (toPoint.y - fromPoint.y)
+                            * (rect.minX - fromPoint.x)
+                            / (toPoint.x - fromPoint.x)
                         x = rect.minX
                     }
                     

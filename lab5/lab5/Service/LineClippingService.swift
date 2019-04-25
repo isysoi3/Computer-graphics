@@ -52,7 +52,7 @@ class LineClippingService {
             
             while true {
                 if (codeFromPoint | codeToPoint) == 0 {
-                    clippedLines.append(line) // bitwise OR is 0: both points inside window; trivially accept and exit loop
+                    clippedLines.append((fromPoint, toPoint)) // bitwise OR is 0: both points inside window; trivially accept and exit loop
                     break
                 } else if (codeFromPoint & codeToPoint) != 0 {
                     // bitwise AND is not 0: both points share an outside zone (LEFT, RIGHT, TOP,

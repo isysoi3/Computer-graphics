@@ -103,6 +103,7 @@ class LineClippingService {
     
     func byConvexPolygon(lines: [Line], polygon: Polygon) -> [Line] {
         var clippedLines: [Line] = []
+        //fix calculateNoramlForLine
         let lineWithNormal = polygon.lines.reversed().map {($0, calculateNoramlForLine($0))}
         lines.forEach { line in
             var tIn: [CGFloat] = []
@@ -117,6 +118,7 @@ class LineClippingService {
                 switch s {
                 case 0:
                     break
+                    //fix it
                 case 1...:
                     tIn.append(t)
                 default:

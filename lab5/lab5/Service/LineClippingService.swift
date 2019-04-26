@@ -110,29 +110,40 @@ class LineClippingService {
                 return (newLine, normal)
         }
         lines.forEach { line in
+            if polygon.isPointInside(line.from),
+                polygon.isPointInside(line.to) {
+                clippedLines.append(line)
+                return
+            }
             var tIn: [CGFloat] = []
             var tOut: [CGFloat] = []
             let lineVector = vectorFromLine(line)
             
-            lineWithNormal.forEach { (polygonSide, normal) in
+            for (polygonSide, normal) in lineWithNormal {
                 let t = findT(line: line, polygonSide: polygonSide)
-                guard t >= 0, t <= 1 else { return }
-                let s = dotProduction(vector1: lineVector, vector2: normal)
+                guard t >= 0, t <= 1 else { continue }
+                let s = Int(dotProduction(vector1: lineVector, vector2: normal))
                 switch s {
                 case 0:
-                    break
-                    //fix it
+                    let q = dotProduction(vector1: vectorFromLine((polygonSide.from, line.to)),
+                                          vector2: normal)
+                    if q < 0 {
+                        return
+                    }
                 case 1...:
                     tIn.append(t)
                 default:
                     tOut.append(t)
                 }
             }
-            let minT = tIn.max()
-            let maxT = tOut.min()
+            var minT: CGFloat! = tIn.max()
+            var maxT: CGFloat! = tOut.min()
             if maxT == nil && minT == nil { return }
-            clippedLines.append((countPoint(line: line, t: minT ?? 0),
-                                 countPoint(line: line, t: maxT ?? 1)))
+            minT = minT ?? 0
+            maxT = maxT ?? 1
+            if minT > maxT { return }
+            clippedLines.append((countPoint(line: line, t: minT),
+                                 countPoint(line: line, t: maxT)))
            
         }
         return clippedLines

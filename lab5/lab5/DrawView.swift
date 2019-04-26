@@ -14,6 +14,8 @@ class DrawView: NSView {
         return true
     }
     
+    let scale: CGFloat = 10//10 or 25 or 1
+    
     var linesWithPolygon: ([Line], [Line], Polygon)? {
         didSet {
             if linesWithPolygon != nil {
@@ -48,25 +50,25 @@ class DrawView: NSView {
                 (transformToViewCordinates(line.from),
                  transformToViewCordinates(line.to))
             }))
-            NSColor.red.setStroke()
+            NSColor.green.setStroke()
             bezierPath.stroke()
             bezierPath.close()
             
             drawLines(lines, color: NSColor.black)
-            drawLines(clippedLines, color: NSColor.green)
+            drawLines(clippedLines, color: NSColor.red)
         }
         
         if let (lines, clippedLines, rect) = linesWithRect {
             let bezierPathRect = NSBezierPath(rect:
                 NSRect(origin: transformToViewCordinates(rect.origin),
-                       size: CGSize(width: rect.width * 10,
-                                    height: rect.height * 10)))
-            NSColor.red.setStroke()
+                       size: CGSize(width: rect.width * scale,
+                                    height: rect.height * scale)))
+            NSColor.green.setStroke()
             bezierPathRect.stroke()
             bezierPathRect.close()
             
             drawLines(lines, color: NSColor.black)
-            drawLines(clippedLines, color: NSColor.green)
+            drawLines(clippedLines, color: NSColor.red)
         }
     }
     
@@ -77,11 +79,11 @@ class DrawView: NSView {
         let bezierGrid = NSBezierPath()
         bezierGrid.lineWidth = 1
         
-        stride(from: 0, to: viewHeight, by: 10).forEach { point in
+        stride(from: 0, to: viewHeight, by: Int(scale)).forEach { point in
             bezierGrid.move(to: CGPoint(x: 0, y: point))
             bezierGrid.line(to: CGPoint(x: viewWidth, y: point))
         }
-        stride(from: 0, to: viewWidth, by: 10).forEach { point in
+        stride(from: 0, to: viewWidth, by: Int(scale)).forEach { point in
             bezierGrid.move(to: CGPoint(x: point, y: 0))
             bezierGrid.line(to: CGPoint(x: point, y: viewHeight))
         }
@@ -116,12 +118,13 @@ class DrawView: NSView {
         let viewHeight = self.bounds.height
         let viewWidth = self.bounds.width
         
-        return CGPoint(x: point.x*10 + viewWidth/2, y: point.y*10 + viewHeight/2)
+        return CGPoint(x: point.x*scale + viewWidth/2, y: point.y*scale + viewHeight/2)
     }
     
     func clear() {
         linesWithPolygon = .none
         linesWithRect = .none
+        setNeedsDisplay(bounds)
     }
     
     private func drawLines(_ lines: [Line], color: NSColor) {

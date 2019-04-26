@@ -110,8 +110,8 @@ class LineClippingService {
                 return (newLine, normal)
         }
         lines.forEach { line in
-            var tIn: [CGFloat] = [0]
-            var tOut: [CGFloat] = [1]
+            var tIn: [CGFloat] = []
+            var tOut: [CGFloat] = []
             let lineVector = vectorFromLine(line)
             
             lineWithNormal.forEach { (polygonSide, normal) in
@@ -128,10 +128,11 @@ class LineClippingService {
                     tOut.append(t)
                 }
             }
-            guard let minT = tIn.max(),
-                let maxT = tOut.min() else { return }
-            clippedLines.append((countPoint(line: line, t: minT),
-                                 countPoint(line: line, t: maxT)))
+            let minT = tIn.max()
+            let maxT = tOut.min()
+            if maxT == nil && minT == nil { return }
+            clippedLines.append((countPoint(line: line, t: minT ?? 0),
+                                 countPoint(line: line, t: maxT ?? 1)))
            
         }
         return clippedLines

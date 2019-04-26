@@ -117,6 +117,13 @@ class LineClippingService {
             }
             var tIn: [CGFloat] = []
             var tOut: [CGFloat] = []
+            
+            if polygon.isPointInside(line.from) {
+                tIn.append(0)
+            }
+            if polygon.isPointInside(line.to) {
+                tOut.append(1)
+            }
             let lineVector = vectorFromLine(line)
             
             for (polygonSide, normal) in lineWithNormal {
@@ -136,12 +143,10 @@ class LineClippingService {
                     tOut.append(t)
                 }
             }
-            var minT: CGFloat! = tIn.max()
-            var maxT: CGFloat! = tOut.min()
-            if maxT == nil && minT == nil { return }
-            minT = minT ?? 0
-            maxT = maxT ?? 1
-            if minT > maxT { return }
+          
+            guard let minT = tIn.max(),
+                let maxT = tOut.min(),
+                maxT >= minT else { return }
             clippedLines.append((countPoint(line: line, t: minT),
                                  countPoint(line: line, t: maxT)))
            

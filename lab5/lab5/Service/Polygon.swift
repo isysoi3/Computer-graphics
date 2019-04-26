@@ -48,8 +48,11 @@ struct Polygon {
         return min
     }
     
-    func isPointInside(_ point: CGPoint) -> Bool {
-        return  point.x >= xMin && point.x <= xMax && point.y <= yMax && point.y >= yMin
+    func isPointInside(_ p: CGPoint) -> Bool {
+        if (p.x < xMin || p.x > xMax || p.y < yMin || p.y > yMax) {
+            return false
+        }
+        return true
     }
     
 }

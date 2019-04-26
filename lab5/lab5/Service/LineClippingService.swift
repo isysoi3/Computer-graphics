@@ -110,11 +110,6 @@ class LineClippingService {
                 return (newLine, normal)
         }
         lines.forEach { line in
-            if polygon.isPointInside(line.from),
-                polygon.isPointInside(line.to) {
-                clippedLines.append(line)
-                return
-            }
             var tIn: [CGFloat] = []
             var tOut: [CGFloat] = []
             

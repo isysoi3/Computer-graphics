@@ -104,9 +104,9 @@
 		097A8BCC226D90BC0029B366 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				097A8BCD226D90D70029B366 /* LineClippingService.swift */,
 				097A8BCF226D97260029B366 /* FileService.swift */,
 				097A8BD7226DB5250029B366 /* Polygon.swift */,
+				097A8BCD226D90D70029B366 /* LineClippingService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";

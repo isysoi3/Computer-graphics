@@ -14,7 +14,7 @@ class DrawView: NSView {
         return true
     }
     
-    let scale: CGFloat = 10//10 or 25 or 1
+    let scale: CGFloat = 25//10 or 25 or 1
     
     var linesWithPolygon: ([Line], [Line], Polygon)? {
         didSet {

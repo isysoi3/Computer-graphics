@@ -14,7 +14,7 @@ class DrawView: NSView {
         return true
     }
     
-    var linesWithPolygon: ([Line], Polygon)? {
+    var linesWithPolygon: ([Line], [Line], Polygon)? {
         didSet {
             if linesWithPolygon != nil {
                 linesWithRect = .none
@@ -23,7 +23,7 @@ class DrawView: NSView {
         }
     }
     
-    var linesWithRect: ([Line], NSRect)? {
+    var linesWithRect: ([Line], [Line], NSRect)? {
         didSet {
             if linesWithRect != nil {
                 linesWithPolygon = .none
@@ -43,7 +43,7 @@ class DrawView: NSView {
         context.fill(bounds)
         drawCoordinateSystem()
         
-        if let (lines, polygon) = linesWithPolygon {
+        if let (lines, clippedLines, polygon) = linesWithPolygon {
             let bezierPath = NSBezierPath(polygon: Polygon(lines: polygon.lines.map { line -> Line in
                 (transformToViewCordinates(line.from),
                  transformToViewCordinates(line.to))
@@ -52,22 +52,11 @@ class DrawView: NSView {
             bezierPath.stroke()
             bezierPath.close()
             
-            let bezierPathLines = NSBezierPath()
-            lines
-                .map { line -> Line in
-                    (transformToViewCordinates(line.from),
-                     transformToViewCordinates(line.to))
-                }
-                .forEach {
-                    bezierPathLines.move(to: $0.from)
-                    bezierPathLines.line(to: $0.to)
-            }
-            NSColor.black.setStroke()
-            bezierPathLines.stroke()
-            bezierPathLines.close()
+            drawLines(lines, color: NSColor.black)
+            drawLines(clippedLines, color: NSColor.green)
         }
         
-        if let (lines, rect) = linesWithRect {
+        if let (lines, clippedLines, rect) = linesWithRect {
             let bezierPathRect = NSBezierPath(rect:
                 NSRect(origin: transformToViewCordinates(rect.origin),
                        size: CGSize(width: rect.width * 10,
@@ -76,19 +65,8 @@ class DrawView: NSView {
             bezierPathRect.stroke()
             bezierPathRect.close()
             
-            let bezierPathLines = NSBezierPath()
-            lines
-                .map { line -> Line in
-                    (transformToViewCordinates(line.from),
-                     transformToViewCordinates(line.to))
-                }
-                .forEach {
-                    bezierPathLines.move(to: $0.from)
-                    bezierPathLines.line(to: $0.to)
-            }
-            NSColor.black.setStroke()
-            bezierPathLines.stroke()
-            bezierPathLines.close()
+            drawLines(lines, color: NSColor.black)
+            drawLines(clippedLines, color: NSColor.green)
         }
     }
     
@@ -144,6 +122,22 @@ class DrawView: NSView {
     func clear() {
         linesWithPolygon = .none
         linesWithRect = .none
+    }
+    
+    private func drawLines(_ lines: [Line], color: NSColor) {
+        let bezierPathLines = NSBezierPath()
+        lines
+            .map { line -> Line in
+                (transformToViewCordinates(line.from),
+                 transformToViewCordinates(line.to))
+            }
+            .forEach {
+                bezierPathLines.move(to: $0.from)
+                bezierPathLines.line(to: $0.to)
+        }
+        color.setStroke()
+        bezierPathLines.stroke()
+        bezierPathLines.close()
     }
     
 }

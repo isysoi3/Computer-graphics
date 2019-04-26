@@ -48,7 +48,7 @@ class ViewController: NSViewController {
             }
             let result = lineClippingService.algorithmCohenSutherland(lines: lines,
                                                                       rect: rect)
-            drawView.linesWithRect = (result, rect)
+            drawView.linesWithRect = (lines, result, rect)
         case .byConvexPolygon:
             let infoFromFile = fileService.readFromFileWithPolygon(text)
             guard let (lines, polygon) = infoFromFile else {
@@ -57,7 +57,7 @@ class ViewController: NSViewController {
             }
             let result = lineClippingService.byConvexPolygon(lines: lines,
                                                              polygon: polygon)
-            drawView.linesWithPolygon = (result, polygon)
+            drawView.linesWithPolygon = (lines, result, polygon)
         }
     }
     

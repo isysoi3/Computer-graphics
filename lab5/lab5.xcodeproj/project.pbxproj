@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		093F47E6227311B400C2D3F3 /* tmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = 093F47E4227311B400C2D3F3 /* tmp.txt */; };
+		093F47E7227311B400C2D3F3 /* tmp1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 093F47E5227311B400C2D3F3 /* tmp1.txt */; };
 		09795BFF22707FB90055D934 /* NSBezierPath+Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09795BFE22707FB90055D934 /* NSBezierPath+Polygon.swift */; };
 		09795C03227082ED0055D934 /* CGPoint+Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09795C02227082ED0055D934 /* CGPoint+Add.swift */; };
 		097A8BBD226D902A0029B366 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097A8BBC226D902A0029B366 /* AppDelegate.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		093F47E4227311B400C2D3F3 /* tmp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp.txt; sourceTree = "<group>"; };
+		093F47E5227311B400C2D3F3 /* tmp1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp1.txt; sourceTree = "<group>"; };
 		09795BFE22707FB90055D934 /* NSBezierPath+Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSBezierPath+Polygon.swift"; sourceTree = "<group>"; };
 		09795C02227082ED0055D934 /* CGPoint+Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Add.swift"; sourceTree = "<group>"; };
 		097A8BB9226D902A0029B366 /* lab5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lab5.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +94,8 @@
 				097A8BCC226D90BC0029B366 /* Service */,
 				097A8BBE226D902A0029B366 /* ViewController.swift */,
 				097B5FFF227072AE00C29CB2 /* DrawView.swift */,
+				093F47E4227311B400C2D3F3 /* tmp.txt */,
+				093F47E5227311B400C2D3F3 /* tmp1.txt */,
 				09795C05227083230055D934 /* Supporting Files */,
 			);
 			path = lab5;
@@ -163,6 +169,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093F47E7227311B400C2D3F3 /* tmp1.txt in Resources */,
+				093F47E6227311B400C2D3F3 /* tmp.txt in Resources */,
 				097A8BC1226D902A0029B366 /* Assets.xcassets in Resources */,
 				097A8BC4226D902A0029B366 /* Main.storyboard in Resources */,
 			);

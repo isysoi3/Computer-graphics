@@ -65,6 +65,19 @@
                                                 <action selector="openDocument:" target="Voe-Tx-rLC" id="dx8-wH-9Id"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Open Recent" id="djm-w9-eRn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="QlC-gD-3gG">
+                                                <items>
+                                                    <menuItem title="Clear Menu" id="AhK-pS-rbX">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="clearRecentDocuments:" target="Ady-hI-5gd" id="JRq-1O-Gt3"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>

@@ -41,6 +41,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApplication.shared.helpMenu = nil
     }
     
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+        if let vc = rootViewController as? ViewController {
+            let fileUrl = URL(fileURLWithPath: filename)
+            vc.currentFile = fileUrl
+        }
+        
+        return true
+    }
 
 }
 

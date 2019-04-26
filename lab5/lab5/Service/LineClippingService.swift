@@ -102,13 +102,17 @@ class LineClippingService {
     
     func byConvexPolygon(lines: [Line], polygon: Polygon) -> [Line] {
         var clippedLines: [Line] = []
-        //fix calculateNoramlForLine
-        let lineWithNormal = polygon.lines.reversed().map {($0, calculateNoramlForLine($0))}
+        let lineWithNormal = polygon.lines
+            .reversed()
+            .map { line -> (Line, CGVector) in
+                let newLine = (line.to, line.from)
+                let normal = calculateNoramlForLine(newLine)
+                return (newLine, normal)
+        }
         lines.forEach { line in
-            var tIn: [CGFloat] = []
-            var tOut: [CGFloat] = []
-            let lineVector = CGVector(dx: line.to.x - line.from.x,
-                                      dy: line.to.y - line.from.y)
+            var tIn: [CGFloat] = [0]
+            var tOut: [CGFloat] = [1]
+            let lineVector = vectorFromLine(line)
             
             lineWithNormal.forEach { (polygonSide, normal) in
                 let t = findT(line: line, polygonSide: polygonSide)
@@ -138,9 +142,15 @@ class LineClippingService {
                        y: line.from.y + t * (line.to.y - line.from.y))
     }
     
+    private func vectorFromLine(_ line: Line) -> CGVector {
+        return CGVector(dx: line.to.x - line.from.x,
+                        dy: line.to.y - line.from.y)
+    }
+    
     private func calculateNoramlForLine(_ line: Line) -> CGVector {
-        return CGVector(dx: line.from.y - line.to.y,
-                        dy: line.to.x - line.from.x)
+        let A = line.from.y - line.to.y
+        let B = line.to.x - line.from.x
+        return CGVector(dx: A, dy: B)
     }
     
     private func dotProduction(vector1: CGVector, vector2: CGVector) -> CGFloat {

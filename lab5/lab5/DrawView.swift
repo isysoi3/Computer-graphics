@@ -16,13 +16,19 @@ class DrawView: NSView {
     
     var linesWithPolygon: ([Line], Polygon)? {
         didSet {
-            setNeedsDisplay(bounds)
+            if linesWithPolygon != nil {
+                linesWithRect = .none
+                setNeedsDisplay(bounds)
+            }
         }
     }
     
     var linesWithRect: ([Line], NSRect)? {
         didSet {
-            setNeedsDisplay(bounds)
+            if linesWithRect != nil {
+                linesWithPolygon = .none
+                setNeedsDisplay(bounds)
+            }
         }
     }
     
